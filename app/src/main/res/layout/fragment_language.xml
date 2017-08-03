@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/language_background"
+    >
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        android:layout_alignEnd="@+id/btn_english"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="24dp"
+        android:src="@drawable/main_logo" />
+
+    <Button
+        android:id="@+id/btn_english"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:layout_weight="1"
+        android:background="@drawable/button_background"
+        android:text="English" />
+
+    <Button
+        android:id="@+id/btn_deutsch"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/btn_english"
+        android:layout_below="@+id/btn_english"
+        android:layout_marginTop="20dp"
+        android:layout_weight="1"
+        android:background="@drawable/button_background_gray"
+        android:text="Deutsch" />
+
+    <Button
+        android:id="@+id/btn_italiano"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/btn_deutsch"
+        android:layout_below="@+id/btn_deutsch"
+        android:layout_marginTop="20dp"
+        android:layout_weight="1"
+        android:background="@drawable/button_background"
+        android:text="Italiano" />
+
+    <Button
+        android:id="@+id/btn_nederlands"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/btn_italiano"
+        android:layout_below="@+id/btn_italiano"
+        android:layout_marginTop="20dp"
+        android:layout_weight="1"
+        android:background="@drawable/button_background_gray"
+        android:text="Nederlands" />
+</RelativeLayout>

@@ -1,0 +1,46 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    android:background="@drawable/main_app_bg"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.ghosttech.myloyly.fragments.EssesntialOilFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:duplicateParentState="true"
+        android:src="@drawable/main_logo"
+        android:id="@+id/imageView2"
+        android:layout_weight=".3" />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Essential\nOils"
+            android:textStyle="bold"
+            android:textColor="#1E824C"
+            android:textSize="30dp"
+            android:layout_weight="1" />
+    </LinearLayout>
+    <com.mancj.materialsearchbar.MaterialSearchBar
+        app:mt_hint="Search..."
+        app:mt_maxSuggestionsCount="10"
+        android:layout_marginTop="70dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/searchBar"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+    <android.support.v7.widget.RecyclerView
+        android:layout_marginTop="140dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/rv"
+        />
+</RelativeLayout>
