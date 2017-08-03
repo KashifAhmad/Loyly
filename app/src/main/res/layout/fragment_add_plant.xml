@@ -1,0 +1,313 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="10dp"
+    android:background="#efefef"
+    android:orientation="vertical"
+    tools:context="com.ghosttech.myloyly.fragments.AddPlantFragment">
+
+    <TableLayout
+        android:id="@+id/ll_main_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <!-- TODO: Update blank fragment layout -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="#b3c24b"
+            android:gravity="center_vertical"
+            android:padding="5dp"
+            android:text="Title"
+            android:textColor="#fff"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/et_plant_name"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/edit_text_bg"
+            android:hint="Title(name)"
+            android:paddingLeft="12dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:background="#eacb61"
+            android:gravity="center_vertical"
+            android:padding="5dp"
+            android:text="Tags"
+            android:textColor="#fff"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:background="#fff"
+            android:padding="5dp">
+
+            <Button
+                android:id="@+id/btn_tags_classic"
+                android:layout_width="1dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/button_orange_border"
+                android:text="Classic"
+                android:textColor="#eacb61"
+
+                android:textSize="10sp" />
+
+            <Button
+                android:id="@+id/btn_tags_modern"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/button_orange_border"
+                android:text="Modern"
+                android:textColor="#eacb61"
+                android:textSize="10sp" />
+
+            <Button
+                android:id="@+id/btn_tags_steambath"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/button_orange_border"
+                android:text="Steambath"
+                android:textColor="#eacb61"
+                android:textSize="10sp" />
+
+            <Button
+                android:id="@+id/btn_tags_smoke"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/button_orange_border"
+                android:text="Smoke"
+                android:textColor="#eacb61"
+                android:textSize="10sp" />
+
+            <Button
+                android:id="@+id/btn_tags_show"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/button_orange_border"
+                android:text="Show"
+                android:textColor="#eacb61"
+                android:textSize="10sp" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:background="#77cfb6"
+            android:gravity="center_vertical"
+            android:padding="5dp"
+            android:text="Time"
+            android:textColor="#fff"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/btn_time_in_minutes"
+            android:inputType="numberDecimal"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/edit_text_bg_green"
+            android:hint="Time in mins"
+            android:paddingLeft="12dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:background="#fc6b34"
+            android:gravity="center_vertical"
+            android:padding="5dp"
+            android:text="Ingredients"
+            android:textColor="#fff"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/et_add_ing_1"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/edit_text_bg"
+            android:hint="add ingredients 1"
+            android:paddingLeft="12dp" />
+
+        <EditText
+            android:id="@+id/et_add_ing_2"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/edit_text_bg"
+            android:hint="add ingredients 2"
+            android:paddingLeft="12dp" />
+
+        <EditText
+            android:id="@+id/et_add_ing_3"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/edit_text_bg"
+            android:hint="add ingredients 2"
+            android:paddingLeft="12dp" />
+
+        <EditText
+            android:id="@+id/et_add_ing_4"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/edit_text_bg"
+            android:hint="add ingredients 2"
+            android:paddingLeft="12dp" />
+        <!--  <FrameLayout
+              android:id="@+id/fl_main"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="10dp">
+
+
+
+              <ImageView
+                  android:id="@+id/iv_add_edit_text"
+                  android:layout_width="40dp"
+                  android:layout_height="40dp"
+                  android:layout_gravity="right"
+                  android:padding="12dip"
+                  android:src="@drawable/add_edit_text"
+                  android:textColor="#ffffffff"
+                  android:textStyle="bold" />
+          </FrameLayout>-->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:background="#a3b73a"
+            android:gravity="center_vertical"
+            android:padding="5dp"
+            android:text="Instruction"
+            android:textColor="#fff"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/et_instruction_1"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/edit_text_bg"
+            android:hint="instruction 1"
+            android:paddingLeft="12dp" />
+
+        <EditText
+            android:id="@+id/et_instruction_2"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/edit_text_bg"
+            android:hint="instruction 1"
+            android:paddingLeft="12dp" />
+
+        <TextView
+
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:background="#eacb61"
+            android:gravity="center_vertical"
+            android:padding="5dp"
+            android:text="Steps"
+            android:textColor="#fff"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/et_step_1"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/edit_text_orange"
+            android:hint="Step 1"
+            android:paddingLeft="12dp" />
+
+        <EditText
+            android:id="@+id/et_step_2"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/edit_text_orange"
+            android:hint="Step 1"
+            android:paddingLeft="12dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:background="#77cfb6"
+            android:gravity="center_vertical"
+            android:padding="5dp"
+            android:text="Image"
+            android:textColor="#fff"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/iv_image_view"
+            android:layout_margin="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/douglasfir" />
+
+        <Button
+            android:id="@+id/btn_add_image"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:background="#b3c24b"
+            android:layout_gravity="center"
+            android:gravity="center_horizontal"
+            android:padding="5dp"
+            android:textAllCaps="false"
+            android:text="Add Image"
+            android:textColor="#fff"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+        <Button
+            android:id="@+id/btn_send_data"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:background="#b3c24b"
+            android:layout_gravity="center"
+            android:gravity="center_horizontal"
+            android:padding="5dp"
+            android:textAllCaps="false"
+            android:text="Add Image"
+            android:textColor="#fff"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+    </TableLayout>
+
+</ScrollView>

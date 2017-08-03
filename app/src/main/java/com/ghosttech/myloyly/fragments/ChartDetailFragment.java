@@ -1,18 +1,22 @@
 package com.ghosttech.myloyly.fragments;
 
-import android.app.Fragment;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
+import android.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ghosttech.myloyly.R;
+import com.theappguruz.imagezoom.ImageViewTouch;
 
 
 /**
@@ -32,7 +36,7 @@ public class ChartDetailFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-//    private ImageViewTouch ivLargeImage;
+    private ImageViewTouch ivLargeImage;
     private Bitmap myBitmap;
 
     private OnFragmentInteractionListener mListener;
@@ -73,7 +77,7 @@ public class ChartDetailFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_chart_detail, container, false);
-//        ivLargeImage = (ImageViewTouch) view.findViewById(R.id.ivLargeImageView);
+        ivLargeImage = (ImageViewTouch) view.findViewById(R.id.ivLargeImageView);
 
 // if image size is too large.Then scale image.
         BitmapFactory.Options options = new BitmapFactory.Options();
@@ -101,7 +105,7 @@ public class ChartDetailFragment extends Fragment {
                 break;
         }
 
-//        ivLargeImage.setImageBitmapReset(myBitmap, 0, true);
+        ivLargeImage.setImageBitmapReset(myBitmap, 0, true);
         return view;
     }
 

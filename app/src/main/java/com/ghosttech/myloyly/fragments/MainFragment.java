@@ -116,6 +116,13 @@ public class MainFragment extends Fragment {
                 getActivity().finish();
             }
         });
+        lLEducation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fragment = new AddPlantFragment();
+                getFragmentManager().beginTransaction().replace(R.id.fragment_container,fragment).commit();
+            }
+        });
     }
 
     // TODO: Rename method, update argument and hook method into UI event
