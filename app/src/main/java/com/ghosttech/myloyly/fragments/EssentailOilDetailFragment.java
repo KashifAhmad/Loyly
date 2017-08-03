@@ -1,9 +1,9 @@
 package com.ghosttech.myloyly.fragments;
 
+import android.app.Fragment;
 import android.content.res.AssetManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -56,8 +56,9 @@ public class EssentailOilDetailFragment extends Fragment {
             tvOilDescription, tvOilProperties, tvOilBlends, tvOilSafety, tvOilOtherLanguages, tvOilTags,
             tvTransparentBotanicalName;
     Bundle args;
-    int intRowId, intImageID ;
+    int intRowId, intImageID;
     String strPlantName;
+    EssentialOilHelper essentialOilHelper;
     private OnFragmentInteractionListener mListener;
 
     public EssentailOilDetailFragment() {
@@ -96,7 +97,7 @@ public class EssentailOilDetailFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_essentail_oil_detail, container, false);
-        ivTitleImage = (ImageView)view.findViewById(R.id.iv_detail_title_image);
+        ivTitleImage = (ImageView) view.findViewById(R.id.iv_detail_title_image);
         tvOilFamily = (TextView) view.findViewById(R.id.tv_oil_family);
         tvOilOrigin = (TextView) view.findViewById(R.id.tv_oil_origin);
         tvOilStrength = (TextView) view.findViewById(R.id.tv_oil_strength);
@@ -109,12 +110,14 @@ public class EssentailOilDetailFragment extends Fragment {
         tvOilSafety = (TextView) view.findViewById(R.id.tv_oil_safety);
         tvOilOtherLanguages = (TextView) view.findViewById(R.id.tv_other_lang);
         tvOilTags = (TextView) view.findViewById(R.id.tv_oil_tags);
-        tvTransparentBotanicalName = (TextView)view.findViewById(R.id.tv_trans_botanical_name);
+        tvTransparentBotanicalName = (TextView) view.findViewById(R.id.tv_trans_botanical_name);
         args = getArguments();
-        intRowId = args.getInt("row_id");
+//        intRowId = args.getInt("row_id");
         intImageID = args.getInt("image_id");
+        essentialOilHelper = args.getParcelable("Object");
         ivTitleImage.setImageResource(intImageID);
-        initializeData(intRowId);
+//        initializeData(intRowId);
+        initializeData();
         customActionBar();
         return view;
     }
@@ -181,6 +184,20 @@ public class EssentailOilDetailFragment extends Fragment {
             e.printStackTrace();
         }
 
+
+    }
+
+    public void initializeData() {
+        tvOilDescription.setText(essentialOilHelper.getStrDescription());
+        tvOilStrength.setText(essentialOilHelper.getStrStrength());
+        tvTransparentBotanicalName.setText(essentialOilHelper.getStrTitle());
+        tvOilOtherLanguages.setText(essentialOilHelper.getStrLanguages());
+        tvOilOrigin.setText(essentialOilHelper.getStrOrigin());
+        tvOilNote.setText(essentialOilHelper.getStrNote());
+        tvOilExtractionMethod.setText("Not Found");
+        tvOilBlends.setText("Not Found");
+        tvOilFragranceGroup.setText(essentialOilHelper.getStrFragrance());
+        ivTitleImage.setImageResource(intImageID);
 
     }
 
