@@ -116,7 +116,7 @@
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/btn_time_in_minutes"
+            android:id="@+id/et_time"
             android:inputType="numberDecimal"
             android:layout_width="match_parent"
             android:layout_height="40dp"
@@ -304,7 +304,7 @@
             android:gravity="center_horizontal"
             android:padding="5dp"
             android:textAllCaps="false"
-            android:text="Add Image"
+            android:text="Submit"
             android:textColor="#fff"
             android:textSize="20dp"
             android:textStyle="bold" />

@@ -1,5 +1,6 @@
 package com.ghosttech.myloyly.fragments;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -9,9 +10,12 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.os.Environment;
+import android.os.Looper;
 import android.provider.MediaStore;
 import android.support.v4.app.FragmentTabHost;
 import android.util.Log;
@@ -39,8 +43,23 @@ import com.android.volley.toolbox.Volley;
 import com.ghosttech.myloyly.R;
 import com.ghosttech.myloyly.utilities.Configuration;
 import com.ghosttech.myloyly.utilities.GeneralUtils;
+import com.ghosttech.myloyly.utilities.HTTPMultiPartEntity;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.mime.content.FileBody;
+import org.apache.http.entity.mime.content.StringBody;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
+
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -70,6 +89,7 @@ public class AddPlantFragment extends Fragment implements View.OnClickListener {
     private FragmentTabHost mTabHost;
     private OnFragmentInteractionListener mListener;
     ImageView ivAddEditText;
+    long totalSize = 0;
     LinearLayout.LayoutParams p;
     View view;
     File sourceFile;
@@ -81,7 +101,7 @@ public class AddPlantFragment extends Fragment implements View.OnClickListener {
     ImageView ivImageView;
     RequestQueue mRequestQueue;
     String strPlantName, strTime, strTags, strIngredients, strSteps, strPicture;
-
+    SweetAlertDialog pDialog;
     public AddPlantFragment() {
         // Required empty public constructor
     }
@@ -119,6 +139,13 @@ public class AddPlantFragment extends Fragment implements View.OnClickListener {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_add_plant, container, false);
         mRequestQueue = Volley.newRequestQueue(getActivity());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            requestPermissions(new String[]{Manifest.permission.INTERNET, android.Manifest.permission.CAMERA,
+                    Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+        }
+        pDialog = new SweetAlertDialog(getActivity(), SweetAlertDialog.PROGRESS_TYPE);
+        pDialog.getProgressHelper().setBarColor(Color.parseColor("#179e99"));
+        pDialog.setTitleText("Sending complaint");
         etPlantName = (EditText) view.findViewById(R.id.et_plant_name);
         etIngredient1 = (EditText) view.findViewById(R.id.et_add_ing_1);
         etIngredient2 = (EditText) view.findViewById(R.id.et_add_ing_2);
@@ -128,6 +155,7 @@ public class AddPlantFragment extends Fragment implements View.OnClickListener {
         etInstruction2 = (EditText) view.findViewById(R.id.et_instruction_2);
         etStep1 = (EditText) view.findViewById(R.id.et_step_1);
         etStep2 = (EditText) view.findViewById(R.id.et_step_2);
+        etTime = (EditText)view.findViewById(R.id.et_time);
         btnAddImage = (Button) view.findViewById(R.id.btn_add_image);
         btnSendData = (Button) view.findViewById(R.id.btn_send_data);
         btnTagsClassic = (Button) view.findViewById(R.id.btn_tags_classic);
@@ -135,19 +163,14 @@ public class AddPlantFragment extends Fragment implements View.OnClickListener {
         btnTagsShow = (Button) view.findViewById(R.id.btn_tags_show);
         btnTagsSmoke = (Button) view.findViewById(R.id.btn_tags_smoke);
         btnTagSteamBath = (Button) view.findViewById(R.id.btn_tags_steambath);
-
-        btnTagsClassic.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getActivity(), "Clicked", Toast.LENGTH_SHORT).show();
-            }
-        });
-//        btnTagsModern.setOnClickListener((View.OnClickListener) getActivity());
-//        btnTagsShow.setOnClickListener((View.OnClickListener) getActivity());
-//        btnTagSteamBath.setOnClickListener((View.OnClickListener) getActivity());
-//        btnTagsSmoke.setOnClickListener((View.OnClickListener) getActivity());
-//        btnSendData.setOnClickListener((View.OnClickListener) getActivity());
-//        btnAddImage.setOnClickListener((View.OnClickListener) getActivity());
+        ivImageView = (ImageView)view.findViewById(R.id.iv_image_view);
+        btnTagsClassic.setOnClickListener(this);
+        btnTagsModern.setOnClickListener(this);
+        btnTagsShow.setOnClickListener(this);
+        btnTagSteamBath.setOnClickListener(this);
+        btnTagsSmoke.setOnClickListener(this);
+        btnSendData.setOnClickListener(this);
+        btnAddImage.setOnClickListener(this);
 
         return view;
     }
@@ -160,7 +183,8 @@ public class AddPlantFragment extends Fragment implements View.OnClickListener {
         strSteps = etStep1.getText().toString() + "," + etStep2.getText().toString();
         if (strPlantName.equals("") || strTags.equals("") ||
                 strIngredients.equals("") || strSteps.equals("")) {
-            apiCall();
+            new UploadFileToServer().execute();
+//            pDialog.show();
         } else {
             new SweetAlertDialog(getActivity(), SweetAlertDialog.SUCCESS_TYPE)
                     .setTitleText("Something went wrong")
@@ -177,52 +201,94 @@ public class AddPlantFragment extends Fragment implements View.OnClickListener {
         }
     }
 
-    public void apiCall() {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST,
-                Configuration.END_POINT_LIVE, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                boolean status = response.contains("true");
-                if (status) {
-                    new SweetAlertDialog(getActivity(), SweetAlertDialog.SUCCESS_TYPE)
-                            .setTitleText("Success")
+    private class UploadFileToServer extends AsyncTask<Void, Integer, String> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... progress) {
+
+        }
+
+        @Override
+        protected String doInBackground(Void... params) {
+            return uploadFile();
+        }
+
+        @SuppressWarnings("deprecation")
+        private String uploadFile() {
+            String responseString = null;
+
+
+                HttpClient httpclient = new DefaultHttpClient();
+
+                HttpPost httppost = new HttpPost(Configuration.END_POINT_LIVE );
+
+                try {
+                    HTTPMultiPartEntity entity = new HTTPMultiPartEntity(
+                            new HTTPMultiPartEntity.ProgressListener() {
+
+                                @Override
+                                public void transferred(long num) {
+                                    publishProgress((int) ((num / (float) totalSize) * 100));
+                                }
+                            });
+
+                    // Adding file data to http body
+                    // Extra parameters if you want to pass to server
+                    File msourceFile = new File(sourceFile.getPath());
+                    Log.d("zma file",String.valueOf(sourceFile));
+                    entity.addPart("picture", new FileBody(msourceFile));
+
+                    entity.addPart("title", new StringBody("da title de"));
+                    entity.addPart("tags", new StringBody("tag de aleka"));
+                    entity.addPart("time", new StringBody("12"));
+                    entity.addPart("ingredients", new StringBody("da yao ingredient de"));
+                    entity.addPart("steps", new StringBody("4"));
+
+                   //pDialog.dismiss();
+                    Bundle args = new Bundle();
+                   Fragment fragment = new MainFragment();
+                    args.putBoolean("status", true);
+                    fragment.setArguments(args);
+                    getFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
+                    totalSize = entity.getContentLength();
+                    httppost.setEntity(entity);
+                    // Making server call
+                    HttpResponse response = httpclient.execute(httppost);
+                    HttpEntity r_entity = response.getEntity();
+                    int statusCode = response.getStatusLine().getStatusCode();
+                    responseString = EntityUtils.toString(r_entity);
+                    Looper.prepare();
+                    Log.d("zma response comp image", responseString);
+                    Log.d("zma status code if", String.valueOf(statusCode));
+                    Toast.makeText(getActivity(), "Great Job", Toast.LENGTH_SHORT).show();
+
+                } catch (ClientProtocolException e) {
+                    responseString = e.toString();
+                  //  pDialog.dismiss();
+                    new SweetAlertDialog(getActivity(), SweetAlertDialog.ERROR_TYPE)
+                            .setTitleText("Oops...")
+                            .setContentText("Something went wrong!")
                             .show();
-                } else {
-                    new SweetAlertDialog(getActivity(), SweetAlertDialog.SUCCESS_TYPE)
-                            .setTitleText("Success")
+                } catch (IOException e) {
+                  //  Looper.prepare();
+                    responseString = e.toString();
+                 //   pDialog.dismiss();
+                    new SweetAlertDialog(getActivity(), SweetAlertDialog.ERROR_TYPE)
+                            .setTitleText("Oops...")
+                            .setContentText("Something went wrong!")
                             .show();
                 }
 
+            return responseString;
 
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        }) {
-            @Override
-            public String getBodyContentType() {
-                return "application/x-www-form-urlencoded;charset=UTF-8";
-            }
-
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put("title", strPlantName);
-                params.put("tags", strTags);
-                params.put("time", strTime);
-                params.put("ingredients", strIngredients);
-                params.put("steps", strSteps);
-                return params;
-            }
-
-        };
-        stringRequest.setRetryPolicy(new DefaultRetryPolicy(200000,
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        mRequestQueue.add(stringRequest);
+        }
     }
+
+
 
 //    public void Add_Line() {
 //        Log.d("zma addline", "sho");
@@ -288,6 +354,7 @@ public class AddPlantFragment extends Fragment implements View.OnClickListener {
                                 }
                             }
                         });
+                pictureDialog.show();
 
 
         }
@@ -309,45 +376,44 @@ public class AddPlantFragment extends Fragment implements View.OnClickListener {
 
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == RESULT_LOAD_IMAGE && null != data) {
-            Uri selectedImage = data.getData();
-            Bitmap photo = (Bitmap) data.getExtras().get("data");
-            String[] filePathColumn = {MediaStore.Images.Media.DATA};
-            Cursor cursor = getActivity().getContentResolver().query(selectedImage,
-                    filePathColumn, null, null, null);
-            cursor.moveToFirst();
-            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-            String picturePath = cursor.getString(columnIndex);
-            sourceFile = new File(picturePath);
-            Log.d("zma path load image", picturePath.toString());
-//            if (sourceFile != null) {
-//                flag = true;
-//            } else {
-//                flag = false;
-//            }
-//            cursor.close();
-            ivImageView.setImageBitmap(BitmapFactory.decodeFile(picturePath));
-            if (picturePath.equals("")) {
-                ivImageView.setBackgroundResource(R.drawable.edit_text_bg_green);
+            Bitmap bm=null;
+            if (data != null) {
+                try {
+                    Uri selectedImage = data.getData();
+                    Bitmap photo = (Bitmap) data.getExtras().get("data");
+                    String[] filePathColumn = {MediaStore.Images.Media.DATA};
+                    Cursor cursor = getActivity().getContentResolver().query(selectedImage,
+                            filePathColumn, null, null, null);
+                    bm = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), data.getData());
+                    cursor.moveToFirst();
+                    int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                    String picturePath = cursor.getString(columnIndex);
+                    sourceFile = new File(picturePath);
+                    cursor.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
-//            tvTakePic.setText("Take Another");
-//            tvTakePic.setTextColor(Color.RED);
-//            isImage = true;
-//            ivCrossImage.setVisibility(View.VISIBLE);
+            ivImageView.setImageBitmap(bm);
 
         } else if (resultCode == RESULT_OK && requestCode == CAMERA_CAPTURE && data != null) {
-            Bitmap photo = (Bitmap) data.getExtras().get("data");
-            ivImageView.setImageBitmap(photo);
-            Uri tempUri = GeneralUtils.getImageUri(getActivity(), photo);
-            sourceFile = new File(GeneralUtils.getRealPathFromURI(getActivity(), tempUri));
-//            if (sourceFile != null) {
-//                flag = true;
-//            } else {
-//                flag = false;
-//            }
-//            tvTakePic.setText("Take another");
-//            tvTakePic.setTextColor(Color.RED);
-//            isImage = true;
-//            ivCrossImage.setVisibility(View.VISIBLE);
+            Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
+            ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+            thumbnail.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
+             sourceFile = new File(Environment.getExternalStorageDirectory(),
+                    System.currentTimeMillis() + ".jpg");
+            FileOutputStream fo;
+            try {
+                sourceFile.createNewFile();
+                fo = new FileOutputStream(sourceFile);
+                fo.write(bytes.toByteArray());
+                fo.close();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            ivImageView.setImageBitmap(thumbnail);
 
         } else if (resultCode == RESULT_OK) {
             Uri uri = data.getData();

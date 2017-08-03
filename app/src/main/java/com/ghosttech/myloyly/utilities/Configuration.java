@@ -5,6 +5,6 @@ package com.ghosttech.myloyly.utilities;
  */
 
 public class Configuration {
-    public static final String END_POINT_LIVE = "http://103.240.220.76/kptraffic/";
+    public static final String END_POINT_LIVE = "http://swatshawls.com/loyly/Apis/savedata";
 
 }
