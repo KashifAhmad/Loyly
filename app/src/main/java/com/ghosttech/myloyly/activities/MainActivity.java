@@ -2,15 +2,13 @@ package com.ghosttech.myloyly.activities;
 
 import android.app.Fragment;
 import android.content.Intent;
-import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.ghosttech.myloyly.fragments.AufgussMainFragment;
 import com.ghosttech.myloyly.fragments.ChartsFragment;
-import com.ghosttech.myloyly.fragments.EssesntialOilFragment;
-import com.ghosttech.myloyly.fragments.LanguageFragment;
 import com.ghosttech.myloyly.R;
+import com.ghosttech.myloyly.fragments.EssesntialOilFragment;
 
 public class MainActivity extends AppCompatActivity {
     Fragment fragment;

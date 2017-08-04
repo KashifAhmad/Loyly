@@ -6,32 +6,21 @@ package com.ghosttech.myloyly.utilities;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Filter;
 
-import android.app.Activity;
 import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.ghosttech.myloyly.R;
-import com.ghosttech.myloyly.activities.MainActivity;
 import com.ghosttech.myloyly.fragments.EssentailOilDetailFragment;
-
-import static android.R.attr.filter;
-import static android.R.attr.fragment;
 
 public class EssentialOilAdapter extends RecyclerView.Adapter<EssentialOilAdapter.ViewHolder> {
     private ArrayList<String> mDataset;
@@ -44,14 +33,14 @@ public class EssentialOilAdapter extends RecyclerView.Adapter<EssentialOilAdapte
         // each data item is just a string in this case
         CardView cvOilItem;
         TextView tvOilTitle;
-        TextView tvDescription;
+        TextView tvBotanicalName;
         ImageView personPhoto;
 
         public ViewHolder(View v) {
             super(v);
             cvOilItem = (CardView)itemView.findViewById(R.id.cv_oil_item);
             tvOilTitle = (TextView)itemView.findViewById(R.id.tv_essential_oil_title);
-            tvDescription = (TextView)itemView.findViewById(R.id.tv_description);
+            tvBotanicalName = (TextView)itemView.findViewById(R.id.tv_botanical_name);
             personPhoto = (ImageView)itemView.findViewById(R.id.iv_oil_title_image);
         }
     }
@@ -82,7 +71,7 @@ public class EssentialOilAdapter extends RecyclerView.Adapter<EssentialOilAdapte
         // - replace the contents of the view with that element
         final EssentialOilHelper oilHelper = essentialItemHelpers.get(position);
         holder.tvOilTitle.setText(oilHelper.getStrTitle());
-        holder.tvDescription.setText(oilHelper.getStrDescription());
+        holder.tvBotanicalName.setText(oilHelper.getStrBotanicalName());
         holder.personPhoto.setImageResource(oilHelper.intImageID[position]);
         holder.cvOilItem.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,6 +82,7 @@ public class EssentialOilAdapter extends RecyclerView.Adapter<EssentialOilAdapte
                         .replace(R.id.fragment_container_main, fragment).addToBackStack("tag").commit();
                 args.putInt("row_id",position);
                 args.putInt("image_id",oilHelper.intImageID[position]);
+                args.putParcelable("EssentialOilObject",oilHelper);
                 fragment.setArguments(args);
 
             }

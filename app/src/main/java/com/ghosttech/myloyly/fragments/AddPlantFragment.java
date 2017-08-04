@@ -326,7 +326,10 @@ public class AddPlantFragment extends Fragment implements View.OnClickListener {
                 btnTagsSmoke.setTextColor(Color.parseColor("#eacb61"));
                 btnTagSteamBath.setTextColor(Color.parseColor("#eacb61"));
 
-                btnTagsShow.setBackgroundColor(Color.WHITE);
+                btnTagsShow.setBackgroundResource(R.drawable.button_orange_border);
+                btnTagsModern.setBackgroundResource(R.drawable.button_orange_border);
+                btnTagsSmoke.setBackgroundResource(R.drawable.button_orange_border);
+                btnTagSteamBath.setBackgroundResource(R.drawable.button_orange_border);
                 break;
             case R.id.btn_tags_modern:
                 strTags = "Modern";
@@ -338,6 +341,11 @@ public class AddPlantFragment extends Fragment implements View.OnClickListener {
                 btnTagsShow.setTextColor(Color.parseColor("#eacb61"));
                 btnTagsSmoke.setTextColor(Color.parseColor("#eacb61"));
                 btnTagSteamBath.setTextColor(Color.parseColor("#eacb61"));
+
+                btnTagsShow.setBackgroundResource(R.drawable.button_orange_border);
+                btnTagsClassic.setBackgroundResource(R.drawable.button_orange_border);
+                btnTagsSmoke.setBackgroundResource(R.drawable.button_orange_border);
+                btnTagSteamBath.setBackgroundResource(R.drawable.button_orange_border);
                 break;
             case R.id.btn_tags_show:
                 strTags = "Show";
@@ -348,6 +356,11 @@ public class AddPlantFragment extends Fragment implements View.OnClickListener {
                 btnTagsClassic.setTextColor(Color.parseColor("#eacb61"));
                 btnTagsSmoke.setTextColor(Color.parseColor("#eacb61"));
                 btnTagSteamBath.setTextColor(Color.parseColor("#eacb61"));
+
+                btnTagsModern.setBackgroundResource(R.drawable.button_orange_border);
+                btnTagsClassic.setBackgroundResource(R.drawable.button_orange_border);
+                btnTagsSmoke.setBackgroundResource(R.drawable.button_orange_border);
+                btnTagSteamBath.setBackgroundResource(R.drawable.button_orange_border);
                 break;
             case R.id.btn_tags_smoke:
                 strTags = "Smoke";
@@ -358,6 +371,11 @@ public class AddPlantFragment extends Fragment implements View.OnClickListener {
                 btnTagsModern.setTextColor(Color.parseColor("#eacb61"));
                 btnTagsClassic.setTextColor(Color.parseColor("#eacb61"));
                 btnTagSteamBath.setTextColor(Color.parseColor("#eacb61"));
+
+                btnTagsModern.setBackgroundResource(R.drawable.button_orange_border);
+                btnTagsClassic.setBackgroundResource(R.drawable.button_orange_border);
+                btnTagsShow.setBackgroundResource(R.drawable.button_orange_border);
+                btnTagSteamBath.setBackgroundResource(R.drawable.button_orange_border);
                 break;
             case R.id.btn_tags_steambath:
                 strTags = "SteamBath";
@@ -368,6 +386,11 @@ public class AddPlantFragment extends Fragment implements View.OnClickListener {
                 btnTagsModern.setTextColor(Color.parseColor("#eacb61"));
                 btnTagsClassic.setTextColor(Color.parseColor("#eacb61"));
                 btnTagsSmoke.setTextColor(Color.parseColor("#eacb61"));
+
+                btnTagsModern.setBackgroundResource(R.drawable.button_orange_border);
+                btnTagsClassic.setBackgroundResource(R.drawable.button_orange_border);
+                btnTagsShow.setBackgroundResource(R.drawable.button_orange_border);
+                btnTagsSmoke.setBackgroundResource(R.drawable.button_orange_border);
                 break;
             case R.id.btn_send_data:
                 takeDataFromFields();

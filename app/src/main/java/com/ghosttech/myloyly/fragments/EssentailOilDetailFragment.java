@@ -114,8 +114,8 @@ public class EssentailOilDetailFragment extends Fragment {
         args = getArguments();
 //        intRowId = args.getInt("row_id");
         intImageID = args.getInt("image_id");
-        essentialOilHelper = args.getParcelable("Object");
-        ivTitleImage.setImageResource(intImageID);
+        essentialOilHelper = args.getParcelable("EssentialOilObject");
+
 //        initializeData(intRowId);
         initializeData();
         customActionBar();
@@ -150,43 +150,6 @@ public class EssentailOilDetailFragment extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
-    public void initializeData(int rowID) {
-        Log.d("zma row ivImagesArray", String.valueOf(intImageID));
-        AssetManager assetManager = getActivity().getAssets();
-        try {
-            inputStream = assetManager.open("oils_data.XLS");
-            Workbook workbook = Workbook.getWorkbook(inputStream);
-            Sheet sheet = workbook.getSheet(0);
-            Cell cellPlantName = sheet.getCell(0, rowID + 1);
-            strPlantName = String.valueOf(cellPlantName.getContents());
-            Cell cellOilFamily = sheet.getCell(3, rowID + 1);
-            Cell cellOilOrigin = sheet.getCell(4, rowID + 1);
-            Cell cellOilStrength = sheet.getCell(7, rowID + 1);
-            Cell cellOilNote = sheet.getCell(6, rowID + 1);
-            Cell cellOilFragranceGroup = sheet.getCell(8, rowID + 1);
-            Cell cellOilExtraction = sheet.getCell(8, rowID + 1);
-            Cell cellOtherLangauge = sheet.getCell(1, rowID + 1);
-            Cell cellOilDescription = sheet.getCell(9, rowID + 1);
-            Cell cellBotanicalName = sheet.getCell(2, rowID + 1);
-            tvTransparentBotanicalName.setText(String.valueOf(cellBotanicalName.getContents()));
-            tvOilFamily.setText(String.valueOf(cellOilFamily.getContents()));
-            tvOilOrigin.setText(String.valueOf(cellOilOrigin.getContents()));
-            tvOilStrength.setText(String.valueOf(cellOilStrength.getContents()));
-            tvOilNote.setText(String.valueOf(cellOilNote.getContents()));
-            tvOilFragranceGroup.setText(String.valueOf(cellOilFragranceGroup.getContents()));
-            tvOilExtractionMethod.setText(String.valueOf("Not Found in Sheet"));
-            tvOilOtherLanguages.setText(String.valueOf(cellOtherLangauge.getContents()));
-            tvOilDescription.setText(String.valueOf(cellOilDescription.getContents()));
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (BiffException e) {
-            e.printStackTrace();
-        }
-
-
-    }
-
     public void initializeData() {
         tvOilDescription.setText(essentialOilHelper.getStrDescription());
         tvOilStrength.setText(essentialOilHelper.getStrStrength());
@@ -197,7 +160,9 @@ public class EssentailOilDetailFragment extends Fragment {
         tvOilExtractionMethod.setText("Not Found");
         tvOilBlends.setText("Not Found");
         tvOilFragranceGroup.setText(essentialOilHelper.getStrFragrance());
+        tvOilFamily.setText(essentialOilHelper.getStrPlantFamily());
         ivTitleImage.setImageResource(intImageID);
+
 
     }
 

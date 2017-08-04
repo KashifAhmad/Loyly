@@ -111,25 +111,25 @@ public class EssesntialOilFragment extends Fragment {
             Sheet sheet = workbook.getSheet(0);
             int row = sheet.getRows();
             for (int i = 1; i < row; i++) {
-                Cell cellTitle = sheet.getCell(0, i);
+                Cell collTitle = sheet.getCell(0, i);
                 Cell colDescription = sheet.getCell(9, i);
-                Cell cellOilFamily = sheet.getCell(3, i);
-                Cell cellOilOrigin = sheet.getCell(4, i);
-                Cell cellOilStrength = sheet.getCell(7, i);
-                Cell cellOilNote = sheet.getCell(6, i);
-                Cell cellOilFragranceGroup = sheet.getCell(8, i);
-
+                Cell collOilFamily = sheet.getCell(3, i);
+                Cell collOilOrigin = sheet.getCell(4, i);
+                Cell collOilStrength = sheet.getCell(7, i);
+                Cell collOilNote = sheet.getCell(6, i);
+                Cell collOilFragranceGroup = sheet.getCell(8, i);
                 Cell cellOtherLangauge = sheet.getCell(1, i);
                 Cell cellBotanicalName = sheet.getCell(2, i);
+
                 helper = new EssentialOilHelper();
-                helper.setStrTitle(String.valueOf(cellTitle.getContents()));
+                helper.setStrTitle(String.valueOf(collTitle.getContents()));
                 helper.setStrBotanicalName(String.valueOf(cellBotanicalName.getContents()));
                 helper.setStrDescription(String.valueOf(colDescription.getContents()));
-                helper.setStrPlantFamily(String.valueOf(cellOilFamily.getContents()));
-                helper.setStrOrigin(String.valueOf(cellOilOrigin.getContents()));
-                helper.setStrStrength(String.valueOf(cellOilStrength.getContents()));
-                helper.setStrNote(String.valueOf(cellOilNote.getContents()));
-                helper.setStrFragrance(String.valueOf(cellOilFragranceGroup.getContents()));
+                helper.setStrPlantFamily(String.valueOf(collOilFamily.getContents()));
+                helper.setStrOrigin(String.valueOf(collOilOrigin.getContents()));
+                helper.setStrStrength(String.valueOf(collOilStrength.getContents()));
+                helper.setStrNote(String.valueOf(collOilNote.getContents()));
+                helper.setStrFragrance(String.valueOf(collOilFragranceGroup.getContents()));
                 helper.setStrLanguages(String.valueOf(cellOtherLangauge.getContents()));
                 helper.setIntImageID(ivImagesArray);
                 essentialItemHelperList.add(helper);
