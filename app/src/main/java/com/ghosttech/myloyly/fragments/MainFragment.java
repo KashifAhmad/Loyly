@@ -110,17 +110,17 @@ public class MainFragment extends Fragment {
         lLAufguss.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(),MainActivity.class);
-                intent.putExtra("frag_id","aufguss");
-                startActivity(intent);
-                getActivity().finish();
+                fragment = new AddPlantFragment();
+                getFragmentManager().beginTransaction().replace(R.id.fragment_container,fragment).addToBackStack("tags").commit();
+//                Intent intent = new Intent(getActivity(),MainActivity.class);
+//                intent.putExtra("frag_id","aufguss");
+//                startActivity(intent);
+//                getActivity().finish();
             }
         });
         lLEducation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                fragment = new AddPlantFragment();
-                getFragmentManager().beginTransaction().replace(R.id.fragment_container,fragment).commit();
             }
         });
     }

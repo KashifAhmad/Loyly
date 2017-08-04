@@ -1,5 +1,6 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/sv_main_add_recipe"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="10dp"
@@ -28,6 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginTop="10dp"
+            android:maxLines="1"
             android:background="@drawable/edit_text_bg"
             android:hint="Title(name)"
             android:paddingLeft="12dp" />
@@ -117,12 +119,12 @@
 
         <EditText
             android:id="@+id/et_time"
-            android:inputType="numberDecimal"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginTop="10dp"
             android:background="@drawable/edit_text_bg_green"
             android:hint="Time in mins"
+            android:inputType="numberDecimal"
             android:paddingLeft="12dp" />
 
         <TextView
@@ -145,6 +147,7 @@
             android:layout_marginTop="5dp"
             android:background="@drawable/edit_text_bg"
             android:hint="add ingredients 1"
+            android:maxLines="1"
             android:paddingLeft="12dp" />
 
         <EditText
@@ -155,6 +158,7 @@
             android:layout_marginTop="5dp"
             android:background="@drawable/edit_text_bg"
             android:hint="add ingredients 2"
+            android:maxLines="1"
             android:paddingLeft="12dp" />
 
         <EditText
@@ -165,6 +169,7 @@
             android:layout_marginTop="5dp"
             android:background="@drawable/edit_text_bg"
             android:hint="add ingredients 2"
+            android:maxLines="1"
             android:paddingLeft="12dp" />
 
         <EditText
@@ -175,6 +180,7 @@
             android:layout_marginTop="5dp"
             android:background="@drawable/edit_text_bg"
             android:hint="add ingredients 2"
+            android:maxLines="1"
             android:paddingLeft="12dp" />
         <!--  <FrameLayout
               android:id="@+id/fl_main"
@@ -213,6 +219,7 @@
             android:layout_height="40dp"
             android:layout_marginBottom="10dp"
             android:layout_marginTop="5dp"
+            android:maxLines="1"
             android:background="@drawable/edit_text_bg"
             android:hint="instruction 1"
             android:paddingLeft="12dp" />
@@ -223,6 +230,7 @@
             android:layout_height="40dp"
             android:layout_marginBottom="10dp"
             android:layout_marginTop="5dp"
+            android:maxLines="1"
             android:background="@drawable/edit_text_bg"
             android:hint="instruction 1"
             android:paddingLeft="12dp" />
@@ -246,6 +254,7 @@
             android:layout_height="40dp"
             android:layout_marginBottom="10dp"
             android:layout_marginTop="5dp"
+            android:maxLines="1"
             android:background="@drawable/edit_text_orange"
             android:hint="Step 1"
             android:paddingLeft="12dp" />
@@ -256,6 +265,7 @@
             android:layout_height="40dp"
             android:layout_marginBottom="10dp"
             android:layout_marginTop="5dp"
+            android:maxLines="1"
             android:background="@drawable/edit_text_orange"
             android:hint="Step 1"
             android:paddingLeft="12dp" />
@@ -274,9 +284,9 @@
 
         <ImageView
             android:id="@+id/iv_image_view"
-            android:layout_margin="5dp"
             android:layout_width="match_parent"
             android:layout_height="180dp"
+            android:layout_margin="5dp"
             android:scaleType="fitXY"
             android:src="@drawable/douglasfir" />
 
@@ -284,27 +294,28 @@
             android:id="@+id/btn_add_image"
             android:layout_width="match_parent"
             android:layout_height="40dp"
+            android:layout_gravity="center"
             android:layout_marginTop="10dp"
             android:background="#b3c24b"
-            android:layout_gravity="center"
             android:gravity="center_horizontal"
             android:padding="5dp"
-            android:textAllCaps="false"
             android:text="Add Image"
+            android:textAllCaps="false"
             android:textColor="#fff"
             android:textSize="20dp"
             android:textStyle="bold" />
+
         <Button
             android:id="@+id/btn_send_data"
             android:layout_width="match_parent"
             android:layout_height="40dp"
+            android:layout_gravity="center"
             android:layout_marginTop="10dp"
             android:background="#b3c24b"
-            android:layout_gravity="center"
             android:gravity="center_horizontal"
             android:padding="5dp"
-            android:textAllCaps="false"
             android:text="Submit"
+            android:textAllCaps="false"
             android:textColor="#fff"
             android:textSize="20dp"
             android:textStyle="bold" />

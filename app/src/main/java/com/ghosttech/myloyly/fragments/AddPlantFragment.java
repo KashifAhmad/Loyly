@@ -102,6 +102,7 @@ public class AddPlantFragment extends Fragment implements View.OnClickListener {
     RequestQueue mRequestQueue;
     String strPlantName, strTime, strTags, strIngredients, strSteps, strPicture;
     SweetAlertDialog pDialog;
+
     public AddPlantFragment() {
         // Required empty public constructor
     }
@@ -155,7 +156,7 @@ public class AddPlantFragment extends Fragment implements View.OnClickListener {
         etInstruction2 = (EditText) view.findViewById(R.id.et_instruction_2);
         etStep1 = (EditText) view.findViewById(R.id.et_step_1);
         etStep2 = (EditText) view.findViewById(R.id.et_step_2);
-        etTime = (EditText)view.findViewById(R.id.et_time);
+        etTime = (EditText) view.findViewById(R.id.et_time);
         btnAddImage = (Button) view.findViewById(R.id.btn_add_image);
         btnSendData = (Button) view.findViewById(R.id.btn_send_data);
         btnTagsClassic = (Button) view.findViewById(R.id.btn_tags_classic);
@@ -163,7 +164,7 @@ public class AddPlantFragment extends Fragment implements View.OnClickListener {
         btnTagsShow = (Button) view.findViewById(R.id.btn_tags_show);
         btnTagsSmoke = (Button) view.findViewById(R.id.btn_tags_smoke);
         btnTagSteamBath = (Button) view.findViewById(R.id.btn_tags_steambath);
-        ivImageView = (ImageView)view.findViewById(R.id.iv_image_view);
+        ivImageView = (ImageView) view.findViewById(R.id.iv_image_view);
         btnTagsClassic.setOnClickListener(this);
         btnTagsModern.setOnClickListener(this);
         btnTagsShow.setOnClickListener(this);
@@ -183,12 +184,13 @@ public class AddPlantFragment extends Fragment implements View.OnClickListener {
         strSteps = etStep1.getText().toString() + "," + etStep2.getText().toString();
         if (strPlantName.equals("") || strTags.equals("") ||
                 strIngredients.equals("") || strSteps.equals("")) {
-            new UploadFileToServer().execute();
+            new SweetAlertDialog(getActivity(), SweetAlertDialog.WARNING_TYPE)
+                    .setTitleText("Some fields are empty")
+                    .show();
 //            pDialog.show();
         } else {
-            new SweetAlertDialog(getActivity(), SweetAlertDialog.SUCCESS_TYPE)
-                    .setTitleText("Something went wrong")
-                    .show();
+            new UploadFileToServer().execute();
+
         }
 
     }
@@ -201,14 +203,19 @@ public class AddPlantFragment extends Fragment implements View.OnClickListener {
         }
     }
 
+    /**
+     * Uploading the file to server
+     * */
     private class UploadFileToServer extends AsyncTask<Void, Integer, String> {
         @Override
         protected void onPreExecute() {
+            // setting progress bar to zero
             super.onPreExecute();
         }
 
         @Override
         protected void onProgressUpdate(Integer... progress) {
+            // Making progress bar visible
 
         }
 
@@ -220,72 +227,65 @@ public class AddPlantFragment extends Fragment implements View.OnClickListener {
         @SuppressWarnings("deprecation")
         private String uploadFile() {
             String responseString = null;
+            HttpClient httpclient = new DefaultHttpClient();
+            HttpPost httppost = new HttpPost(Configuration.END_POINT_LIVE);
 
+            try {
+                HTTPMultiPartEntity entity = new HTTPMultiPartEntity(
+                        new HTTPMultiPartEntity.ProgressListener() {
 
-                HttpClient httpclient = new DefaultHttpClient();
+                            @Override
+                            public void transferred(long num) {
+                                publishProgress((int) ((num / (float) totalSize) * 100));
+                            }
+                        });
 
-                HttpPost httppost = new HttpPost(Configuration.END_POINT_LIVE );
+                File mSourceFile = new File(sourceFile.getPath());
 
-                try {
-                    HTTPMultiPartEntity entity = new HTTPMultiPartEntity(
-                            new HTTPMultiPartEntity.ProgressListener() {
+                // Adding file data to http body
+                entity.addPart("picture", new FileBody(mSourceFile));
 
-                                @Override
-                                public void transferred(long num) {
-                                    publishProgress((int) ((num / (float) totalSize) * 100));
-                                }
-                            });
+                // Extra parameters if you want to pass to server
+                entity.addPart("title", new StringBody(strPlantName));
+                entity.addPart("tags", new StringBody(strTags));
+                entity.addPart("time", new StringBody(strTime));
+                entity.addPart("ingredients", new StringBody(strIngredients));
+                entity.addPart("steps", new StringBody(strSteps));
+                totalSize = entity.getContentLength();
+                httppost.setEntity(entity);
+                // Making server call
+                HttpResponse response = httpclient.execute(httppost);
+                HttpEntity r_entity = response.getEntity();
 
-                    // Adding file data to http body
-                    // Extra parameters if you want to pass to server
-                    File msourceFile = new File(sourceFile.getPath());
-                    Log.d("zma file",String.valueOf(sourceFile));
-                    entity.addPart("picture", new FileBody(msourceFile));
-
-                    entity.addPart("title", new StringBody("da title de"));
-                    entity.addPart("tags", new StringBody("tag de aleka"));
-                    entity.addPart("time", new StringBody("12"));
-                    entity.addPart("ingredients", new StringBody("da yao ingredient de"));
-                    entity.addPart("steps", new StringBody("4"));
-
-                   //pDialog.dismiss();
-                    Bundle args = new Bundle();
-                   Fragment fragment = new MainFragment();
-                    args.putBoolean("status", true);
-                    fragment.setArguments(args);
-                    getFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
-                    totalSize = entity.getContentLength();
-                    httppost.setEntity(entity);
-                    // Making server call
-                    HttpResponse response = httpclient.execute(httppost);
-                    HttpEntity r_entity = response.getEntity();
-                    int statusCode = response.getStatusLine().getStatusCode();
+                int statusCode = response.getStatusLine().getStatusCode();
+                if (statusCode == 200) {
+                    // Server response
                     responseString = EntityUtils.toString(r_entity);
-                    Looper.prepare();
-                    Log.d("zma response comp image", responseString);
-                    Log.d("zma status code if", String.valueOf(statusCode));
-                    Toast.makeText(getActivity(), "Great Job", Toast.LENGTH_SHORT).show();
-
-                } catch (ClientProtocolException e) {
-                    responseString = e.toString();
-                  //  pDialog.dismiss();
-                    new SweetAlertDialog(getActivity(), SweetAlertDialog.ERROR_TYPE)
-                            .setTitleText("Oops...")
-                            .setContentText("Something went wrong!")
-                            .show();
-                } catch (IOException e) {
-                  //  Looper.prepare();
-                    responseString = e.toString();
-                 //   pDialog.dismiss();
-                    new SweetAlertDialog(getActivity(), SweetAlertDialog.ERROR_TYPE)
-                            .setTitleText("Oops...")
-                            .setContentText("Something went wrong!")
-                            .show();
+                } else {
+                    responseString = "Error occurred! Http Status Code: "
+                            + statusCode;
                 }
+
+            } catch (ClientProtocolException e) {
+                responseString = e.toString();
+            } catch (IOException e) {
+                responseString = e.toString();
+            }
 
             return responseString;
 
         }
+
+        @Override
+        protected void onPostExecute(String result) {
+            Log.e("zma Response server: ", result);
+
+            // showing the server response in an alert dialog
+            showAlert();
+
+            super.onPostExecute(result);
+        }
+
     }
 
 
@@ -318,18 +318,56 @@ public class AddPlantFragment extends Fragment implements View.OnClickListener {
         switch (view.getId()) {
             case R.id.btn_tags_classic:
                 strTags = "Classic";
+                btnTagsClassic.setBackgroundColor(Color.parseColor("#eacb61"));
+                btnTagsClassic.setTextColor(Color.WHITE);
+
+                btnTagsModern.setTextColor(Color.parseColor("#eacb61"));
+                btnTagsShow.setTextColor(Color.parseColor("#eacb61"));
+                btnTagsSmoke.setTextColor(Color.parseColor("#eacb61"));
+                btnTagSteamBath.setTextColor(Color.parseColor("#eacb61"));
+
+                btnTagsShow.setBackgroundColor(Color.WHITE);
                 break;
             case R.id.btn_tags_modern:
                 strTags = "Modern";
+                btnTagsModern.setBackgroundColor(Color.parseColor("#eacb61"));
+                btnTagsModern.setTextColor(Color.WHITE);
+
+
+                btnTagsClassic.setTextColor(Color.parseColor("#eacb61"));
+                btnTagsShow.setTextColor(Color.parseColor("#eacb61"));
+                btnTagsSmoke.setTextColor(Color.parseColor("#eacb61"));
+                btnTagSteamBath.setTextColor(Color.parseColor("#eacb61"));
                 break;
             case R.id.btn_tags_show:
                 strTags = "Show";
+                btnTagsShow.setBackgroundColor(Color.parseColor("#eacb61"));
+                btnTagsShow.setTextColor(Color.WHITE);
+
+                btnTagsModern.setTextColor(Color.parseColor("#eacb61"));
+                btnTagsClassic.setTextColor(Color.parseColor("#eacb61"));
+                btnTagsSmoke.setTextColor(Color.parseColor("#eacb61"));
+                btnTagSteamBath.setTextColor(Color.parseColor("#eacb61"));
                 break;
             case R.id.btn_tags_smoke:
                 strTags = "Smoke";
+                btnTagsSmoke.setBackgroundColor(Color.parseColor("#eacb61"));
+                btnTagsSmoke.setTextColor(Color.WHITE);
+
+                btnTagsShow.setTextColor(Color.parseColor("#eacb61"));
+                btnTagsModern.setTextColor(Color.parseColor("#eacb61"));
+                btnTagsClassic.setTextColor(Color.parseColor("#eacb61"));
+                btnTagSteamBath.setTextColor(Color.parseColor("#eacb61"));
                 break;
             case R.id.btn_tags_steambath:
                 strTags = "SteamBath";
+                btnTagSteamBath.setBackgroundColor(Color.parseColor("#eacb61"));
+                btnTagSteamBath.setTextColor(Color.WHITE);
+
+                btnTagsShow.setTextColor(Color.parseColor("#eacb61"));
+                btnTagsModern.setTextColor(Color.parseColor("#eacb61"));
+                btnTagsClassic.setTextColor(Color.parseColor("#eacb61"));
+                btnTagsSmoke.setTextColor(Color.parseColor("#eacb61"));
                 break;
             case R.id.btn_send_data:
                 takeDataFromFields();
@@ -376,7 +414,7 @@ public class AddPlantFragment extends Fragment implements View.OnClickListener {
 
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == RESULT_LOAD_IMAGE && null != data) {
-            Bitmap bm=null;
+            Bitmap bm = null;
             if (data != null) {
                 try {
                     Uri selectedImage = data.getData();
@@ -414,10 +452,6 @@ public class AddPlantFragment extends Fragment implements View.OnClickListener {
                 e.printStackTrace();
             }
             ivImageView.setImageBitmap(thumbnail);
-
-        } else if (resultCode == RESULT_OK) {
-            Uri uri = data.getData();
-            sourceFile = new File(GeneralUtils.getRealPathFromURI(getActivity(), uri));
         }
     }
 
@@ -434,5 +468,10 @@ public class AddPlantFragment extends Fragment implements View.OnClickListener {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    private void showAlert() {
+        new SweetAlertDialog(getActivity(), SweetAlertDialog.SUCCESS_TYPE)
+                .setTitleText("Recipe added successfully").show();
     }
 }
