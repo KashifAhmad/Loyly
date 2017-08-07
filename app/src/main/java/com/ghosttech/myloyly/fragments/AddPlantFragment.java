@@ -141,12 +141,12 @@ public class AddPlantFragment extends Fragment implements View.OnClickListener {
         view = inflater.inflate(R.layout.fragment_add_plant, container, false);
         mRequestQueue = Volley.newRequestQueue(getActivity());
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            requestPermissions(new String[]{Manifest.permission.INTERNET, android.Manifest.permission.CAMERA,
-                    Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+            requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA}, 1);
         }
         pDialog = new SweetAlertDialog(getActivity(), SweetAlertDialog.PROGRESS_TYPE);
         pDialog.getProgressHelper().setBarColor(Color.parseColor("#179e99"));
-        pDialog.setTitleText("Sending complaint");
+        pDialog.setTitleText("Sending Recipe");
         etPlantName = (EditText) view.findViewById(R.id.et_plant_name);
         etIngredient1 = (EditText) view.findViewById(R.id.et_add_ing_1);
         etIngredient2 = (EditText) view.findViewById(R.id.et_add_ing_2);
@@ -187,9 +187,10 @@ public class AddPlantFragment extends Fragment implements View.OnClickListener {
             new SweetAlertDialog(getActivity(), SweetAlertDialog.WARNING_TYPE)
                     .setTitleText("Some fields are empty")
                     .show();
-//            pDialog.show();
+
         } else {
             new UploadFileToServer().execute();
+            pDialog.show();
 
         }
 
@@ -205,7 +206,7 @@ public class AddPlantFragment extends Fragment implements View.OnClickListener {
 
     /**
      * Uploading the file to server
-     * */
+     */
     private class UploadFileToServer extends AsyncTask<Void, Integer, String> {
         @Override
         protected void onPreExecute() {
@@ -259,16 +260,20 @@ public class AddPlantFragment extends Fragment implements View.OnClickListener {
 
                 int statusCode = response.getStatusLine().getStatusCode();
                 if (statusCode == 200) {
+                    pDialog.dismiss();
                     // Server response
                     responseString = EntityUtils.toString(r_entity);
                 } else {
+                    pDialog.dismiss();
                     responseString = "Error occurred! Http Status Code: "
                             + statusCode;
                 }
 
             } catch (ClientProtocolException e) {
+                pDialog.dismiss();
                 responseString = e.toString();
             } catch (IOException e) {
+                pDialog.dismiss();
                 responseString = e.toString();
             }
 
@@ -281,13 +286,13 @@ public class AddPlantFragment extends Fragment implements View.OnClickListener {
             Log.e("zma Response server: ", result);
 
             // showing the server response in an alert dialog
+            pDialog.dismiss();
             showAlert();
 
             super.onPostExecute(result);
         }
 
     }
-
 
 
 //    public void Add_Line() {
@@ -437,31 +442,15 @@ public class AddPlantFragment extends Fragment implements View.OnClickListener {
 
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == RESULT_LOAD_IMAGE && null != data) {
-            Bitmap bm = null;
-            if (data != null) {
-                try {
-                    Uri selectedImage = data.getData();
-                    Bitmap photo = (Bitmap) data.getExtras().get("data");
-                    String[] filePathColumn = {MediaStore.Images.Media.DATA};
-                    Cursor cursor = getActivity().getContentResolver().query(selectedImage,
-                            filePathColumn, null, null, null);
-                    bm = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), data.getData());
-                    cursor.moveToFirst();
-                    int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                    String picturePath = cursor.getString(columnIndex);
-                    sourceFile = new File(picturePath);
-                    cursor.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-            ivImageView.setImageBitmap(bm);
+            Uri selectedImageUri = data.getData();
+            String imagepath = getPath(selectedImageUri);
+            sourceFile = new File(imagepath);
 
         } else if (resultCode == RESULT_OK && requestCode == CAMERA_CAPTURE && data != null) {
             Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
             ByteArrayOutputStream bytes = new ByteArrayOutputStream();
             thumbnail.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
-             sourceFile = new File(Environment.getExternalStorageDirectory(),
+            sourceFile = new File(Environment.getExternalStorageDirectory(),
                     System.currentTimeMillis() + ".jpg");
             FileOutputStream fo;
             try {
@@ -495,6 +484,29 @@ public class AddPlantFragment extends Fragment implements View.OnClickListener {
 
     private void showAlert() {
         new SweetAlertDialog(getActivity(), SweetAlertDialog.SUCCESS_TYPE)
-                .setTitleText("Recipe added successfully").show();
+                .setTitleText("Recipe added successfully").
+                setConfirmText("OK")
+                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                        Fragment fragment = new MainFragment();
+                        getFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
+                        sweetAlertDialog.dismiss();
+                    }
+                }).
+                show();
+    }
+
+    public String getPath(Uri uri) {
+        String[] projection = {MediaStore.Images.Media.DATA};
+        Cursor cursor = getActivity().getContentResolver().query(uri, projection, null, null, null);
+        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        cursor.moveToFirst();
+        int columnIndex = cursor.getColumnIndex(projection[0]);
+        String filePath = cursor.getString(columnIndex);
+
+        ivImageView.setImageBitmap(BitmapFactory.decodeFile(filePath));
+        return cursor.getString(column_index);
+
     }
 }

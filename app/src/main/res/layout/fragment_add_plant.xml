@@ -62,7 +62,7 @@
                 android:text="Classic"
                 android:textColor="#eacb61"
 
-                android:textSize="10sp" />
+                android:textSize="8sp" />
 
             <Button
                 android:id="@+id/btn_tags_modern"
@@ -72,7 +72,7 @@
                 android:background="@drawable/button_orange_border"
                 android:text="Modern"
                 android:textColor="#eacb61"
-                android:textSize="10sp" />
+                android:textSize="8sp" />
 
             <Button
                 android:id="@+id/btn_tags_steambath"
@@ -82,7 +82,7 @@
                 android:background="@drawable/button_orange_border"
                 android:text="Steambath"
                 android:textColor="#eacb61"
-                android:textSize="10sp" />
+                android:textSize="8sp" />
 
             <Button
                 android:id="@+id/btn_tags_smoke"
@@ -92,7 +92,7 @@
                 android:background="@drawable/button_orange_border"
                 android:text="Smoke"
                 android:textColor="#eacb61"
-                android:textSize="10sp" />
+                android:textSize="8sp" />
 
             <Button
                 android:id="@+id/btn_tags_show"
@@ -102,7 +102,7 @@
                 android:background="@drawable/button_orange_border"
                 android:text="Show"
                 android:textColor="#eacb61"
-                android:textSize="10sp" />
+                android:textSize="8sp" />
         </LinearLayout>
 
         <TextView
