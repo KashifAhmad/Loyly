@@ -9,6 +9,8 @@ import com.ghosttech.myloyly.fragments.AufgussMainFragment;
 import com.ghosttech.myloyly.fragments.ChartsFragment;
 import com.ghosttech.myloyly.R;
 import com.ghosttech.myloyly.fragments.EssesntialOilFragment;
+import com.ghosttech.myloyly.fragments.RegistrationFragment;
+import com.ghosttech.myloyly.utilities.Configuration;
 
 public class MainActivity extends AppCompatActivity {
     Fragment fragment;

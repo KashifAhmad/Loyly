@@ -6,5 +6,8 @@ package com.ghosttech.myloyly.utilities;
 
 public class Configuration {
     public static final String END_POINT_LIVE = "http://swatshawls.com/loyly/Apis/savedata";
+    public static final String USER_URL = "http://swatshawls.com/loyly/Users";
+    public static boolean FLAG_SIGN_UP = false;
+    public static boolean FLAG_SIGN_IN = false;
 
 }
