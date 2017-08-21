@@ -1,12 +1,10 @@
 package com.ghosttech.myloyly.fragments;
 
-import android.content.SharedPreferences;
+import android.content.Context;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
-import android.text.SpannableString;
-import android.text.style.UnderlineSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -16,8 +14,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ScrollView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -38,12 +34,12 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link LoginFragment.OnFragmentInteractionListener} interface
+ * {@link ForgetPasswordFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link LoginFragment#newInstance} factory method to
+ * Use the {@link ForgetPasswordFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class LoginFragment extends Fragment {
+public class ForgetPasswordFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -52,16 +48,12 @@ public class LoginFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    EditText etName, etEmail, etPassword;
-    Button btnSubmit;
-    String strName, strEmail, strPassword;
-    private OnFragmentInteractionListener mListener;
-    SharedPreferences sharedPreferences;
-    SharedPreferences.Editor editor;
-    TextView tvSkip, tvForgotPassword;
     SweetAlertDialog pDialog;
-
-    public LoginFragment() {
+    private OnFragmentInteractionListener mListener;
+    EditText etForgotPassword;
+    String strForgetEmail;
+    Button btnForgetPassword;
+    public ForgetPasswordFragment() {
         // Required empty public constructor
     }
 
@@ -71,11 +63,11 @@ public class LoginFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment LoginFragment.
+     * @return A new instance of fragment ForgetPasswordFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static LoginFragment newInstance(String param1, String param2) {
-        LoginFragment fragment = new LoginFragment();
+    public static ForgetPasswordFragment newInstance(String param1, String param2) {
+        ForgetPasswordFragment fragment = new ForgetPasswordFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -96,89 +88,49 @@ public class LoginFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_login, container, false);
-        sharedPreferences = getActivity().getSharedPreferences("com.loyly", 0);
-        editor = sharedPreferences.edit();
-        tvSkip = (TextView) view.findViewById(R.id.tvSkip);
-        tvForgotPassword = (TextView)view.findViewById(R.id.tv_forget_password);
+        View view = inflater.inflate(R.layout.fragment_forget_password, container, false);
+        etForgotPassword = (EditText)view.findViewById(R.id.et_forget__email);
 
         pDialog = new SweetAlertDialog(getActivity(), SweetAlertDialog.PROGRESS_TYPE);
         pDialog.getProgressHelper().setBarColor(Color.parseColor("#179e99"));
-        pDialog.setTitleText("Getting Login");
-        pDialog.setCancelable(false);
-
-        SpannableString contentRegister = new SpannableString("New user? Register Here");
-        contentRegister.setSpan(new UnderlineSpan(), 0, contentRegister.length(), 0);
-        tvSkip.setText(contentRegister);
-
-        SpannableString contentForgetPassword = new SpannableString("Forgot Password?");
-        contentForgetPassword.setSpan(new UnderlineSpan(), 0, contentForgetPassword.length(), 0);
-        tvForgotPassword.setText(contentForgetPassword);
-        tvForgotPassword.setOnClickListener(new View.OnClickListener() {
+        pDialog.setTitleText("Sending code");
+        btnForgetPassword = (Button)view.findViewById(R.id.btn_forget_send);
+        btnForgetPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Fragment fragment = new ForgetPasswordFragment();
-                getFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
-            }
-        });
-        ScrollView scrollView = (ScrollView) view.findViewById(R.id.sv_scroll_view);
-        scrollView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(getActivity().INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-                return false;
-            }
-        });
-        tvSkip.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Fragment fragment = new RegistrationFragment();
-                getFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
-            }
-        });
-        etEmail = (EditText) view.findViewById(R.id.et_email);
-        etPassword = (EditText) view.findViewById(R.id.et_password);
-        btnSubmit = (Button) view.findViewById(R.id.btn_submit);
-        btnSubmit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                strEmail = etEmail.getText().toString();
-                strPassword = etPassword.getText().toString();
-                if ((!android.util.Patterns.EMAIL_ADDRESS.matcher(strEmail).matches())) {
-                    etEmail.setError("Please enter valid email id");
-                } else if (strPassword.equals("") || strPassword.length() < 3) {
-                    etPassword.setError("Password should be greater than 3 characters");
-                } else {
-                    pDialog.show();
-                    apiCall();
-                }
+                pDialog.show();
+                strForgetEmail = etForgotPassword.getText().toString();
+                Log.d("zma email",strForgetEmail);
+                apiCall();
             }
         });
         return view;
     }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
-
     public void apiCall() {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, Configuration.USER_URL + "/signin"
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Configuration.USER_URL + "/forgot"
                 , new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                if (!response.contains("Authentication Failed")) {
+                Log.d("zma response forgot",response);
+                if (response.contains("Verification code is sent to you via email.")) {
                     pDialog.dismiss();
-                    Fragment fragment = new MainFragment();
-                    getFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
-                    editor.putBoolean("loggedIn", true).commit();
-                } else {
+                    new SweetAlertDialog(getActivity(), SweetAlertDialog.SUCCESS_TYPE)
+                            .setTitleText("Code is sent to you via email")
+                            .setConfirmText("OK")
+                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                @Override
+                                public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                    Fragment fragment = new ForgotCodeFragment();
+                                    getFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
+                                    sweetAlertDialog.dismiss();
+                                }
+                            })
+                            .show();
+                    //editor.putBoolean("loggedIn", true).commit();
+                } else if (response.contains("Email doesn't exists")){
                     pDialog.dismiss();
                     new SweetAlertDialog(getActivity(), SweetAlertDialog.WARNING_TYPE)
-                            .setTitleText("Invalid credentials")
+                            .setTitleText("Email doesn't exists")
                             .show();
                 }
             }
@@ -200,8 +152,7 @@ public class LoginFragment extends Fragment {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                params.put("email", strEmail);
-                params.put("password", strPassword);
+                params.put("email", strForgetEmail);
                 return params;
             }
 
@@ -211,6 +162,13 @@ public class LoginFragment extends Fragment {
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         mRequestQueue.add(stringRequest);
+    }
+
+    // TODO: Rename method, update argument and hook method into UI event
+    public void onButtonPressed(Uri uri) {
+        if (mListener != null) {
+            mListener.onFragmentInteraction(uri);
+        }
     }
 
     @Override
