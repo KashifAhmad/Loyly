@@ -110,7 +110,7 @@ public class MainFragment extends Fragment {
         lLAufguss.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                fragment = new AddPlantFragment();
+                fragment = new AufgussByTagFragment();
                 getFragmentManager().beginTransaction().replace(R.id.fragment_container,fragment).addToBackStack("tags").commit();
 //                Intent intent = new Intent(getActivity(),MainActivity.class);
 //                intent.putExtra("frag_id","aufguss");

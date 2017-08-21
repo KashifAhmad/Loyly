@@ -1,0 +1,106 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.ghosttech.myloyly.fragments.AufgussByTagFragment">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:background="#fff"
+        android:padding="5dp">
+
+        <Button
+            android:id="@+id/btn_all_tags"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/button_orange_border"
+            android:text="All"
+            android:textColor="#eacb61" />
+
+        <Button
+            android:id="@+id/btn_my_tags"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/button_orange_border"
+            android:text="My"
+            android:textColor="#eacb61" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="60dp"
+        android:background="#fff"
+        android:padding="5dp">
+
+        <Button
+            android:id="@+id/btn_tags_classic"
+            android:layout_width="1dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/button_orange_border"
+            android:text="Classic"
+            android:textColor="#eacb61"
+            android:textSize="8sp" />
+
+        <Button
+            android:id="@+id/btn_tags_modern"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/button_orange_border"
+            android:text="Modern"
+            android:textColor="#eacb61"
+            android:textSize="8sp" />
+
+        <Button
+            android:id="@+id/btn_tags_steambath"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/button_orange_border"
+            android:text="Steambath"
+            android:textColor="#eacb61"
+            android:textSize="8sp" />
+
+        <Button
+            android:id="@+id/btn_tags_smoke"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/button_orange_border"
+            android:text="Smoke"
+            android:textColor="#eacb61"
+            android:textSize="8sp" />
+
+        <Button
+            android:id="@+id/btn_tags_show"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/button_orange_border"
+            android:text="Show"
+            android:textColor="#eacb61"
+            android:textSize="8sp" />
+
+        <Button
+            android:id="@+id/btn_in_tags_all"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/button_orange_border"
+            android:text="All"
+            android:textColor="#eacb61"
+            android:textSize="8sp" />
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="120dp"></android.support.v7.widget.RecyclerView>
+</FrameLayout>

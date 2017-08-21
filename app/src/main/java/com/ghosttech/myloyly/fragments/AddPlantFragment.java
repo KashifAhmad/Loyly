@@ -294,24 +294,6 @@ public class AddPlantFragment extends Fragment implements View.OnClickListener {
 
     }
 
-
-//    public void Add_Line() {
-//        Log.d("zma addline", "sho");
-//        TableLayout ll = (TableLayout) view.findViewById(R.id.ll_main_layout);
-//        // add edittext
-//        EditText et = new EditText(getActivity());
-//        p = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-//        p.topMargin = 10;
-//
-//
-//        int paddingPixel = 25;
-//        et.setPadding(12, 0, 0, 0);
-//        et.setLayoutParams(p);
-//        et.setBackgroundResource(R.drawable.edit_text_bg);
-//        et.setHint("Text");
-//        ll.addView(et);
-//    }
-
     @Override
     public void onDetach() {
         super.onDetach();
