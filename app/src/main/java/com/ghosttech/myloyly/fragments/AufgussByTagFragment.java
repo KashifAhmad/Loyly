@@ -5,13 +5,33 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.ghosttech.myloyly.R;
+import com.ghosttech.myloyly.utilities.AddByTagAdapter;
+import com.ghosttech.myloyly.utilities.Configuration;
+import com.ghosttech.myloyly.utilities.GetByTagHelper;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,6 +47,10 @@ public class AufgussByTagFragment extends Fragment implements View.OnClickListen
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     Button btnTagsClassic, btnTagsModern, btnTagSteamBath, btnTagsSmoke, btnTagsShow, btnAllTags, btnMyTags, btnInTagsAll;
+    RecyclerView myRecyclerView;
+    AddByTagAdapter addByTagAdapter;
+    RecyclerView.LayoutManager layoutManager;
+    ArrayList<GetByTagHelper> byTagHelpers = new ArrayList<>();
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -69,6 +93,13 @@ public class AufgussByTagFragment extends Fragment implements View.OnClickListen
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_aufguss_by_tag, container, false);
+
+        myRecyclerView = (RecyclerView) view.findViewById(R.id.rv_by_tags);
+        layoutManager = new LinearLayoutManager(getActivity());
+        myRecyclerView.setLayoutManager(layoutManager);
+
+
+
         btnTagsModern = (Button) view.findViewById(R.id.btn_tags_modern);
         btnTagsShow = (Button) view.findViewById(R.id.btn_tags_show);
         btnTagsSmoke = (Button) view.findViewById(R.id.btn_tags_smoke);
@@ -86,11 +117,57 @@ public class AufgussByTagFragment extends Fragment implements View.OnClickListen
         btnAllTags.setOnClickListener(this);
         btnMyTags.setOnClickListener(this);
 
+
+
+        addByTagAdapter = new AddByTagAdapter(getActivity(), byTagHelpers);
+        myRecyclerView.setAdapter(addByTagAdapter);
+        addByTagAdapter.notifyDataSetChanged();
         return view;
     }
 
+    public void getDataFromAPI(String strTags) {
+        final String url = Configuration.GET_BY_TAGS_URL+strTags;
+        Log.d("zma url -response",url);
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.d("zma response", String.valueOf(response)+"\n url :"+url);
+                try {
+                    JSONArray jsonArray = response.getJSONArray("data");
+                    for(int i = 0; i<jsonArray.length(); i++) {
+                        JSONObject tempObject = jsonArray.getJSONObject(i);
+                        GetByTagHelper jsonHelper = new GetByTagHelper();
+                        jsonHelper.setStrGetByTagTitle(tempObject.getString("title"));
+                        jsonHelper.setStrGetByTagTime(tempObject.getString("time"));
+                        jsonHelper.setStrGetByTagTAG(tempObject.getString("tags"));
+                        //jsonHelper.setGetByTagImageID(tempObject.getInt("picture"));
+                        byTagHelpers.add(jsonHelper);
+                    }
+                    addByTagAdapter.notifyDataSetChanged();
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+        jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(200000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+        RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+        requestQueue.add(jsonObjectRequest);
+
+    }
+
+
     @Override
     public void onClick(View view) {
+
         switch (view.getId()) {
             case R.id.btn_tags_classic:
                 strTags = "Classic";
@@ -103,6 +180,7 @@ public class AufgussByTagFragment extends Fragment implements View.OnClickListen
                 btnAllTags.setTextColor(Color.parseColor("#eacb61"));
                 btnInTagsAll.setTextColor(Color.parseColor("#eacb61"));
                 btnMyTags.setTextColor(Color.parseColor("#eacb61"));
+
 
                 btnAllTags.setBackgroundResource(R.drawable.button_orange_border);
                 btnInTagsAll.setBackgroundResource(R.drawable.button_orange_border);
@@ -263,9 +341,13 @@ public class AufgussByTagFragment extends Fragment implements View.OnClickListen
                 btnTagsShow.setBackgroundResource(R.drawable.button_orange_border);
                 btnTagsSmoke.setBackgroundResource(R.drawable.button_orange_border);
                 break;
-
         }
+        Log.d("zma tag",strTags);
+        getDataFromAPI(strTags);
+
+
     }
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
