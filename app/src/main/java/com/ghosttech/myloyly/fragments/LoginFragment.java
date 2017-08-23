@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.annotation.Nullable;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
 import android.util.Log;
@@ -27,6 +28,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.ghosttech.myloyly.BuildConfig;
 import com.ghosttech.myloyly.R;
 import com.ghosttech.myloyly.utilities.Configuration;
 
@@ -156,6 +158,15 @@ public class LoginFragment extends Fragment {
             }
         });
         return view;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        if(BuildConfig.DEBUG){
+            etEmail.setText("Kashif@gmail.com");
+            etPassword.setText("Kashif");
+        }
     }
 
     // TODO: Rename method, update argument and hook method into UI event

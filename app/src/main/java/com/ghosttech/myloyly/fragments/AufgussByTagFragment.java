@@ -147,7 +147,7 @@ public class AufgussByTagFragment extends Fragment implements View.OnClickListen
                         jsonHelper.setStrGetByTagTAG(tempObject.getString("tags"));
                         jsonHelper.setGetByTagImageID(tempObject.getString("picture"));
                         Log.d("zma objects",String.valueOf(tempObject.getString("title")+"\n"+
-                                tempObject.getString("time")+"\n"+tempObject.getString("tags")));
+                                tempObject.getString("time")+"\n"+tempObject.getString("picture")));
                         byTagHelpers.add(jsonHelper);
                     }
                     addByTagAdapter.notifyDataSetChanged();

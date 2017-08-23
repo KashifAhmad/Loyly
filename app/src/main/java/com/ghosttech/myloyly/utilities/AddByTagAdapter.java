@@ -1,5 +1,6 @@
 package com.ghosttech.myloyly.utilities;
 
+import android.app.Activity;
 import android.content.Context;
 import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.ghosttech.myloyly.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -32,7 +34,6 @@ public class AddByTagAdapter extends RecyclerView.Adapter<AddByTagAdapter.ViewHo
 
         public ViewHolder(View v) {
             super(v);
-            Log.d("zma view holder","show sho");
             tvByTagsTags = (TextView)itemView.findViewById(R.id.tv_tags_tags);
             tvByTagsTitle = (TextView)itemView.findViewById(R.id.tv_by_tags_title);
             tvByTagsTime = (TextView)itemView.findViewById(R.id.tv_by_tag_time);
@@ -56,7 +57,7 @@ public class AddByTagAdapter extends RecyclerView.Adapter<AddByTagAdapter.ViewHo
 
     @Override
     public int getItemCount() {
-        return 0;
+        return getByTagHelpers.size();
     }
 
 
@@ -64,12 +65,12 @@ public class AddByTagAdapter extends RecyclerView.Adapter<AddByTagAdapter.ViewHo
     @Override
     public void onBindViewHolder(AddByTagAdapter.ViewHolder holder, int position) {
         GetByTagHelper  myHelper = getByTagHelpers.get(position);
-//        Glide.with( (AppCompatActivity) context).load("http://swatshawls.com/loyly/assets/uploads/"
-//                 +myHelper.getByTagImageID).into(holder.ivByTagsImage);
+        String url = "http://swatshawls.com/loyly/assets/uploads/"+myHelper.getByTagImageID;
+        Picasso.with(this.context).load(url).into(holder.ivByTagsImage);
         holder.tvByTagsTitle.setText(myHelper.getStrGetByTagTitle());
         holder.tvByTagsTime.setText(myHelper.getStrGetByTagTime());
         holder.tvByTagsTags.setText(myHelper.getStrGetByTagTAG());
-        Log.d("zma viewholder","show sho");
+
     }
 
     @Override
