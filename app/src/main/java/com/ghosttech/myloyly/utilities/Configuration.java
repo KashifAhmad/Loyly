@@ -9,6 +9,6 @@ public class Configuration {
     public static final String USER_URL = "http://swatshawls.com/loyly/Users";
     public static boolean FLAG_SIGN_UP = false;
     public static boolean FLAG_SIGN_IN = false;
-    public static String GET_BY_TAGS_URL = "http://swatshawls.com/loyly/Apis/getdata/";
+    public static String GET_BY_TAGS_URL = "http://swatshawls.com/loyly/Apis/getbytag/";
 
 }

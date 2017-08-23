@@ -5,11 +5,14 @@ package com.ghosttech.myloyly.utilities;
  */
 
 public class GetByTagHelper {
-    String strGetByTagTitle, strGetByTagTime, strGetByTagTAG;
-    int getByTagImageID;
+    String strGetByTagTitle, strGetByTagTime, strGetByTagTAG, getByTagImageID;
 
-    public int getGetByTagImageID() {
+    public String getGetByTagImageID() {
         return getByTagImageID;
+    }
+
+    public void setGetByTagImageID(String getByTagImageID) {
+        this.getByTagImageID = getByTagImageID;
     }
 
     public String getStrGetByTagTAG() {
@@ -24,9 +27,6 @@ public class GetByTagHelper {
         return strGetByTagTitle;
     }
 
-    public void setGetByTagImageID(int getByTagImageID) {
-        this.getByTagImageID = getByTagImageID;
-    }
 
     public void setStrGetByTagTAG(String strGetByTagTAG) {
         this.strGetByTagTAG = strGetByTagTAG;

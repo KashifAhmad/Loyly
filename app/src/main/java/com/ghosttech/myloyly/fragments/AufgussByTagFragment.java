@@ -33,6 +33,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
@@ -48,15 +50,17 @@ public class AufgussByTagFragment extends Fragment implements View.OnClickListen
     private static final String ARG_PARAM2 = "param2";
     Button btnTagsClassic, btnTagsModern, btnTagSteamBath, btnTagsSmoke, btnTagsShow, btnAllTags, btnMyTags, btnInTagsAll;
     RecyclerView myRecyclerView;
-    AddByTagAdapter addByTagAdapter;
+    RecyclerView.Adapter addByTagAdapter;
     RecyclerView.LayoutManager layoutManager;
-    ArrayList<GetByTagHelper> byTagHelpers = new ArrayList<>();
+    ArrayList<GetByTagHelper> byTagHelpers;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    String strTags;
+    String strTags = null;
+    SweetAlertDialog pDialog;
     private OnFragmentInteractionListener mListener;
-
+    boolean flag = false;
+    RequestQueue requestQueue;
     public AufgussByTagFragment() {
         // Required empty public constructor
     }
@@ -97,8 +101,12 @@ public class AufgussByTagFragment extends Fragment implements View.OnClickListen
         myRecyclerView = (RecyclerView) view.findViewById(R.id.rv_by_tags);
         layoutManager = new LinearLayoutManager(getActivity());
         myRecyclerView.setLayoutManager(layoutManager);
-
-
+        pDialog = new SweetAlertDialog(getActivity(), SweetAlertDialog.PROGRESS_TYPE);
+        pDialog.getProgressHelper().setBarColor(Color.parseColor("#179e99"));
+        pDialog.setTitleText("Wait a while");
+        requestQueue = Volley.newRequestQueue(getActivity());
+        byTagHelpers = new ArrayList<>();
+        myRecyclerView.setHasFixedSize(true);
 
         btnTagsModern = (Button) view.findViewById(R.id.btn_tags_modern);
         btnTagsShow = (Button) view.findViewById(R.id.btn_tags_show);
@@ -117,41 +125,42 @@ public class AufgussByTagFragment extends Fragment implements View.OnClickListen
         btnAllTags.setOnClickListener(this);
         btnMyTags.setOnClickListener(this);
 
-
-
-        addByTagAdapter = new AddByTagAdapter(getActivity(), byTagHelpers);
-        myRecyclerView.setAdapter(addByTagAdapter);
-        addByTagAdapter.notifyDataSetChanged();
         return view;
     }
 
     public void getDataFromAPI(String strTags) {
-        final String url = Configuration.GET_BY_TAGS_URL+strTags;
-        Log.d("zma url -response",url);
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, new Response.Listener<JSONObject>() {
+
+        final String url = Configuration.GET_BY_TAGS_URL + strTags;
+        Log.d("zma url -response", url);
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                Log.d("zma response", String.valueOf(response)+"\n url :"+url);
+                Log.d("zma response", String.valueOf(response) + "\n url :" + url);
                 try {
+                    pDialog.dismiss();
                     JSONArray jsonArray = response.getJSONArray("data");
-                    for(int i = 0; i<jsonArray.length(); i++) {
-                        JSONObject tempObject = jsonArray.getJSONObject(i);
+                    for (int i = 0; i < jsonArray.length(); i++) {
                         GetByTagHelper jsonHelper = new GetByTagHelper();
+                        JSONObject tempObject = jsonArray.getJSONObject(i);
                         jsonHelper.setStrGetByTagTitle(tempObject.getString("title"));
                         jsonHelper.setStrGetByTagTime(tempObject.getString("time"));
                         jsonHelper.setStrGetByTagTAG(tempObject.getString("tags"));
-                        //jsonHelper.setGetByTagImageID(tempObject.getInt("picture"));
+                        jsonHelper.setGetByTagImageID(tempObject.getString("picture"));
+                        Log.d("zma objects",String.valueOf(tempObject.getString("title")+"\n"+
+                                tempObject.getString("time")+"\n"+tempObject.getString("tags")));
                         byTagHelpers.add(jsonHelper);
                     }
                     addByTagAdapter.notifyDataSetChanged();
 
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    Toast.makeText(getActivity(), String.valueOf(e), Toast.LENGTH_SHORT).show();
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getActivity(), String.valueOf(error), Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -159,7 +168,7 @@ public class AufgussByTagFragment extends Fragment implements View.OnClickListen
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
-        RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+
         requestQueue.add(jsonObjectRequest);
 
     }
@@ -319,6 +328,7 @@ public class AufgussByTagFragment extends Fragment implements View.OnClickListen
                 btnTagsClassic.setBackgroundResource(R.drawable.button_orange_border);
                 btnTagsShow.setBackgroundResource(R.drawable.button_orange_border);
                 btnTagsSmoke.setBackgroundResource(R.drawable.button_orange_border);
+
                 break;
             case R.id.btn_my_tags:
                 strTags = "my";
@@ -340,10 +350,16 @@ public class AufgussByTagFragment extends Fragment implements View.OnClickListen
                 btnTagsClassic.setBackgroundResource(R.drawable.button_orange_border);
                 btnTagsShow.setBackgroundResource(R.drawable.button_orange_border);
                 btnTagsSmoke.setBackgroundResource(R.drawable.button_orange_border);
+
+
                 break;
         }
-        Log.d("zma tag",strTags);
+        Log.d("zma tag click", strTags);
+        flag = true;
+        pDialog.show();
         getDataFromAPI(strTags);
+        addByTagAdapter = new AddByTagAdapter(getActivity(), byTagHelpers);
+        myRecyclerView.setAdapter(addByTagAdapter);
 
 
     }
