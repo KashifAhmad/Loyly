@@ -12,9 +12,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.ghosttech.myloyly.R;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -44,6 +46,7 @@ public class AddByTagAdapter extends RecyclerView.Adapter<AddByTagAdapter.ViewHo
     }
 
     public AddByTagAdapter(Context context, List<GetByTagHelper> getByTagHelpers){
+        getByTagHelpers.clear();
         this.context = context;
         this.getByTagHelpers = getByTagHelpers;
     }
@@ -68,7 +71,7 @@ public class AddByTagAdapter extends RecyclerView.Adapter<AddByTagAdapter.ViewHo
         String url = "http://swatshawls.com/loyly/assets/uploads/"+myHelper.getByTagImageID;
         Picasso.with(this.context).load(url).into(holder.ivByTagsImage);
         holder.tvByTagsTitle.setText(myHelper.getStrGetByTagTitle());
-        holder.tvByTagsTime.setText(myHelper.getStrGetByTagTime());
+        holder.tvByTagsTime.setText(myHelper.getStrGetByTagTime()+" minutes");
         holder.tvByTagsTags.setText(myHelper.getStrGetByTagTAG());
 
     }

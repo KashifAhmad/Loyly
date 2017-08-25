@@ -112,6 +112,7 @@ public class EssentailOilDetailFragment extends Fragment {
         tvOilTags = (TextView) view.findViewById(R.id.tv_oil_tags);
         tvTransparentBotanicalName = (TextView) view.findViewById(R.id.tv_trans_botanical_name);
         args = getArguments();
+        strPlantName = args.getString("oil_title");
 //        intRowId = args.getInt("row_id");
         intImageID = args.getInt("image_id");
         essentialOilHelper = args.getParcelable("EssentialOilObject");

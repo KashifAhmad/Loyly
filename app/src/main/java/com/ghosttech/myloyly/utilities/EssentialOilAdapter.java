@@ -81,6 +81,7 @@ public class EssentialOilAdapter extends RecyclerView.Adapter<EssentialOilAdapte
                 ((AppCompatActivity) context).getFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container_main, fragment).addToBackStack("tag").commit();
                 args.putInt("row_id",position);
+                args.putString("oil_title",oilHelper.getStrTitle());
                 args.putInt("image_id",oilHelper.intImageID[position]);
                 args.putParcelable("EssentialOilObject",oilHelper);
                 fragment.setArguments(args);

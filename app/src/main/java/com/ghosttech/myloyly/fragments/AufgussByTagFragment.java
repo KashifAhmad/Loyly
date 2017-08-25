@@ -1,6 +1,6 @@
 package com.ghosttech.myloyly.fragments;
 
-import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -12,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
@@ -59,8 +58,12 @@ public class AufgussByTagFragment extends Fragment implements View.OnClickListen
     String strTags = null;
     SweetAlertDialog pDialog;
     private OnFragmentInteractionListener mListener;
-    boolean flag = false;
+    boolean dataFlag = false;
     RequestQueue requestQueue;
+    String url = null;
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
+    String strUserID;
     public AufgussByTagFragment() {
         // Required empty public constructor
     }
@@ -98,6 +101,10 @@ public class AufgussByTagFragment extends Fragment implements View.OnClickListen
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_aufguss_by_tag, container, false);
 
+        sharedPreferences = getActivity().getSharedPreferences("com.loyly", 0);
+        editor = sharedPreferences.edit();
+        strUserID = sharedPreferences.getString("user_id","");
+        Log.d("zma user id", strUserID);
         myRecyclerView = (RecyclerView) view.findViewById(R.id.rv_by_tags);
         layoutManager = new LinearLayoutManager(getActivity());
         myRecyclerView.setLayoutManager(layoutManager);
@@ -124,18 +131,37 @@ public class AufgussByTagFragment extends Fragment implements View.OnClickListen
         btnInTagsAll.setOnClickListener(this);
         btnAllTags.setOnClickListener(this);
         btnMyTags.setOnClickListener(this);
+        dataFlag = true;
+        if (dataFlag){
+            pDialog.show();
+            url = "http://swatshawls.com/loyly/Apis/getdata/";
+            getDataFromAPI(strTags);
+            addByTagAdapter = new AddByTagAdapter(getActivity(), byTagHelpers);
+            myRecyclerView.setAdapter(addByTagAdapter);
+            btnAllTags.setBackgroundColor(Color.parseColor("#eacb61"));
+            btnAllTags.setTextColor(Color.WHITE);
+            btnInTagsAll.setTextColor(Color.WHITE);
+            btnInTagsAll.setBackgroundColor(Color.parseColor("#eacb61"));
+            dataFlag = false;
+        }
 
         return view;
     }
 
     public void getDataFromAPI(String strTags) {
 
-        final String url = Configuration.GET_BY_TAGS_URL + strTags;
+        if (dataFlag) {
+            url = "http://swatshawls.com/loyly/Apis/getdata/";
+            dataFlag = false;
+        } else {
+            url = Configuration.GET_BY_TAGS_URL + strTags;
+        }
         Log.d("zma url -response", url);
+        final String finalUrl = url;
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                Log.d("zma response", String.valueOf(response) + "\n url :" + url);
+                Log.d("zma response", String.valueOf(response) + "\n url :" + finalUrl);
                 try {
                     pDialog.dismiss();
                     JSONArray jsonArray = response.getJSONArray("data");
@@ -145,9 +171,9 @@ public class AufgussByTagFragment extends Fragment implements View.OnClickListen
                         jsonHelper.setStrGetByTagTitle(tempObject.getString("title"));
                         jsonHelper.setStrGetByTagTime(tempObject.getString("time"));
                         jsonHelper.setStrGetByTagTAG(tempObject.getString("tags"));
-                        jsonHelper.setGetByTagImageID(tempObject.getString("picture"));
-                        Log.d("zma objects",String.valueOf(tempObject.getString("title")+"\n"+
-                                tempObject.getString("time")+"\n"+tempObject.getString("picture")));
+                        jsonHelper.setGetByTagImageID(tempObject.getString("pic_renamed"));
+                        Log.d("zma objects", String.valueOf(tempObject.getString("title") + "\n" +
+                                tempObject.getString("time") + "\n" + tempObject.getString("pic_renamed")));
                         byTagHelpers.add(jsonHelper);
                     }
                     addByTagAdapter.notifyDataSetChanged();
@@ -198,6 +224,9 @@ public class AufgussByTagFragment extends Fragment implements View.OnClickListen
                 btnTagsModern.setBackgroundResource(R.drawable.button_orange_border);
                 btnTagsSmoke.setBackgroundResource(R.drawable.button_orange_border);
                 btnTagSteamBath.setBackgroundResource(R.drawable.button_orange_border);
+
+                pDialog.show();
+                getDataFromAPI(strTags);
                 break;
             case R.id.btn_tags_modern:
                 strTags = "Modern";
@@ -221,6 +250,9 @@ public class AufgussByTagFragment extends Fragment implements View.OnClickListen
                 btnTagsClassic.setBackgroundResource(R.drawable.button_orange_border);
                 btnTagsSmoke.setBackgroundResource(R.drawable.button_orange_border);
                 btnTagSteamBath.setBackgroundResource(R.drawable.button_orange_border);
+
+                pDialog.show();
+                getDataFromAPI(strTags);
                 break;
             case R.id.btn_tags_show:
                 strTags = "Show";
@@ -243,6 +275,9 @@ public class AufgussByTagFragment extends Fragment implements View.OnClickListen
                 btnTagsClassic.setBackgroundResource(R.drawable.button_orange_border);
                 btnTagsSmoke.setBackgroundResource(R.drawable.button_orange_border);
                 btnTagSteamBath.setBackgroundResource(R.drawable.button_orange_border);
+
+                pDialog.show();
+                getDataFromAPI(strTags);
                 break;
             case R.id.btn_tags_smoke:
                 strTags = "Smoke";
@@ -265,6 +300,9 @@ public class AufgussByTagFragment extends Fragment implements View.OnClickListen
                 btnTagsClassic.setBackgroundResource(R.drawable.button_orange_border);
                 btnTagsShow.setBackgroundResource(R.drawable.button_orange_border);
                 btnTagSteamBath.setBackgroundResource(R.drawable.button_orange_border);
+
+                pDialog.show();
+                getDataFromAPI(strTags);
                 break;
             case R.id.btn_tags_steambath:
                 strTags = "SteamBath";
@@ -287,6 +325,9 @@ public class AufgussByTagFragment extends Fragment implements View.OnClickListen
                 btnTagsClassic.setBackgroundResource(R.drawable.button_orange_border);
                 btnTagsShow.setBackgroundResource(R.drawable.button_orange_border);
                 btnTagsSmoke.setBackgroundResource(R.drawable.button_orange_border);
+
+                pDialog.show();
+                getDataFromAPI(strTags);
                 break;
             case R.id.btn_all_tags:
                 strTags = "all";
@@ -308,12 +349,16 @@ public class AufgussByTagFragment extends Fragment implements View.OnClickListen
                 btnTagsClassic.setBackgroundResource(R.drawable.button_orange_border);
                 btnTagsShow.setBackgroundResource(R.drawable.button_orange_border);
                 btnTagsSmoke.setBackgroundResource(R.drawable.button_orange_border);
+                dataFlag = true;
+                pDialog.show();
+                getDataFromAPI(strTags);
                 break;
             case R.id.btn_in_tags_all:
                 strTags = "all";
                 btnAllTags.setBackgroundColor(Color.parseColor("#eacb61"));
                 btnAllTags.setTextColor(Color.WHITE);
                 btnInTagsAll.setTextColor(Color.WHITE);
+                btnInTagsAll.setBackgroundColor(Color.parseColor("#eacb61"));
                 btnTagSteamBath.setTextColor(Color.parseColor("#eacb61"));
                 btnTagsShow.setTextColor(Color.parseColor("#eacb61"));
                 btnTagsModern.setTextColor(Color.parseColor("#eacb61"));
@@ -322,13 +367,15 @@ public class AufgussByTagFragment extends Fragment implements View.OnClickListen
                 btnMyTags.setTextColor(Color.parseColor("#eacb61"));
 
                 btnMyTags.setBackgroundResource(R.drawable.button_orange_border);
-                btnInTagsAll.setBackgroundColor(Color.parseColor("#eacb61"));
+
                 btnTagSteamBath.setBackgroundResource(R.drawable.button_orange_border);
                 btnTagsModern.setBackgroundResource(R.drawable.button_orange_border);
                 btnTagsClassic.setBackgroundResource(R.drawable.button_orange_border);
                 btnTagsShow.setBackgroundResource(R.drawable.button_orange_border);
                 btnTagsSmoke.setBackgroundResource(R.drawable.button_orange_border);
-
+                dataFlag = true;
+                pDialog.show();
+                getDataFromAPI(strTags);
                 break;
             case R.id.btn_my_tags:
                 strTags = "my";
@@ -355,9 +402,6 @@ public class AufgussByTagFragment extends Fragment implements View.OnClickListen
                 break;
         }
         Log.d("zma tag click", strTags);
-        flag = true;
-        pDialog.show();
-        getDataFromAPI(strTags);
         addByTagAdapter = new AddByTagAdapter(getActivity(), byTagHelpers);
         myRecyclerView.setAdapter(addByTagAdapter);
 

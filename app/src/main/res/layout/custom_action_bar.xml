@@ -22,7 +22,7 @@
         android:layout_centerInParent="true"
         android:layout_marginLeft="10dp"
         android:paddingTop="5dp"
-        android:text="fetching location..."
+        android:text=""
         android:textAllCaps="true"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="#fff"

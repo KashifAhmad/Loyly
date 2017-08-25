@@ -32,6 +32,9 @@ import com.ghosttech.myloyly.BuildConfig;
 import com.ghosttech.myloyly.R;
 import com.ghosttech.myloyly.utilities.Configuration;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -102,7 +105,7 @@ public class LoginFragment extends Fragment {
         sharedPreferences = getActivity().getSharedPreferences("com.loyly", 0);
         editor = sharedPreferences.edit();
         tvSkip = (TextView) view.findViewById(R.id.tvSkip);
-        tvForgotPassword = (TextView)view.findViewById(R.id.tv_forget_password);
+        tvForgotPassword = (TextView) view.findViewById(R.id.tv_forget_password);
 
         pDialog = new SweetAlertDialog(getActivity(), SweetAlertDialog.PROGRESS_TYPE);
         pDialog.getProgressHelper().setBarColor(Color.parseColor("#179e99"));
@@ -163,7 +166,7 @@ public class LoginFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        if(BuildConfig.DEBUG){
+        if (BuildConfig.DEBUG) {
             etEmail.setText("Kashif@gmail.com");
             etPassword.setText("Kashif");
         }
@@ -181,8 +184,17 @@ public class LoginFragment extends Fragment {
                 , new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+
                 if (!response.contains("Authentication Failed")) {
                     pDialog.dismiss();
+                    try {
+                        JSONObject jsonObject = new JSONObject(response);
+                        String strID = jsonObject.getString("id");
+                        editor.putString("user_id", strID).commit();
+                        Log.d("zma put string", strID);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                     Fragment fragment = new MainFragment();
                     getFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
                     editor.putBoolean("loggedIn", true).commit();
@@ -206,6 +218,7 @@ public class LoginFragment extends Fragment {
             @Override
             public String getBodyContentType() {
                 return "application/x-www-form-urlencoded;charset=UTF-8";
+
             }
 
             @Override
@@ -223,7 +236,6 @@ public class LoginFragment extends Fragment {
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         mRequestQueue.add(stringRequest);
     }
-
     @Override
     public void onDetach() {
         super.onDetach();
