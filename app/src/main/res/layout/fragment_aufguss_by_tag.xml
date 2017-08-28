@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.ghosttech.myloyly.fragments.AufgussByTagFragment">
+    tools:context="com.ghosttech.myloyly.fragments.GetByTagFragment">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -30,6 +30,14 @@
             android:text="My"
             android:textColor="#eacb61" />
     </LinearLayout>
+
+   <!-- <Button
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_gravity="end"
+        android:background="@drawable/button_orange_border"
+        android:text="Add Item"
+        android:textColor="#eacb61" />-->
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -104,4 +112,18 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="120dp"></android.support.v7.widget.RecyclerView>
+
+    <TextView
+        android:id="@+id/tv_empty_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:text="No data found" />
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_add_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@android:drawable/ic_input_add" />
 </FrameLayout>

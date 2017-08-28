@@ -5,7 +5,23 @@ package com.ghosttech.myloyly.utilities;
  */
 
 public class GetByTagHelper {
-    String strGetByTagTitle, strGetByTagTime, strGetByTagTAG, getByTagImageID;
+    String strGetByTagTitle, strGetByTagTime, strGetByTagTAG, getByTagImageID, strInstructions, strIngredients;
+
+    public String getStrIngredients() {
+        return strIngredients;
+    }
+
+    public String getStrInstructions() {
+        return strInstructions;
+    }
+
+    public void setStrIngredients(String strIngredients) {
+        this.strIngredients = strIngredients;
+    }
+
+    public void setStrInstructions(String strInstructions) {
+        this.strInstructions = strInstructions;
+    }
 
     public String getGetByTagImageID() {
         return getByTagImageID;

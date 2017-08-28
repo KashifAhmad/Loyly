@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -12,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
@@ -22,7 +24,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.ghosttech.myloyly.R;
-import com.ghosttech.myloyly.utilities.AddByTagAdapter;
+import com.ghosttech.myloyly.utilities.GetByTagAdapter;
 import com.ghosttech.myloyly.utilities.Configuration;
 import com.ghosttech.myloyly.utilities.GetByTagHelper;
 
@@ -37,12 +39,12 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link AufgussByTagFragment.OnFragmentInteractionListener} interface
+ * {@link GetByTagFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link AufgussByTagFragment#newInstance} factory method to
+ * Use the {@link GetByTagFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AufgussByTagFragment extends Fragment implements View.OnClickListener {
+public class GetByTagFragment extends Fragment implements View.OnClickListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -59,12 +61,16 @@ public class AufgussByTagFragment extends Fragment implements View.OnClickListen
     SweetAlertDialog pDialog;
     private OnFragmentInteractionListener mListener;
     boolean dataFlag = false;
+    boolean myDataFlag = false;
     RequestQueue requestQueue;
     String url = null;
+    TextView tvEmptyList;
+    String strMyData = null;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     String strUserID;
-    public AufgussByTagFragment() {
+
+    public GetByTagFragment() {
         // Required empty public constructor
     }
 
@@ -74,11 +80,11 @@ public class AufgussByTagFragment extends Fragment implements View.OnClickListen
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment AufgussByTagFragment.
+     * @return A new instance of fragment GetByTagFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static AufgussByTagFragment newInstance(String param1, String param2) {
-        AufgussByTagFragment fragment = new AufgussByTagFragment();
+    public static GetByTagFragment newInstance(String param1, String param2) {
+        GetByTagFragment fragment = new GetByTagFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -103,7 +109,7 @@ public class AufgussByTagFragment extends Fragment implements View.OnClickListen
 
         sharedPreferences = getActivity().getSharedPreferences("com.loyly", 0);
         editor = sharedPreferences.edit();
-        strUserID = sharedPreferences.getString("user_id","");
+        strUserID = sharedPreferences.getString("user_id", "");
         Log.d("zma user id", strUserID);
         myRecyclerView = (RecyclerView) view.findViewById(R.id.rv_by_tags);
         layoutManager = new LinearLayoutManager(getActivity());
@@ -111,10 +117,20 @@ public class AufgussByTagFragment extends Fragment implements View.OnClickListen
         pDialog = new SweetAlertDialog(getActivity(), SweetAlertDialog.PROGRESS_TYPE);
         pDialog.getProgressHelper().setBarColor(Color.parseColor("#179e99"));
         pDialog.setTitleText("Wait a while");
+        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab_add_item);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Fragment fragment = new AddPlantFragment();
+                getFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).addToBackStack("tag").commit();
+            }
+        });
+
         requestQueue = Volley.newRequestQueue(getActivity());
         byTagHelpers = new ArrayList<>();
         myRecyclerView.setHasFixedSize(true);
-
+        tvEmptyList = (TextView) view.findViewById(R.id.tv_empty_list);
+        tvEmptyList.setVisibility(View.GONE);
         btnTagsModern = (Button) view.findViewById(R.id.btn_tags_modern);
         btnTagsShow = (Button) view.findViewById(R.id.btn_tags_show);
         btnTagsSmoke = (Button) view.findViewById(R.id.btn_tags_smoke);
@@ -132,11 +148,11 @@ public class AufgussByTagFragment extends Fragment implements View.OnClickListen
         btnAllTags.setOnClickListener(this);
         btnMyTags.setOnClickListener(this);
         dataFlag = true;
-        if (dataFlag){
+        if (dataFlag) {
             pDialog.show();
             url = "http://swatshawls.com/loyly/Apis/getdata/";
             getDataFromAPI(strTags);
-            addByTagAdapter = new AddByTagAdapter(getActivity(), byTagHelpers);
+            addByTagAdapter = new GetByTagAdapter(getActivity(), byTagHelpers);
             myRecyclerView.setAdapter(addByTagAdapter);
             btnAllTags.setBackgroundColor(Color.parseColor("#eacb61"));
             btnAllTags.setTextColor(Color.WHITE);
@@ -149,10 +165,16 @@ public class AufgussByTagFragment extends Fragment implements View.OnClickListen
     }
 
     public void getDataFromAPI(String strTags) {
+        tvEmptyList.setVisibility(View.GONE);
 
         if (dataFlag) {
             url = "http://swatshawls.com/loyly/Apis/getdata/";
             dataFlag = false;
+        } else if (myDataFlag) {
+            url = "http://swatshawls.com/loyly/Apis/getdata/" + strUserID;
+            Log.d("zma my url", url);
+            myDataFlag = false;
+
         } else {
             url = Configuration.GET_BY_TAGS_URL + strTags;
         }
@@ -165,6 +187,7 @@ public class AufgussByTagFragment extends Fragment implements View.OnClickListen
                 try {
                     pDialog.dismiss();
                     JSONArray jsonArray = response.getJSONArray("data");
+
                     for (int i = 0; i < jsonArray.length(); i++) {
                         GetByTagHelper jsonHelper = new GetByTagHelper();
                         JSONObject tempObject = jsonArray.getJSONObject(i);
@@ -172,20 +195,28 @@ public class AufgussByTagFragment extends Fragment implements View.OnClickListen
                         jsonHelper.setStrGetByTagTime(tempObject.getString("time"));
                         jsonHelper.setStrGetByTagTAG(tempObject.getString("tags"));
                         jsonHelper.setGetByTagImageID(tempObject.getString("pic_renamed"));
-                        Log.d("zma objects", String.valueOf(tempObject.getString("title") + "\n" +
-                                tempObject.getString("time") + "\n" + tempObject.getString("pic_renamed")));
+                        jsonHelper.setStrIngredients(tempObject.getString("ingredient"));
+                        jsonHelper.setStrInstructions(tempObject.getString("steps"));
                         byTagHelpers.add(jsonHelper);
                     }
                     addByTagAdapter.notifyDataSetChanged();
+                    if (jsonArray.length() == 0) {
+                        tvEmptyList.setVisibility(View.VISIBLE);
+                        tvEmptyList.setText("No data found");
+                    }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    tvEmptyList.setVisibility(View.VISIBLE);
+                    tvEmptyList.setText(String.valueOf(e));
                     Toast.makeText(getActivity(), String.valueOf(e), Toast.LENGTH_SHORT).show();
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                tvEmptyList.setVisibility(View.VISIBLE);
+                tvEmptyList.setText(String.valueOf(error));
                 Toast.makeText(getActivity(), String.valueOf(error), Toast.LENGTH_SHORT).show();
 
             }
@@ -397,12 +428,14 @@ public class AufgussByTagFragment extends Fragment implements View.OnClickListen
                 btnTagsClassic.setBackgroundResource(R.drawable.button_orange_border);
                 btnTagsShow.setBackgroundResource(R.drawable.button_orange_border);
                 btnTagsSmoke.setBackgroundResource(R.drawable.button_orange_border);
-
+                myDataFlag = true;
+                getDataFromAPI(strTags);
+                pDialog.show();
 
                 break;
         }
         Log.d("zma tag click", strTags);
-        addByTagAdapter = new AddByTagAdapter(getActivity(), byTagHelpers);
+        addByTagAdapter = new GetByTagAdapter(getActivity(), byTagHelpers);
         myRecyclerView.setAdapter(addByTagAdapter);
 
 

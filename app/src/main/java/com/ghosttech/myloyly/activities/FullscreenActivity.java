@@ -11,12 +11,14 @@ import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.crashlytics.android.Crashlytics;
 import com.ghosttech.myloyly.R;
 import com.ghosttech.myloyly.fragments.LanguageFragment;
 import com.ghosttech.myloyly.fragments.LoginFragment;
 import com.ghosttech.myloyly.fragments.MainFragment;
 import com.ghosttech.myloyly.fragments.RegistrationFragment;
 import com.ghosttech.myloyly.utilities.Configuration;
+import io.fabric.sdk.android.Fabric;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -30,6 +32,7 @@ public class FullscreenActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Fabric.with(this, new Crashlytics());
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
         setContentView(R.layout.activity_fullscreen);

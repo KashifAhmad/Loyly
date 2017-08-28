@@ -110,7 +110,7 @@ public class MainFragment extends Fragment {
         lLAufguss.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                fragment = new AufgussByTagFragment();
+                fragment = new GetByTagFragment();
                 getFragmentManager().beginTransaction().replace(R.id.fragment_container,fragment).addToBackStack("tags").commit();
 //                Intent intent = new Intent(getActivity(),MainActivity.class);
 //                intent.putExtra("frag_id","aufguss");
@@ -121,8 +121,18 @@ public class MainFragment extends Fragment {
         lLEducation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                fragment = new EducationFragment();
+                getFragmentManager().beginTransaction().replace(R.id.fragment_container,fragment).addToBackStack("tags").commit();
             }
         });
+        lLContacts.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fragment = new ContactFragment();
+                getFragmentManager().beginTransaction().replace(R.id.fragment_container,fragment).addToBackStack("tags").commit();
+            }
+        });
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event

@@ -163,14 +163,14 @@ public class LoginFragment extends Fragment {
         return view;
     }
 
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        if (BuildConfig.DEBUG) {
-            etEmail.setText("Kashif@gmail.com");
-            etPassword.setText("Kashif");
-        }
-    }
+//    @Override
+//    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+//        super.onViewCreated(view, savedInstanceState);
+//        if (BuildConfig.DEBUG) {
+//            etEmail.setText("Kashif@gmail.com");
+//            etPassword.setText("Kashif");
+//        }
+//    }
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -180,12 +180,12 @@ public class LoginFragment extends Fragment {
     }
 
     public void apiCall() {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, Configuration.USER_URL + "/signin"
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Configuration.USER_URL + "/login"
                 , new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-
-                if (!response.contains("Authentication Failed")) {
+                Log.d("zma response login", response);
+                if (response.contains("Success")) {
                     pDialog.dismiss();
                     try {
                         JSONObject jsonObject = new JSONObject(response);
