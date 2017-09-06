@@ -35,6 +35,7 @@ public class MainFragment extends Fragment {
     private String mParam2;
     LinearLayout lLEssentialOil, lLCharts, lLEducation, lLContacts, lLSearch, lLAufguss;
     Fragment fragment;
+    public static boolean SEARCH = false;
     private OnFragmentInteractionListener mListener;
 
     public MainFragment() {
@@ -90,10 +91,9 @@ public class MainFragment extends Fragment {
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(),MainActivity.class);
                 intent.putExtra("frag_id","oils");
+                intent.putExtra("search","No");
+                SEARCH = false;
                 startActivity(intent);
-                getActivity().finish();
-//                fragment = new EssesntialOilFragment();
-//                getFragmentManager().beginTransaction().replace(R.id.fragment_container,fragment).addToBackStack("tag").commit();
             }
         });
         lLCharts.setOnClickListener(new View.OnClickListener() {
@@ -102,9 +102,6 @@ public class MainFragment extends Fragment {
                 Intent intent = new Intent(getActivity(),MainActivity.class);
                 intent.putExtra("frag_id","charts");
                 startActivity(intent);
-                getActivity().finish();
-//                fragment = new ChartsFragment();
-//                getFragmentManager().beginTransaction().replace(R.id.fragment_container,fragment).addToBackStack("tag").commit();
             }
         });
         lLAufguss.setOnClickListener(new View.OnClickListener() {
@@ -112,10 +109,6 @@ public class MainFragment extends Fragment {
             public void onClick(View view) {
                 fragment = new GetByTagFragment();
                 getFragmentManager().beginTransaction().replace(R.id.fragment_container,fragment).addToBackStack("tags").commit();
-//                Intent intent = new Intent(getActivity(),MainActivity.class);
-//                intent.putExtra("frag_id","aufguss");
-//                startActivity(intent);
-//                getActivity().finish();
             }
         });
         lLEducation.setOnClickListener(new View.OnClickListener() {
@@ -130,6 +123,16 @@ public class MainFragment extends Fragment {
             public void onClick(View view) {
                 fragment = new ContactFragment();
                 getFragmentManager().beginTransaction().replace(R.id.fragment_container,fragment).addToBackStack("tags").commit();
+            }
+        });
+        lLSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(),MainActivity.class);
+                intent.putExtra("frag_id","search");
+                intent.putExtra("search","Yes");
+                SEARCH = true;
+                startActivity(intent);
             }
         });
 

@@ -182,7 +182,10 @@ public class EssentailOilDetailFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Fragment fragment = new EssesntialOilFragment();
+                Bundle args = new Bundle();
                 getFragmentManager().beginTransaction().replace(R.id.fragment_container_main, fragment).commit();
+                args.putString("back", "yes");
+                fragment.setArguments(args);
 
 
             }

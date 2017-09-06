@@ -11,10 +11,13 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ghosttech.myloyly.R;
 import com.ghosttech.myloyly.activities.FullscreenActivity;
@@ -83,13 +86,30 @@ public class EssesntialOilFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_essesntial_oil, container, false);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.rv);
+        mRecyclerView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                InputMethodManager imm = (InputMethodManager) getActivity()
+                        .getSystemService(getActivity().INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                return false;
+            }
+        });
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
+        Bundle args = new Bundle();
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
         //inputStream = getActivity().getResources().openRawResource(R.raw.oils_sheet);
         searchBar = (MaterialSearchBar) view.findViewById(R.id.searchBar);
-        searchBar.setHint("Custom hint");
+        searchBar.setVisibility(View.GONE);
+        if (!MainFragment.SEARCH) {
+            searchBar.setVisibility(View.GONE);
+        }else {
+            searchBar.setVisibility(View.VISIBLE);
+
+        }
+        searchBar.setHint("Search here");
         searchBar.setSpeechMode(false);
         mRecyclerView.setHasFixedSize(true);
         // specify an adapter (see also next example)
@@ -98,6 +118,7 @@ public class EssesntialOilFragment extends Fragment {
         customActionBar();
         initializeData();
         searchEducationList();
+
         return view;
 
     }
@@ -163,7 +184,7 @@ public class EssesntialOilFragment extends Fragment {
                 final ArrayList<EssentialOilHelper> filteredList = new ArrayList<>();
                 if (editable.length() > 0) {
                     for (EssentialOilHelper essentialOilHelper : essentialItemHelperList) {
-                        if (essentialOilHelper.getStrTitle().toLowerCase().toString().contains(editable.toString().toLowerCase())) {
+                        if (essentialOilHelper.getStrTitle().toLowerCase().substring(0, 2).toString().contains(editable.toString().toLowerCase())) {
                             filteredList.add(essentialOilHelper);
                         }
                     }
