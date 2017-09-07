@@ -17,12 +17,15 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.FragmentTabHost;
 import android.support.v4.content.ContextCompat;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -83,13 +86,16 @@ public class AddPlantFragment extends Fragment implements View.OnClickListener {
             etIngredient1, etIngredient2, etIngredient3, etIngredient4;
 
     Button btnTagsClassic, btnTagsModern, btnTagSteamBath, btnTagsSmoke, btnTagsShow, btnAddImage,
-            btnSendData, btnAddIngredients;
+            btnSendData;
+    ImageView btnAddIngredients;
     ImageView ivImageView;
     RequestQueue mRequestQueue;
     String strPlantName, strTime, strTags, strIngredients, strSteps, strPicture;
     SweetAlertDialog pDialog;
+    FrameLayout flAddIngredient;
     LinearLayout llAddIngredients;
     ArrayList<EditText> ingredientList = new ArrayList();
+    ArrayList<ImageView> ingredientImageViewList = new ArrayList();
 
     public AddPlantFragment() {
         // Required empty public constructor
@@ -151,8 +157,10 @@ public class AddPlantFragment extends Fragment implements View.OnClickListener {
         btnTagsSmoke = (Button) view.findViewById(R.id.btn_tags_smoke);
         btnTagSteamBath = (Button) view.findViewById(R.id.btn_tags_steambath);
         ivImageView = (ImageView) view.findViewById(R.id.iv_image_view);
-        btnAddIngredients = (Button) view.findViewById(R.id.btn_add_ingredients);
+        btnAddIngredients = (ImageView) view.findViewById(R.id.btn_add_ingredient);
+        ingredientImageViewList.add(btnAddIngredients);
         llAddIngredients = (LinearLayout) view.findViewById(R.id.ll_add_ingredients);
+        flAddIngredient = (FrameLayout) view.findViewById(R.id.fl_add_ingredient);
         btnTagsClassic.setOnClickListener(this);
         btnTagsModern.setOnClickListener(this);
         btnTagsShow.setOnClickListener(this);
@@ -161,6 +169,27 @@ public class AddPlantFragment extends Fragment implements View.OnClickListener {
         btnSendData.setOnClickListener(this);
         btnAddImage.setOnClickListener(this);
         btnAddIngredients.setOnClickListener(this);
+        etIngredient1.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (editable.length() < 1) {
+                    btnAddIngredients.setVisibility(View.INVISIBLE);
+                } else {
+                    btnAddIngredients.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
 
         return view;
     }
@@ -396,7 +425,8 @@ public class AddPlantFragment extends Fragment implements View.OnClickListener {
                         });
                 pictureDialog.show();
                 break;
-            case R.id.btn_add_ingredients:
+            case R.id.btn_add_ingredient:
+                btnAddIngredients.setVisibility(View.INVISIBLE);
                 addEditTextForIngredient();
                 break;
 
@@ -490,12 +520,68 @@ public class AddPlantFragment extends Fragment implements View.OnClickListener {
 
 
     private void addEditTextForIngredient() {
-        EditText editText = new EditText(getActivity());
+        ingredientImageViewList.get(ingredientImageViewList.size() - 1).setVisibility(View.INVISIBLE);
+        final FrameLayout frameLayout = new FrameLayout(getActivity());
+        frameLayout.setLayoutParams(flAddIngredient.getLayoutParams());
+        frameLayout.setTag(ingredientList.size());
+        final EditText editText = new EditText(getActivity());
         editText.setLayoutParams(etIngredient1.getLayoutParams());
         editText.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.edit_text_bg));
         editText.setHint("add Ingredient");
         editText.setPadding(etIngredient1.getPaddingLeft(), 0, 0, 0);
-        llAddIngredients.addView(editText);
+
+        frameLayout.addView(editText);
+
+
+        final ImageView imageView = new ImageView(getActivity());
+        imageView.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.cross_icon));
+        imageView.setLayoutParams(btnAddIngredients.getLayoutParams());
+        frameLayout.addView(imageView);
+        imageView.setTag(0);
+        imageView.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.cross_icon));
+        ingredientImageViewList.add(imageView);
+
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (editable.length() < 1) {
+                    imageView.setVisibility(View.VISIBLE);
+                    imageView.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.cross_icon));
+                    imageView.setTag(0);
+                } else {
+                    imageView.setVisibility(View.VISIBLE);
+                    imageView.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.plus_icon));
+                    imageView.setTag(1);
+                }
+
+            }
+        });
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if ((int) (imageView.getTag()) == 1) {
+                    addEditTextForIngredient();
+                } else {
+                    llAddIngredients.removeView(frameLayout);
+                    ingredientList.remove((int) (frameLayout.getTag()));
+                    ingredientImageViewList.remove((int) (frameLayout.getTag()));
+                    ingredientImageViewList.get(ingredientImageViewList.size() - 1).setVisibility(View.VISIBLE);
+
+                }
+            }
+        });
+        llAddIngredients.addView(frameLayout);
         ingredientList.add(editText);
     }
+
 }

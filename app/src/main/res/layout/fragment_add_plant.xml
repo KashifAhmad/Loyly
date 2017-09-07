@@ -113,6 +113,7 @@
                         android:text="Show"
                         android:textColor="#eacb61"
                         android:textSize="8sp" />
+
                     <Button
                         android:id="@+id/btn_tags_"
                         android:layout_width="0dp"
@@ -122,6 +123,7 @@
                         android:text="Show"
                         android:textColor="#eacb61"
                         android:textSize="8sp" />
+
                     <Button
                         android:id="@+id/btn_"
                         android:layout_width="0dp"
@@ -177,26 +179,33 @@
             android:layout_marginTop="5dp"
             android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/et_add_ing_1"
+            <FrameLayout
+                android:id="@+id/fl_add_ingredient"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginBottom="10dp"
-                android:drawableRight="@drawable/plus_icon"
-                android:background="@drawable/edit_text_bg"
-                android:hint="add ingredients 1"
-                android:maxLines="1"
-                android:paddingLeft="12dp" />
-        </LinearLayout>
+                android:layout_height="wrap_content">
 
-        <Button
-            android:id="@+id/btn_add_ingredients"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:drawableRight="@drawable/cross_icon"
-            android:background="#a3b73a"
-            android:text="Add"
-            android:textColor="#FFF" />
+                <EditText
+                    android:id="@+id/et_add_ing_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/edit_text_bg"
+                    android:hint="add ingredients 1"
+                    android:maxLines="1"
+                    android:paddingLeft="12dp" />
+
+                <ImageView
+                    android:id="@+id/btn_add_ingredient"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="7dp"
+                    android:clickable="true"
+                    android:src="@drawable/plus_icon"
+                    android:visibility="invisible" />
+            </FrameLayout>
+        </LinearLayout>
         <!--  <FrameLayout
               android:id="@+id/fl_main"
               android:layout_width="match_parent"
