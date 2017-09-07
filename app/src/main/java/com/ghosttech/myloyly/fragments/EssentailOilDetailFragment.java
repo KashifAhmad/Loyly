@@ -1,12 +1,10 @@
 package com.ghosttech.myloyly.fragments;
 
 import android.app.Fragment;
-import android.content.res.AssetManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,14 +15,8 @@ import com.ghosttech.myloyly.R;
 import com.ghosttech.myloyly.utilities.EssentialOilAdapter;
 import com.ghosttech.myloyly.utilities.EssentialOilHelper;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-
-import jxl.Cell;
-import jxl.Sheet;
-import jxl.Workbook;
-import jxl.read.biff.BiffException;
 
 
 /**
@@ -53,8 +45,8 @@ public class EssentailOilDetailFragment extends Fragment {
     InputStream inputStream;
     ImageView ivTitleImage;
     TextView tvOilFamily, tvOilOrigin, tvOilStrength, tvOilNote, tvOilFragranceGroup, tvOilExtractionMethod,
-            tvOilDescription, tvOilProperties, tvOilBlends, tvOilSafety, tvOilOtherLanguages, tvOilTags,
-            tvTransparentBotanicalName;
+            tvOilDescription, tvOilProperties, tvOilBlends, tvOilChakra, tvOilOtherLanguages, tvOilTags,
+            tvTransparentBotanicalName, tvColor, tvDidYouKnow, tvElement, tvContraindications;
     Bundle args;
     int intRowId, intImageID;
     String strPlantName;
@@ -106,11 +98,13 @@ public class EssentailOilDetailFragment extends Fragment {
         tvOilExtractionMethod = (TextView) view.findViewById(R.id.tv_extraction_method);
         tvOilDescription = (TextView) view.findViewById(R.id.tv_oil_description);
         tvOilProperties = (TextView) view.findViewById(R.id.tv_oil_properties);
-        tvOilBlends = (TextView) view.findViewById(R.id.tv_blends_with);
-        tvOilSafety = (TextView) view.findViewById(R.id.tv_oil_safety);
+        tvOilChakra = (TextView) view.findViewById(R.id.tv_oil_chakra);
         tvOilOtherLanguages = (TextView) view.findViewById(R.id.tv_other_lang);
-        tvOilTags = (TextView) view.findViewById(R.id.tv_oil_tags);
         tvTransparentBotanicalName = (TextView) view.findViewById(R.id.tv_trans_botanical_name);
+        tvColor = (TextView)view.findViewById(R.id.tv_oil_color);
+        tvContraindications = (TextView)view.findViewById(R.id.tv_contraidication);
+        tvElement = (TextView)view.findViewById(R.id.tv_element);
+        tvDidYouKnow = (TextView)view.findViewById(R.id.tv_do_you_know);
         args = getArguments();
         strPlantName = args.getString("oil_title");
 //        intRowId = args.getInt("row_id");
@@ -158,10 +152,15 @@ public class EssentailOilDetailFragment extends Fragment {
         tvOilOtherLanguages.setText(essentialOilHelper.getStrLanguages());
         tvOilOrigin.setText(essentialOilHelper.getStrOrigin());
         tvOilNote.setText(essentialOilHelper.getStrNote());
-        tvOilExtractionMethod.setText("Not Found");
-        tvOilBlends.setText("Not Found");
+        tvOilExtractionMethod.setText(essentialOilHelper.getStrExtraction());
+        tvOilProperties.setText(essentialOilHelper.getStrProperties());
         tvOilFragranceGroup.setText(essentialOilHelper.getStrFragrance());
         tvOilFamily.setText(essentialOilHelper.getStrPlantFamily());
+        tvOilChakra.setText(essentialOilHelper.getStrChakra());
+        tvDidYouKnow.setText(essentialOilHelper.getStrDidYouKnow());
+        tvContraindications.setText(essentialOilHelper.getStrContraindications());
+        tvElement.setText(essentialOilHelper.getStrElement());
+        tvColor.setText(essentialOilHelper.getStrColor());
         ivTitleImage.setImageResource(intImageID);
 
 

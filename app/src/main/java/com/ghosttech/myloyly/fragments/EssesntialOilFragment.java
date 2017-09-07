@@ -105,7 +105,7 @@ public class EssesntialOilFragment extends Fragment {
         searchBar.setVisibility(View.GONE);
         if (!MainFragment.SEARCH) {
             searchBar.setVisibility(View.GONE);
-        }else {
+        } else {
             searchBar.setVisibility(View.VISIBLE);
 
         }
@@ -127,20 +127,27 @@ public class EssesntialOilFragment extends Fragment {
         AssetManager assetManager = getActivity().getAssets();
         EssentialOilHelper helper = null;
         try {
-            inputStream = assetManager.open("oils_data.XLS");
+            inputStream = assetManager.open("Excel_work_Updated.xls");
             Workbook workbook = Workbook.getWorkbook(inputStream);
             Sheet sheet = workbook.getSheet(0);
             int row = sheet.getRows();
             for (int i = 1; i < row; i++) {
                 Cell collTitle = sheet.getCell(0, i);
-                Cell colDescription = sheet.getCell(9, i);
+                Cell colDescription = sheet.getCell(15, i);
                 Cell collOilFamily = sheet.getCell(3, i);
                 Cell collOilOrigin = sheet.getCell(4, i);
-                Cell collOilStrength = sheet.getCell(7, i);
-                Cell collOilNote = sheet.getCell(6, i);
-                Cell collOilFragranceGroup = sheet.getCell(8, i);
+                Cell collOilStrength = sheet.getCell(9, i);
+                Cell collOilNote = sheet.getCell(8, i);
+                Cell collOilFragranceGroup = sheet.getCell(10, i);
                 Cell cellOtherLangauge = sheet.getCell(1, i);
                 Cell cellBotanicalName = sheet.getCell(2, i);
+                Cell cellExtractionMethod = sheet.getCell(6, i);
+                Cell cellProperties = sheet.getCell(16, i);
+                Cell cellChakra = sheet.getCell(11, i);
+                Cell cellElement = sheet.getCell(13, i);
+                Cell cellColor = sheet.getCell(12, i);
+                Cell cellDidYouKnow = sheet.getCell(21, i);
+                Cell cellContraindications = sheet.getCell(22, i);
 
                 helper = new EssentialOilHelper();
                 helper.setStrTitle(String.valueOf(collTitle.getContents()));
@@ -152,6 +159,14 @@ public class EssesntialOilFragment extends Fragment {
                 helper.setStrNote(String.valueOf(collOilNote.getContents()));
                 helper.setStrFragrance(String.valueOf(collOilFragranceGroup.getContents()));
                 helper.setStrLanguages(String.valueOf(cellOtherLangauge.getContents()));
+                helper.setStrExtraction(String.valueOf(cellExtractionMethod.getContents()));
+                helper.setStrProperties(String.valueOf(cellProperties.getContents()));
+                helper.setStrChakra(String.valueOf(cellChakra.getContents()));
+                helper.setStrElement(String.valueOf(cellElement.getContents()));
+                helper.setStrColor(String.valueOf(cellColor.getContents()));
+                helper.setStrDidYouKnow(String.valueOf(cellDidYouKnow.getContents()));
+                helper.setStrContraindications(String.valueOf(cellContraindications.getContents()));
+
                 helper.setIntImageID(ivImagesArray);
                 essentialItemHelperList.add(helper);
             }

@@ -9,8 +9,11 @@ import android.os.Parcelable;
 
 public class EssentialOilHelper implements Parcelable {
     int[] intImageID;
-    String strTitle, strDescription, strLanguages, strBotanicalName, strPlantFamily, strOrigin, strPartOfPlant, strNote, strStrength,
-    strFragrance, strEffect, strHarmones, strContraindications, strExtraction, strBlends;
+    String strTitle, strDescription, strLanguages, strBotanicalName,
+            strPlantFamily, strOrigin, strPartOfPlant, strNote, strStrength,
+            strFragrance, strEffect, strHarmones, strContraindications, strExtraction,
+            strBlends, strProperties, strChakra, strColor, strElement, strDidYouKnow;
+
 
     public EssentialOilHelper() {
 
@@ -30,6 +33,13 @@ public class EssentialOilHelper implements Parcelable {
         strOrigin = in.readString();
         strPartOfPlant = in.readString();
         strExtraction = in.readString();
+        strProperties = in.readString();
+        strChakra = in.readString();
+        strContraindications = in.readString();
+        strColor = in.readString();
+        strElement = in.readString();
+        strDidYouKnow = in.readString();
+        strContraindications = in.readString();
     }
 
     public static final Creator<EssentialOilHelper> CREATOR = new Creator<EssentialOilHelper>() {
@@ -57,6 +67,13 @@ public class EssentialOilHelper implements Parcelable {
         this.strDescription = strDescription;
     }
 
+    public void setStrProperties(String strProperties) {
+        this.strProperties = strProperties;
+    }
+
+    public String getStrProperties() {
+        return strProperties;
+    }
 
     public void setStrTitle(String strTitle) {
         this.strTitle = strTitle;
@@ -68,6 +85,37 @@ public class EssentialOilHelper implements Parcelable {
 
     public String getStrBotanicalName() {
         return strBotanicalName;
+    }
+
+    public void setStrChakra(String strChakra) {
+        this.strChakra = strChakra;
+    }
+
+    public void setStrColor(String strColor) {
+        this.strColor = strColor;
+    }
+    public void setStrDidYouKnow(String strDidYouKnow) {
+        this.strDidYouKnow = strDidYouKnow;
+    }
+
+    public void setStrElement(String strElement) {
+        this.strElement = strElement;
+    }
+
+    public String getStrChakra() {
+        return strChakra;
+    }
+
+    public String getStrColor() {
+        return strColor;
+    }
+
+    public String getStrDidYouKnow() {
+        return strDidYouKnow;
+    }
+
+    public String getStrElement() {
+        return strElement;
     }
 
     public void setStrContraindications(String strContraindications) {
@@ -195,6 +243,12 @@ public class EssentialOilHelper implements Parcelable {
         parcel.writeString(strStrength);
         parcel.writeString(strBlends);
         parcel.writeString(strExtraction);
+        parcel.writeString(strProperties);
+        parcel.writeString(strChakra);
+        parcel.writeString(strColor);
+        parcel.writeString(strElement);
+        parcel.writeString(strDidYouKnow);
+
 
     }
 }

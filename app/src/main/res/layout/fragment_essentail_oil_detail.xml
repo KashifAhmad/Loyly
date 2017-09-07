@@ -229,7 +229,6 @@
                     android:padding="5dp"
                     android:text="Not Found" />
             </LinearLayout>
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -241,18 +240,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
-                    android:text="Blends With:"
+                    android:text="Chakra:"
                     android:textColor="#1E824C"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/tv_blends_with"
+                    android:id="@+id/tv_oil_chakra"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
                     android:text="Not Found" />
             </LinearLayout>
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -264,17 +262,84 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
-                    android:text="Safety:"
+                    android:text="Colour:"
                     android:textColor="#1E824C"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/tv_oil_safety"
+                    android:id="@+id/tv_oil_color"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
                     android:text="Not Found" />
             </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@drawable/layout_border_gray_white_bg"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="Element:"
+                    android:textColor="#1E824C"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_element"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="Not Found" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@drawable/layout_border_gray_white_bg"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="Do You Know:"
+                    android:textColor="#1E824C"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_do_you_know"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="Not Found" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@drawable/layout_border_gray_white_bg"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="Contraindications:"
+                    android:textColor="#1E824C"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_contraidication"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="Not Found" />
+            </LinearLayout>
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -299,28 +364,7 @@
                     android:text="Description" />
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:background="@drawable/layout_border_gray_white_bg"
-                android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="5dp"
-                    android:text="Tags:"
-                    android:textColor="#1E824C"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tv_oil_tags"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="5dp"
-                    android:text="Not Found" />
-            </LinearLayout>
         </TableLayout>
     </ScrollView>
 </LinearLayout>
