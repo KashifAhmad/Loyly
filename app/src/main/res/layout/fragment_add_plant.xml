@@ -29,9 +29,9 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginTop="10dp"
-            android:maxLines="1"
             android:background="@drawable/edit_text_bg"
             android:hint="Title(name)"
+            android:maxLines="1"
             android:paddingLeft="12dp" />
 
         <TextView
@@ -139,49 +139,31 @@
             android:textSize="20dp"
             android:textStyle="bold" />
 
-        <EditText
-            android:id="@+id/et_add_ing_1"
+        <LinearLayout
+            android:id="@+id/ll_add_ingredients"
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginBottom="10dp"
             android:layout_marginTop="5dp"
-            android:background="@drawable/edit_text_bg"
-            android:hint="add ingredients 1"
-            android:maxLines="1"
-            android:paddingLeft="12dp" />
+            android:layout_height="wrap_content">
 
-        <EditText
-            android:id="@+id/et_add_ing_2"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="5dp"
-            android:background="@drawable/edit_text_bg"
-            android:hint="add ingredients 2"
-            android:maxLines="1"
-            android:paddingLeft="12dp" />
+            <EditText
+                android:id="@+id/et_add_ing_1"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/edit_text_bg"
+                android:hint="add ingredients 1"
+                android:maxLines="1"
+                android:paddingLeft="12dp" />
+        </LinearLayout>
 
-        <EditText
-            android:id="@+id/et_add_ing_3"
+        <Button
+            android:id="@+id/btn_add_ingredients"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="5dp"
-            android:background="@drawable/edit_text_bg"
-            android:hint="add ingredients 2"
-            android:maxLines="1"
-            android:paddingLeft="12dp" />
-
-        <EditText
-            android:id="@+id/et_add_ing_4"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="5dp"
-            android:background="@drawable/edit_text_bg"
-            android:hint="add ingredients 2"
-            android:maxLines="1"
-            android:paddingLeft="12dp" />
+            android:background="#a3b73a"
+            android:text="Add"
+            android:textColor="#FFF" />
         <!--  <FrameLayout
               android:id="@+id/fl_main"
               android:layout_width="match_parent"
@@ -219,9 +201,9 @@
             android:layout_height="40dp"
             android:layout_marginBottom="10dp"
             android:layout_marginTop="5dp"
-            android:maxLines="1"
             android:background="@drawable/edit_text_bg"
             android:hint="instruction 1"
+            android:maxLines="1"
             android:paddingLeft="12dp" />
 
         <EditText
@@ -230,9 +212,9 @@
             android:layout_height="40dp"
             android:layout_marginBottom="10dp"
             android:layout_marginTop="5dp"
-            android:maxLines="1"
             android:background="@drawable/edit_text_bg"
             android:hint="instruction 1"
+            android:maxLines="1"
             android:paddingLeft="12dp" />
 
         <TextView
@@ -254,9 +236,9 @@
             android:layout_height="40dp"
             android:layout_marginBottom="10dp"
             android:layout_marginTop="5dp"
-            android:maxLines="1"
             android:background="@drawable/edit_text_orange"
             android:hint="Step 1"
+            android:maxLines="1"
             android:paddingLeft="12dp" />
 
         <EditText
@@ -265,9 +247,9 @@
             android:layout_height="40dp"
             android:layout_marginBottom="10dp"
             android:layout_marginTop="5dp"
-            android:maxLines="1"
             android:background="@drawable/edit_text_orange"
             android:hint="Step 1"
+            android:maxLines="1"
             android:paddingLeft="12dp" />
 
         <TextView

@@ -2,7 +2,7 @@ package com.ghosttech.myloyly.fragments;
 
 import android.Manifest;
 import android.app.AlertDialog;
-import android.content.Context;
+import android.app.Fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -13,36 +13,23 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.os.Environment;
-import android.os.Looper;
 import android.provider.MediaStore;
 import android.support.v4.app.FragmentTabHost;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
-import android.widget.TabHost;
-import android.widget.TableLayout;
-import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.DefaultRetryPolicy;
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.ghosttech.myloyly.R;
 import com.ghosttech.myloyly.utilities.Configuration;
-import com.ghosttech.myloyly.utilities.GeneralUtils;
 import com.ghosttech.myloyly.utilities.HTTPMultiPartEntity;
 
 import org.apache.http.HttpEntity;
@@ -60,8 +47,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
@@ -97,11 +83,13 @@ public class AddPlantFragment extends Fragment implements View.OnClickListener {
             etIngredient1, etIngredient2, etIngredient3, etIngredient4;
 
     Button btnTagsClassic, btnTagsModern, btnTagSteamBath, btnTagsSmoke, btnTagsShow, btnAddImage,
-            btnSendData;
+            btnSendData, btnAddIngredients;
     ImageView ivImageView;
     RequestQueue mRequestQueue;
     String strPlantName, strTime, strTags, strIngredients, strSteps, strPicture;
     SweetAlertDialog pDialog;
+    LinearLayout llAddIngredients;
+    ArrayList<EditText> ingredientList = new ArrayList();
 
     public AddPlantFragment() {
         // Required empty public constructor
@@ -149,9 +137,7 @@ public class AddPlantFragment extends Fragment implements View.OnClickListener {
         pDialog.setTitleText("Sending Recipe");
         etPlantName = (EditText) view.findViewById(R.id.et_plant_name);
         etIngredient1 = (EditText) view.findViewById(R.id.et_add_ing_1);
-        etIngredient2 = (EditText) view.findViewById(R.id.et_add_ing_2);
-        etIngredient3 = (EditText) view.findViewById(R.id.et_add_ing_3);
-        etIngredient4 = (EditText) view.findViewById(R.id.et_add_ing_4);
+        ingredientList.add(etIngredient1);
         etInstruction1 = (EditText) view.findViewById(R.id.et_instruction_1);
         etInstruction2 = (EditText) view.findViewById(R.id.et_instruction_2);
         etStep1 = (EditText) view.findViewById(R.id.et_step_1);
@@ -165,6 +151,8 @@ public class AddPlantFragment extends Fragment implements View.OnClickListener {
         btnTagsSmoke = (Button) view.findViewById(R.id.btn_tags_smoke);
         btnTagSteamBath = (Button) view.findViewById(R.id.btn_tags_steambath);
         ivImageView = (ImageView) view.findViewById(R.id.iv_image_view);
+        btnAddIngredients = (Button) view.findViewById(R.id.btn_add_ingredients);
+        llAddIngredients = (LinearLayout) view.findViewById(R.id.ll_add_ingredients);
         btnTagsClassic.setOnClickListener(this);
         btnTagsModern.setOnClickListener(this);
         btnTagsShow.setOnClickListener(this);
@@ -172,14 +160,18 @@ public class AddPlantFragment extends Fragment implements View.OnClickListener {
         btnTagsSmoke.setOnClickListener(this);
         btnSendData.setOnClickListener(this);
         btnAddImage.setOnClickListener(this);
+        btnAddIngredients.setOnClickListener(this);
 
         return view;
     }
 
     public void takeDataFromFields() {
         strPlantName = etPlantName.getText().toString();
-        strIngredients = etIngredient1.getText().toString() + "," + etIngredient2.getText().toString() +
-                "," + etIngredient3.getText().toString() + "," + etIngredient4.getText().toString();
+        strIngredients = "";
+        for (EditText editText : ingredientList) {
+            strIngredients += editText.getText().toString() + ",";
+        }
+        strIngredients = strIngredients.substring(0, strIngredients.length() - 1);
         strTime = etTime.getText().toString();
         strSteps = etStep1.getText().toString() + "," + etStep2.getText().toString();
         if (strPlantName.equals("") || strTags.equals("") ||
@@ -403,6 +395,10 @@ public class AddPlantFragment extends Fragment implements View.OnClickListener {
                             }
                         });
                 pictureDialog.show();
+                break;
+            case R.id.btn_add_ingredients:
+                addEditTextForIngredient();
+                break;
 
 
         }
@@ -490,5 +486,16 @@ public class AddPlantFragment extends Fragment implements View.OnClickListener {
         ivImageView.setImageBitmap(BitmapFactory.decodeFile(filePath));
         return cursor.getString(column_index);
 
+    }
+
+
+    private void addEditTextForIngredient() {
+        EditText editText = new EditText(getActivity());
+        editText.setLayoutParams(etIngredient1.getLayoutParams());
+        editText.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.edit_text_bg));
+        editText.setHint("add Ingredient");
+        editText.setPadding(etIngredient1.getPaddingLeft(), 0, 0, 0);
+        llAddIngredients.addView(editText);
+        ingredientList.add(editText);
     }
 }
