@@ -46,97 +46,151 @@
             android:textSize="20dp"
             android:textStyle="bold" />
 
-
-        <ScrollView
+        <HorizontalScrollView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
-            <TableLayout
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
                 android:orientation="horizontal">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="10dp"
-                    android:background="#fff"
-                    android:padding="5dp">
+                <Button
+                    android:id="@+id/btn_activating"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_orange_border"
+                    android:text="Activating"
+                    android:textColor="#eacb61"
+                    android:textSize="8sp" />
 
-                    <Button
-                        android:id="@+id/btn_tags_classic"
-                        android:layout_width="1dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@drawable/button_orange_border"
-                        android:text="Classic"
-                        android:textColor="#eacb61"
+                <Button
+                    android:id="@+id/btn_airways"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_orange_border"
+                    android:text="Airways"
+                    android:textColor="#eacb61"
+                    android:textSize="8sp" />
+                <Button
+                    android:id="@+id/btn_balancing"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_orange_border"
+                    android:text="Balancing"
+                    android:textColor="#eacb61"
+                    android:textSize="8sp" />
+                <Button
+                    android:id="@+id/btn_tags_classic"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_orange_border"
+                    android:text="Classic"
+                    android:textColor="#eacb61"
+                    android:textSize="8sp" />
+                <Button
+                    android:id="@+id/btn_entertainment"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_orange_border"
+                    android:text="Entertainment"
+                    android:textColor="#eacb61"
+                    android:textSize="8sp" />
+                <Button
+                    android:id="@+id/btn_immune_system"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_orange_border"
+                    android:text="ImmuneSystem"
+                    android:textColor="#eacb61"
+                    android:textSize="8sp" />
 
-                        android:textSize="8sp" />
+                <Button
+                    android:id="@+id/btn_mediation"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_orange_border"
+                    android:text="Mediation"
+                    android:textColor="#eacb61"
+                    android:textSize="8sp" />
+                <Button
+                    android:id="@+id/btn_tags_modern"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_orange_border"
+                    android:text="Modern"
+                    android:textColor="#eacb61"
+                    android:textSize="8sp" />
 
-                    <Button
-                        android:id="@+id/btn_tags_steambath"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@drawable/button_orange_border"
-                        android:text="Steambath"
-                        android:textColor="#eacb61"
-                        android:textSize="8sp" />
+                <Button
+                    android:id="@+id/btn_purification"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_orange_border"
+                    android:text="Purification"
+                    android:textColor="#eacb61"
+                    android:textSize="8sp" />
+                <Button
+                    android:id="@+id/btn_relax"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_orange_border"
+                    android:text="Relax"
+                    android:textColor="#eacb61"
+                    android:textSize="8sp" />
+                <Button
+                    android:id="@+id/btn_seasonal"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_orange_border"
+                    android:text="Seasonal"
+                    android:textColor="#eacb61"
+                    android:textSize="8sp" />
+                <Button
+                    android:id="@+id/btn_tags_show"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_orange_border"
+                    android:text="Show"
+                    android:textColor="#eacb61"
+                    android:textSize="8sp" />
 
-                    <Button
-                        android:id="@+id/btn_tags_modern"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@drawable/button_orange_border"
-                        android:text="Modern"
-                        android:textColor="#eacb61"
-                        android:textSize="8sp" />
+                <Button
+                    android:id="@+id/btn_tags_smoke"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_orange_border"
+                    android:text="Smoke"
+                    android:textColor="#eacb61"
+                    android:textSize="8sp" />
+                <Button
+                    android:id="@+id/btn_tags_steambath"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_orange_border"
+                    android:text="Steambath"
+                    android:textColor="#eacb61"
+                    android:textSize="8sp" />
 
-                    <Button
-                        android:id="@+id/btn_tags_smoke"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@drawable/button_orange_border"
-                        android:text="Smoke"
-                        android:textColor="#eacb61"
-                        android:textSize="8sp" />
 
-                    <Button
-                        android:id="@+id/btn_tags_show"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@drawable/button_orange_border"
-                        android:text="Show"
-                        android:textColor="#eacb61"
-                        android:textSize="8sp" />
 
-                    <Button
-                        android:id="@+id/btn_tags_"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@drawable/button_orange_border"
-                        android:text="Show"
-                        android:textColor="#eacb61"
-                        android:textSize="8sp" />
-
-                    <Button
-                        android:id="@+id/btn_"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@drawable/button_orange_border"
-                        android:text="Show"
-                        android:textColor="#eacb61"
-                        android:textSize="8sp" />
-                </LinearLayout>
-            </TableLayout>
-        </ScrollView>
-
+            </LinearLayout>
+        </HorizontalScrollView>
 
         <TextView
             android:layout_width="match_parent"
@@ -206,24 +260,6 @@
                     android:visibility="invisible" />
             </FrameLayout>
         </LinearLayout>
-        <!--  <FrameLayout
-              android:id="@+id/fl_main"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:layout_marginTop="10dp">
-
-
-
-              <ImageView
-                  android:id="@+id/iv_add_edit_text"
-                  android:layout_width="40dp"
-                  android:layout_height="40dp"
-                  android:layout_gravity="right"
-                  android:padding="12dip"
-                  android:src="@drawable/add_edit_text"
-                  android:textColor="#ffffffff"
-                  android:textStyle="bold" />
-          </FrameLayout>-->
 
         <TextView
             android:layout_width="match_parent"
@@ -237,27 +273,40 @@
             android:textSize="20dp"
             android:textStyle="bold" />
 
-        <EditText
-            android:id="@+id/et_instruction_1"
+        <LinearLayout
+            android:id="@+id/ll_add_instructions"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginBottom="10dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:background="@drawable/edit_text_bg"
-            android:hint="instruction 1"
-            android:maxLines="1"
-            android:paddingLeft="12dp" />
+            android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/et_instruction_2"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="5dp"
-            android:background="@drawable/edit_text_bg"
-            android:hint="instruction 1"
-            android:maxLines="1"
-            android:paddingLeft="12dp" />
+            <FrameLayout
+                android:id="@+id/fl_add_instruction"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/et_instruction_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/edit_text_bg"
+                    android:hint="add instruction 1"
+                    android:maxLines="1"
+                    android:paddingLeft="12dp" />
+
+                <ImageView
+                    android:id="@+id/btn_add_instructions"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="7dp"
+                    android:clickable="true"
+                    android:src="@drawable/plus_icon"
+                    android:visibility="invisible" />
+            </FrameLayout>
+        </LinearLayout>
 
         <TextView
 
@@ -272,27 +321,41 @@
             android:textSize="20dp"
             android:textStyle="bold" />
 
-        <EditText
-            android:id="@+id/et_step_1"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="5dp"
-            android:background="@drawable/edit_text_orange"
-            android:hint="Step 1"
-            android:maxLines="1"
-            android:paddingLeft="12dp" />
 
-        <EditText
-            android:id="@+id/et_step_2"
+        <LinearLayout
+            android:id="@+id/ll_add_steps"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginBottom="10dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:background="@drawable/edit_text_orange"
-            android:hint="Step 1"
-            android:maxLines="1"
-            android:paddingLeft="12dp" />
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:id="@+id/fl_add_steps"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/et_step_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/edit_text_orange"
+                    android:hint="add Step 1"
+                    android:maxLines="1"
+                    android:paddingLeft="12dp" />
+
+                <ImageView
+                    android:id="@+id/btn_add_steps"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="7dp"
+                    android:clickable="true"
+                    android:src="@drawable/plus_icon"
+                    android:visibility="invisible" />
+            </FrameLayout>
+        </LinearLayout>
 
         <TextView
             android:layout_width="match_parent"

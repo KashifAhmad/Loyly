@@ -79,23 +79,30 @@ public class AddPlantFragment extends Fragment implements View.OnClickListener {
     private OnFragmentInteractionListener mListener;
     ImageView ivAddEditText;
     long totalSize = 0;
+    EditText editText;
+    String strTakeDataFromWidgets;
     LinearLayout.LayoutParams p;
     View view;
     File sourceFile;
-    EditText etPlantName, etTime, etInstruction1, etInstruction2, etStep1, etStep2,
-            etIngredient1, etIngredient2, etIngredient3, etIngredient4;
+    EditText etPlantName, etTime, etInstruction1, etStep1, etStep2,
+            etIngredient1;
 
     Button btnTagsClassic, btnTagsModern, btnTagSteamBath, btnTagsSmoke, btnTagsShow, btnAddImage,
-            btnSendData;
-    ImageView btnAddIngredients;
+            btnAirways, btnPurification, btnImmuneSystem, btnSeasonal, btnRelax, btnBalancing, btnActivating,
+            btnMediation, btnEntertainment, btnSendData;
+    ImageView btnAddIngredients, btnAddInstructions, btnAddSteps;
     ImageView ivImageView;
     RequestQueue mRequestQueue;
-    String strPlantName, strTime, strTags, strIngredients, strSteps, strPicture;
+    String strPlantName, strTime, strTags, strInstruction, strIngredients, strSteps, strPicture;
     SweetAlertDialog pDialog;
-    FrameLayout flAddIngredient;
-    LinearLayout llAddIngredients;
+    FrameLayout flAddIngredient, flAddInstructions, flAddSteps;
+    LinearLayout llAddIngredients, llAddInstruction, llAddSteps;
     ArrayList<EditText> ingredientList = new ArrayList();
+    ArrayList<EditText> instructionList = new ArrayList<>();
+    ArrayList<EditText> stepsList = new ArrayList<>();
     ArrayList<ImageView> ingredientImageViewList = new ArrayList();
+    ArrayList<ImageView> instructionImageViewList = new ArrayList<>();
+    ArrayList<ImageView> stepsImageViewList = new ArrayList<>();
 
     public AddPlantFragment() {
         // Required empty public constructor
@@ -144,10 +151,9 @@ public class AddPlantFragment extends Fragment implements View.OnClickListener {
         etPlantName = (EditText) view.findViewById(R.id.et_plant_name);
         etIngredient1 = (EditText) view.findViewById(R.id.et_add_ing_1);
         ingredientList.add(etIngredient1);
+        instructionList.add(etInstruction1);
         etInstruction1 = (EditText) view.findViewById(R.id.et_instruction_1);
-        etInstruction2 = (EditText) view.findViewById(R.id.et_instruction_2);
         etStep1 = (EditText) view.findViewById(R.id.et_step_1);
-        etStep2 = (EditText) view.findViewById(R.id.et_step_2);
         etTime = (EditText) view.findViewById(R.id.et_time);
         btnAddImage = (Button) view.findViewById(R.id.btn_add_image);
         btnSendData = (Button) view.findViewById(R.id.btn_send_data);
@@ -156,11 +162,31 @@ public class AddPlantFragment extends Fragment implements View.OnClickListener {
         btnTagsShow = (Button) view.findViewById(R.id.btn_tags_show);
         btnTagsSmoke = (Button) view.findViewById(R.id.btn_tags_smoke);
         btnTagSteamBath = (Button) view.findViewById(R.id.btn_tags_steambath);
+        btnActivating = (Button) view.findViewById(R.id.btn_activating);
+        btnAirways = (Button) view.findViewById(R.id.btn_airways);
+
+        btnPurification = (Button) view.findViewById(R.id.btn_purification);
+        btnImmuneSystem = (Button) view.findViewById(R.id.btn_immune_system);
+        btnSeasonal = (Button) view.findViewById(R.id.btn_seasonal);
+        btnRelax = (Button) view.findViewById(R.id.btn_relax);
+        btnBalancing = (Button) view.findViewById(R.id.btn_balancing);
+        btnMediation = (Button) view.findViewById(R.id.btn_mediation);
+        btnEntertainment = (Button) view.findViewById(R.id.btn_entertainment);
         ivImageView = (ImageView) view.findViewById(R.id.iv_image_view);
         btnAddIngredients = (ImageView) view.findViewById(R.id.btn_add_ingredient);
+        btnAddInstructions = (ImageView) view.findViewById(R.id.btn_add_instructions);
+        btnAddSteps = (ImageView) view.findViewById(R.id.btn_add_steps);
         ingredientImageViewList.add(btnAddIngredients);
+        instructionImageViewList.add(btnAddInstructions);
+        stepsImageViewList.add(btnAddSteps);
         llAddIngredients = (LinearLayout) view.findViewById(R.id.ll_add_ingredients);
+        llAddInstruction = (LinearLayout) view.findViewById(R.id.ll_add_instructions);
+        llAddSteps = (LinearLayout) view.findViewById(R.id.ll_add_steps);
         flAddIngredient = (FrameLayout) view.findViewById(R.id.fl_add_ingredient);
+        flAddInstructions = (FrameLayout) view.findViewById(R.id.fl_add_instruction);
+        flAddSteps = (FrameLayout) view.findViewById(R.id.fl_add_steps);
+        // btnAirways, btnPurification, btnImmuneSystem, btnSeasonal, btnRelax, btnBalancing, btnActivating,
+        //btnMediation, btnEntertainment
         btnTagsClassic.setOnClickListener(this);
         btnTagsModern.setOnClickListener(this);
         btnTagsShow.setOnClickListener(this);
@@ -169,6 +195,9 @@ public class AddPlantFragment extends Fragment implements View.OnClickListener {
         btnSendData.setOnClickListener(this);
         btnAddImage.setOnClickListener(this);
         btnAddIngredients.setOnClickListener(this);
+        btnAddInstructions.setOnClickListener(this);
+        btnAddSteps.setOnClickListener(this);
+        btn
         etIngredient1.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -189,16 +218,59 @@ public class AddPlantFragment extends Fragment implements View.OnClickListener {
                 }
             }
         });
+        etInstruction1.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
+            }
 
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (editable.length() < 1) {
+                    btnAddInstructions.setVisibility(View.INVISIBLE);
+                } else {
+                    btnAddInstructions.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+        etStep1.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (editable.length() < 1) {
+                    btnAddSteps.setVisibility(View.INVISIBLE);
+                } else {
+                    btnAddSteps.setVisibility(View.VISIBLE);
+                }
+            }
+        });
         return view;
     }
 
     public void takeDataFromFields() {
         strPlantName = etPlantName.getText().toString();
         strIngredients = "";
-        for (EditText editText : ingredientList) {
-            strIngredients += editText.getText().toString() + ",";
+        strInstruction = "";
+        for (EditText etIngred : ingredientList) {
+            strIngredients += etIngred.getText().toString() + ",";
+        }
+        for (EditText etInstruc : instructionList) {
+            strInstruction += etInstruc.getText().toString() + ",";
         }
         strIngredients = strIngredients.substring(0, strIngredients.length() - 1);
         strTime = etTime.getText().toString();
@@ -429,7 +501,14 @@ public class AddPlantFragment extends Fragment implements View.OnClickListener {
                 btnAddIngredients.setVisibility(View.INVISIBLE);
                 addEditTextForIngredient();
                 break;
-
+            case R.id.btn_add_instructions:
+                btnAddInstructions.setVisibility(View.INVISIBLE);
+                addEditTextForInstructions();
+                break;
+            case R.id.btn_add_steps:
+                btnAddSteps.setVisibility(View.INVISIBLE);
+                addEditTextForSteps();
+                break;
 
         }
     }
@@ -524,15 +603,12 @@ public class AddPlantFragment extends Fragment implements View.OnClickListener {
         final FrameLayout frameLayout = new FrameLayout(getActivity());
         frameLayout.setLayoutParams(flAddIngredient.getLayoutParams());
         frameLayout.setTag(ingredientList.size());
-        final EditText editText = new EditText(getActivity());
+        editText = new EditText(getActivity());
         editText.setLayoutParams(etIngredient1.getLayoutParams());
         editText.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.edit_text_bg));
         editText.setHint("add Ingredient");
         editText.setPadding(etIngredient1.getPaddingLeft(), 0, 0, 0);
-
         frameLayout.addView(editText);
-
-
         final ImageView imageView = new ImageView(getActivity());
         imageView.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.cross_icon));
         imageView.setLayoutParams(btnAddIngredients.getLayoutParams());
@@ -582,6 +658,134 @@ public class AddPlantFragment extends Fragment implements View.OnClickListener {
         });
         llAddIngredients.addView(frameLayout);
         ingredientList.add(editText);
+
+    }
+
+    private void addEditTextForInstructions() {
+        instructionImageViewList.get(instructionImageViewList.size() - 1).setVisibility(View.INVISIBLE);
+        final FrameLayout frameLayout = new FrameLayout(getActivity());
+        frameLayout.setLayoutParams(flAddInstructions.getLayoutParams());
+        frameLayout.setTag(instructionList.size());
+        editText = new EditText(getActivity());
+        editText.setLayoutParams(etInstruction1.getLayoutParams());
+        editText.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.edit_text_bg));
+        editText.setHint("add Instruction");
+        editText.setPadding(etInstruction1.getPaddingLeft(), 0, 0, 0);
+        frameLayout.addView(editText);
+        final ImageView imageView = new ImageView(getActivity());
+        imageView.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.cross_icon));
+        imageView.setLayoutParams(btnAddInstructions.getLayoutParams());
+        frameLayout.addView(imageView);
+        imageView.setTag(0);
+        imageView.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.cross_icon));
+        instructionImageViewList.add(imageView);
+
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (editable.length() < 1) {
+                    imageView.setVisibility(View.VISIBLE);
+                    imageView.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.cross_icon));
+                    imageView.setTag(0);
+                } else {
+                    imageView.setVisibility(View.VISIBLE);
+                    imageView.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.plus_icon));
+                    imageView.setTag(1);
+                }
+
+            }
+        });
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if ((int) (imageView.getTag()) == 1) {
+                    addEditTextForInstructions();
+                } else {
+                    llAddInstruction.removeView(frameLayout);
+                    instructionList.remove((int) (frameLayout.getTag()));
+                    instructionImageViewList.remove((int) (frameLayout.getTag()));
+                    instructionImageViewList.get(instructionImageViewList.size() - 1).setVisibility(View.VISIBLE);
+
+                }
+            }
+        });
+        llAddInstruction.addView(frameLayout);
+        instructionList.add(editText);
+
+    }
+
+    private void addEditTextForSteps() {
+        stepsImageViewList.get(stepsImageViewList.size() - 1).setVisibility(View.INVISIBLE);
+        final FrameLayout frameLayout = new FrameLayout(getActivity());
+        frameLayout.setLayoutParams(flAddSteps.getLayoutParams());
+        frameLayout.setTag(stepsList.size());
+        editText = new EditText(getActivity());
+        editText.setLayoutParams(etStep1.getLayoutParams());
+        editText.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.edit_text_bg));
+        editText.setHint("add Step");
+        editText.setPadding(etStep1.getPaddingLeft(), 0, 0, 0);
+        frameLayout.addView(editText);
+        final ImageView imageView = new ImageView(getActivity());
+        imageView.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.cross_icon));
+        imageView.setLayoutParams(btnAddSteps.getLayoutParams());
+        frameLayout.addView(imageView);
+        imageView.setTag(0);
+        imageView.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.cross_icon));
+        stepsImageViewList.add(imageView);
+
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (editable.length() < 1) {
+                    imageView.setVisibility(View.VISIBLE);
+                    imageView.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.cross_icon));
+                    imageView.setTag(0);
+                } else {
+                    imageView.setVisibility(View.VISIBLE);
+                    imageView.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.plus_icon));
+                    imageView.setTag(1);
+                }
+
+            }
+        });
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if ((int) (imageView.getTag()) == 1) {
+                    addEditTextForSteps();
+                } else {
+                    llAddSteps.removeView(frameLayout);
+                    stepsList.remove((int) (frameLayout.getTag()));
+                    stepsImageViewList.remove((int) (frameLayout.getTag()));
+                    stepsImageViewList.get(stepsImageViewList.size() - 1).setVisibility(View.VISIBLE);
+
+                }
+            }
+        });
+        llAddSteps.addView(frameLayout);
+        stepsList.add(editText);
+
+
     }
 
 }
