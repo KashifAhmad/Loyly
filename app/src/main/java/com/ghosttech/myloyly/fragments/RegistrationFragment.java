@@ -45,9 +45,11 @@ public class RegistrationFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    EditText etName, etEmail, etPassword;
+    EditText etName, etEmail, etPassword, etLastName, etCountry, etCity, etAddress, etPostalCode,
+            etWellness, etPhoneNumber;
     Button btnSubmit;
-    String strName, strEmail, strPassword;
+    String strFirstName, strLastName, strEmail, strPassword, strCountry, strWellness, strAddress, strPostalCOde,
+            strPhoneNumber, strCity;
     SweetAlertDialog pDialog;
     private OnFragmentInteractionListener mListener;
 
@@ -89,6 +91,15 @@ public class RegistrationFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_registration, container, false);
         etName = (EditText) view.findViewById(R.id.et_name);
         etEmail = (EditText) view.findViewById(R.id.et_email);
+        etLastName = (EditText) view.findViewById(R.id.et_last_name);
+        etCountry = (EditText) view.findViewById(R.id.et_country);
+        etCity = (EditText) view.findViewById(R.id.et_city);
+        etWellness = (EditText) view.findViewById(R.id.et_wellness);
+        etAddress = (EditText) view.findViewById(R.id.et_address);
+        etPostalCode = (EditText) view.findViewById(R.id.et_postal_code);
+        etPhoneNumber = (EditText) view.findViewById(R.id.et_phone_number);
+
+
         pDialog = new SweetAlertDialog(getActivity(), SweetAlertDialog.PROGRESS_TYPE);
         pDialog.getProgressHelper().setBarColor(Color.parseColor("#179e99"));
         pDialog.setTitleText("Getting Login");
@@ -98,15 +109,36 @@ public class RegistrationFragment extends Fragment {
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                strName = etName.getText().toString();
+                strFirstName = etName.getText().toString();
+                strLastName = etLastName.getText().toString();
                 strEmail = etEmail.getText().toString();
                 strPassword = etPassword.getText().toString();
-                if (strName.equals("")) {
+                strCountry = etCountry.getText().toString();
+                strWellness = etWellness.getText().toString();
+                strCity = etCity.getText().toString();
+                strPostalCOde = etPostalCode.getText().toString();
+                strAddress = etAddress.getText().toString();
+                strPhoneNumber = etPhoneNumber.getText().toString();
+
+
+                if (strFirstName.equals("")) {
                     etName.setError("Please write your name");
                 } else if ((!android.util.Patterns.EMAIL_ADDRESS.matcher(strEmail).matches())) {
                     etEmail.setError("Please enter valid email id");
                 } else if (strPassword.equals("") || strPassword.length() < 3) {
                     etPassword.setError("Password should be greater than 3 characters");
+                } else if (strCountry.equals("")) {
+                    etCountry.setError("Enter your country name");
+                } else if (strCity.equals("")) {
+                    etCity.setError("Enter your city name");
+                } else if (strAddress.equals("")) {
+                    etAddress.setError("Enter your address");
+                } else if (strPostalCOde.equals("")) {
+                    etPostalCode.setError("Enter your postal code");
+                } else if (strPhoneNumber.equals("")) {
+                    etPhoneNumber.setError("Enter your phone number");
+                } else if (strLastName.equals("")) {
+                    etLastName.setError("Enter your last name");
                 } else {
                     apiCall();
                     pDialog.show();
@@ -125,20 +157,20 @@ public class RegistrationFragment extends Fragment {
     }
 
     public void apiCall() {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, Configuration.USER_URL +"/signup", new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Configuration.USER_URL + "/signup", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-            if (response.contains("User Registered Successfully")){
-                pDialog.dismiss();
-                Toast.makeText(getActivity(), "Registered Successfully", Toast.LENGTH_SHORT).show();
-                Fragment fragment = new LoginFragment();
-                getFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
-            }else {
-                new SweetAlertDialog(getActivity(), SweetAlertDialog.WARNING_TYPE)
-                        .setTitleText("Email already registered")
-                        .show();
-                pDialog.dismiss();
-            }
+                if (response.contains("User Registered Successfully")) {
+                    pDialog.dismiss();
+                    Toast.makeText(getActivity(), "Registered Successfully", Toast.LENGTH_SHORT).show();
+                    Fragment fragment = new LoginFragment();
+                    getFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
+                } else {
+                    new SweetAlertDialog(getActivity(), SweetAlertDialog.WARNING_TYPE)
+                            .setTitleText("Email already registered")
+                            .show();
+                    pDialog.dismiss();
+                }
             }
         }, new Response.ErrorListener() {
             @Override
@@ -159,9 +191,16 @@ public class RegistrationFragment extends Fragment {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
                 params.put("email", strEmail);
-                params.put("name", strName);
+                params.put("name", strFirstName);
+                params.put("lastname", strLastName);
                 params.put("password", strPassword);
-                Log.d("zma reg name", strName);
+                params.put("country", strCountry);
+                params.put("city", strCity);
+                params.put("postcode", strPostalCOde);
+                params.put("address", strAddress);
+                params.put("wellness", strWellness);
+                params.put("phoneno", strPhoneNumber);
+                Log.d("zma reg name", strFirstName);
                 return params;
             }
 

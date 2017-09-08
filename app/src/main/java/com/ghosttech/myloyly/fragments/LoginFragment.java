@@ -123,7 +123,7 @@ public class LoginFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Fragment fragment = new ForgetPasswordFragment();
-                getFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
+                getFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).addToBackStack("tag").commit();
             }
         });
         ScrollView scrollView = (ScrollView) view.findViewById(R.id.sv_scroll_view);
@@ -139,7 +139,7 @@ public class LoginFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Fragment fragment = new RegistrationFragment();
-                getFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
+                getFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).addToBackStack("tag").commit();
             }
         });
         etEmail = (EditText) view.findViewById(R.id.et_email);

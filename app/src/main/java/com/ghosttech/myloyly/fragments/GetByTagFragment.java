@@ -49,7 +49,9 @@ public class GetByTagFragment extends Fragment implements View.OnClickListener {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    Button btnTagsClassic, btnTagsModern, btnTagSteamBath, btnTagsSmoke, btnTagsShow, btnAllTags, btnMyTags, btnInTagsAll;
+    Button btnTagsClassic, btnTagsModern, btnTagSteamBath, btnTagsSmoke, btnTagsShow, btnAllTags, btnMyTags, btnInTagsAll,
+    btnAirways, btnPurification, btnImmuneSystem, btnSeasonal, btnRelax, btnBalancing, btnActivating,
+    btnMediation, btnEntertainment;
     RecyclerView myRecyclerView;
     RecyclerView.Adapter addByTagAdapter;
     RecyclerView.LayoutManager layoutManager;
@@ -139,6 +141,27 @@ public class GetByTagFragment extends Fragment implements View.OnClickListener {
         btnTagsClassic = (Button) view.findViewById(R.id.btn_tags_classic);
         btnInTagsAll = (Button) view.findViewById(R.id.btn_in_tags_all);
         btnMyTags = (Button) view.findViewById(R.id.btn_my_tags);
+
+        btnActivating = (Button) view.findViewById(R.id.btn_activating);
+        btnAirways = (Button) view.findViewById(R.id.btn_airways);
+        btnPurification = (Button) view.findViewById(R.id.btn_purification);
+        btnImmuneSystem = (Button) view.findViewById(R.id.btn_immune_system);
+        btnSeasonal = (Button) view.findViewById(R.id.btn_seasonal);
+        btnRelax = (Button) view.findViewById(R.id.btn_relax);
+        btnBalancing = (Button) view.findViewById(R.id.btn_balancing);
+        btnMediation = (Button) view.findViewById(R.id.btn_mediation);
+        btnEntertainment = (Button) view.findViewById(R.id.btn_entertainment);
+
+        btnActivating.setOnClickListener(this);
+        btnAirways.setOnClickListener(this);
+        btnPurification.setOnClickListener(this);
+        btnImmuneSystem.setOnClickListener(this);
+        btnSeasonal.setOnClickListener(this);
+        btnRelax.setOnClickListener(this);
+        btnBalancing.setOnClickListener(this);
+        btnMediation.setOnClickListener(this);
+        btnEntertainment.setOnClickListener(this);
+
         btnTagsClassic.setOnClickListener(this);
         btnTagsModern.setOnClickListener(this);
         btnTagsShow.setOnClickListener(this);
@@ -148,6 +171,7 @@ public class GetByTagFragment extends Fragment implements View.OnClickListener {
         btnAllTags.setOnClickListener(this);
         btnMyTags.setOnClickListener(this);
         dataFlag = true;
+
         if (dataFlag) {
             pDialog.show();
             url = "http://swatshawls.com/loyly/Apis/getdata/";
@@ -247,6 +271,25 @@ public class GetByTagFragment extends Fragment implements View.OnClickListener {
                 btnInTagsAll.setTextColor(Color.parseColor("#eacb61"));
                 btnMyTags.setTextColor(Color.parseColor("#eacb61"));
 
+                btnAirways.setTextColor(Color.parseColor("#eacb61"));
+                btnPurification.setTextColor(Color.parseColor("#eacb61"));
+                btnImmuneSystem.setTextColor(Color.parseColor("#eacb61"));
+                btnSeasonal.setTextColor(Color.parseColor("#eacb61"));
+                btnRelax.setTextColor(Color.parseColor("#eacb61"));
+                btnBalancing.setTextColor(Color.parseColor("#eacb61"));
+                btnActivating.setTextColor(Color.parseColor("#eacb61"));
+                btnMediation.setTextColor(Color.parseColor("#eacb61"));
+                btnEntertainment.setTextColor(Color.parseColor("#eacb61"));
+                btnAirways.setBackgroundResource(R.drawable.button_orange_border);
+                btnPurification.setBackgroundResource(R.drawable.button_orange_border);
+                btnImmuneSystem.setBackgroundResource(R.drawable.button_orange_border);
+                btnSeasonal.setBackgroundResource(R.drawable.button_orange_border);
+                btnRelax.setBackgroundResource(R.drawable.button_orange_border);
+                btnBalancing.setBackgroundResource(R.drawable.button_orange_border);
+                btnActivating.setBackgroundResource(R.drawable.button_orange_border);
+                btnMediation.setBackgroundResource(R.drawable.button_orange_border);
+                btnEntertainment.setBackgroundResource(R.drawable.button_orange_border);
+
 
                 btnAllTags.setBackgroundResource(R.drawable.button_orange_border);
                 btnInTagsAll.setBackgroundResource(R.drawable.button_orange_border);
@@ -269,6 +312,25 @@ public class GetByTagFragment extends Fragment implements View.OnClickListener {
                 btnTagsShow.setTextColor(Color.parseColor("#eacb61"));
                 btnTagsSmoke.setTextColor(Color.parseColor("#eacb61"));
                 btnTagSteamBath.setTextColor(Color.parseColor("#eacb61"));
+
+                btnAirways.setTextColor(Color.parseColor("#eacb61"));
+                btnPurification.setTextColor(Color.parseColor("#eacb61"));
+                btnImmuneSystem.setTextColor(Color.parseColor("#eacb61"));
+                btnSeasonal.setTextColor(Color.parseColor("#eacb61"));
+                btnRelax.setTextColor(Color.parseColor("#eacb61"));
+                btnBalancing.setTextColor(Color.parseColor("#eacb61"));
+                btnActivating.setTextColor(Color.parseColor("#eacb61"));
+                btnMediation.setTextColor(Color.parseColor("#eacb61"));
+                btnEntertainment.setTextColor(Color.parseColor("#eacb61"));
+                btnAirways.setBackgroundResource(R.drawable.button_orange_border);
+                btnPurification.setBackgroundResource(R.drawable.button_orange_border);
+                btnImmuneSystem.setBackgroundResource(R.drawable.button_orange_border);
+                btnSeasonal.setBackgroundResource(R.drawable.button_orange_border);
+                btnRelax.setBackgroundResource(R.drawable.button_orange_border);
+                btnBalancing.setBackgroundResource(R.drawable.button_orange_border);
+                btnActivating.setBackgroundResource(R.drawable.button_orange_border);
+                btnMediation.setBackgroundResource(R.drawable.button_orange_border);
+                btnEntertainment.setBackgroundResource(R.drawable.button_orange_border);
 
                 btnAllTags.setTextColor(Color.parseColor("#eacb61"));
                 btnInTagsAll.setTextColor(Color.parseColor("#eacb61"));
@@ -294,6 +356,25 @@ public class GetByTagFragment extends Fragment implements View.OnClickListener {
                 btnTagsClassic.setTextColor(Color.parseColor("#eacb61"));
                 btnTagsSmoke.setTextColor(Color.parseColor("#eacb61"));
                 btnTagSteamBath.setTextColor(Color.parseColor("#eacb61"));
+
+                btnAirways.setTextColor(Color.parseColor("#eacb61"));
+                btnPurification.setTextColor(Color.parseColor("#eacb61"));
+                btnImmuneSystem.setTextColor(Color.parseColor("#eacb61"));
+                btnSeasonal.setTextColor(Color.parseColor("#eacb61"));
+                btnRelax.setTextColor(Color.parseColor("#eacb61"));
+                btnBalancing.setTextColor(Color.parseColor("#eacb61"));
+                btnActivating.setTextColor(Color.parseColor("#eacb61"));
+                btnMediation.setTextColor(Color.parseColor("#eacb61"));
+                btnEntertainment.setTextColor(Color.parseColor("#eacb61"));
+                btnAirways.setBackgroundResource(R.drawable.button_orange_border);
+                btnPurification.setBackgroundResource(R.drawable.button_orange_border);
+                btnImmuneSystem.setBackgroundResource(R.drawable.button_orange_border);
+                btnSeasonal.setBackgroundResource(R.drawable.button_orange_border);
+                btnRelax.setBackgroundResource(R.drawable.button_orange_border);
+                btnBalancing.setBackgroundResource(R.drawable.button_orange_border);
+                btnActivating.setBackgroundResource(R.drawable.button_orange_border);
+                btnMediation.setBackgroundResource(R.drawable.button_orange_border);
+                btnEntertainment.setBackgroundResource(R.drawable.button_orange_border);
 
                 btnAllTags.setTextColor(Color.parseColor("#eacb61"));
                 btnInTagsAll.setTextColor(Color.parseColor("#eacb61"));
@@ -324,6 +405,25 @@ public class GetByTagFragment extends Fragment implements View.OnClickListener {
                 btnInTagsAll.setTextColor(Color.parseColor("#eacb61"));
                 btnMyTags.setTextColor(Color.parseColor("#eacb61"));
 
+                btnAirways.setTextColor(Color.parseColor("#eacb61"));
+                btnPurification.setTextColor(Color.parseColor("#eacb61"));
+                btnImmuneSystem.setTextColor(Color.parseColor("#eacb61"));
+                btnSeasonal.setTextColor(Color.parseColor("#eacb61"));
+                btnRelax.setTextColor(Color.parseColor("#eacb61"));
+                btnBalancing.setTextColor(Color.parseColor("#eacb61"));
+                btnActivating.setTextColor(Color.parseColor("#eacb61"));
+                btnMediation.setTextColor(Color.parseColor("#eacb61"));
+                btnEntertainment.setTextColor(Color.parseColor("#eacb61"));
+                btnAirways.setBackgroundResource(R.drawable.button_orange_border);
+                btnPurification.setBackgroundResource(R.drawable.button_orange_border);
+                btnImmuneSystem.setBackgroundResource(R.drawable.button_orange_border);
+                btnSeasonal.setBackgroundResource(R.drawable.button_orange_border);
+                btnRelax.setBackgroundResource(R.drawable.button_orange_border);
+                btnBalancing.setBackgroundResource(R.drawable.button_orange_border);
+                btnActivating.setBackgroundResource(R.drawable.button_orange_border);
+                btnMediation.setBackgroundResource(R.drawable.button_orange_border);
+                btnEntertainment.setBackgroundResource(R.drawable.button_orange_border);
+
                 btnAllTags.setBackgroundResource(R.drawable.button_orange_border);
                 btnInTagsAll.setBackgroundResource(R.drawable.button_orange_border);
                 btnMyTags.setBackgroundResource(R.drawable.button_orange_border);
@@ -349,9 +449,30 @@ public class GetByTagFragment extends Fragment implements View.OnClickListener {
                 btnInTagsAll.setTextColor(Color.parseColor("#eacb61"));
                 btnMyTags.setTextColor(Color.parseColor("#eacb61"));
 
+
+                btnAirways.setTextColor(Color.parseColor("#eacb61"));
+                btnPurification.setTextColor(Color.parseColor("#eacb61"));
+                btnImmuneSystem.setTextColor(Color.parseColor("#eacb61"));
+                btnSeasonal.setTextColor(Color.parseColor("#eacb61"));
+                btnRelax.setTextColor(Color.parseColor("#eacb61"));
+                btnBalancing.setTextColor(Color.parseColor("#eacb61"));
+                btnActivating.setTextColor(Color.parseColor("#eacb61"));
+                btnMediation.setTextColor(Color.parseColor("#eacb61"));
+                btnEntertainment.setTextColor(Color.parseColor("#eacb61"));
+                btnAirways.setBackgroundResource(R.drawable.button_orange_border);
+                btnPurification.setBackgroundResource(R.drawable.button_orange_border);
+                btnImmuneSystem.setBackgroundResource(R.drawable.button_orange_border);
+                btnSeasonal.setBackgroundResource(R.drawable.button_orange_border);
+                btnRelax.setBackgroundResource(R.drawable.button_orange_border);
+                btnBalancing.setBackgroundResource(R.drawable.button_orange_border);
+                btnActivating.setBackgroundResource(R.drawable.button_orange_border);
+                btnMediation.setBackgroundResource(R.drawable.button_orange_border);
+                btnEntertainment.setBackgroundResource(R.drawable.button_orange_border);
+
                 btnAllTags.setBackgroundResource(R.drawable.button_orange_border);
                 btnInTagsAll.setBackgroundResource(R.drawable.button_orange_border);
                 btnMyTags.setBackgroundResource(R.drawable.button_orange_border);
+
                 btnTagsModern.setBackgroundResource(R.drawable.button_orange_border);
                 btnTagsClassic.setBackgroundResource(R.drawable.button_orange_border);
                 btnTagsShow.setBackgroundResource(R.drawable.button_orange_border);
@@ -364,8 +485,9 @@ public class GetByTagFragment extends Fragment implements View.OnClickListener {
                 strTags = "all";
                 btnAllTags.setBackgroundColor(Color.parseColor("#eacb61"));
                 btnAllTags.setTextColor(Color.WHITE);
-
                 btnInTagsAll.setTextColor(Color.WHITE);
+                btnInTagsAll.setBackgroundColor(Color.parseColor("#eacb61"));
+
                 btnTagSteamBath.setTextColor(Color.parseColor("#eacb61"));
                 btnTagsShow.setTextColor(Color.parseColor("#eacb61"));
                 btnTagsModern.setTextColor(Color.parseColor("#eacb61"));
@@ -373,7 +495,25 @@ public class GetByTagFragment extends Fragment implements View.OnClickListener {
                 btnTagsSmoke.setTextColor(Color.parseColor("#eacb61"));
                 btnMyTags.setTextColor(Color.parseColor("#eacb61"));
 
-                btnInTagsAll.setBackgroundColor(Color.parseColor("#eacb61"));
+                btnAirways.setTextColor(Color.parseColor("#eacb61"));
+                btnPurification.setTextColor(Color.parseColor("#eacb61"));
+                btnImmuneSystem.setTextColor(Color.parseColor("#eacb61"));
+                btnSeasonal.setTextColor(Color.parseColor("#eacb61"));
+                btnRelax.setTextColor(Color.parseColor("#eacb61"));
+                btnBalancing.setTextColor(Color.parseColor("#eacb61"));
+                btnActivating.setTextColor(Color.parseColor("#eacb61"));
+                btnMediation.setTextColor(Color.parseColor("#eacb61"));
+                btnEntertainment.setTextColor(Color.parseColor("#eacb61"));
+                btnAirways.setBackgroundResource(R.drawable.button_orange_border);
+                btnPurification.setBackgroundResource(R.drawable.button_orange_border);
+                btnImmuneSystem.setBackgroundResource(R.drawable.button_orange_border);
+                btnSeasonal.setBackgroundResource(R.drawable.button_orange_border);
+                btnRelax.setBackgroundResource(R.drawable.button_orange_border);
+                btnBalancing.setBackgroundResource(R.drawable.button_orange_border);
+                btnActivating.setBackgroundResource(R.drawable.button_orange_border);
+                btnMediation.setBackgroundResource(R.drawable.button_orange_border);
+                btnEntertainment.setBackgroundResource(R.drawable.button_orange_border);
+
                 btnTagSteamBath.setBackgroundResource(R.drawable.button_orange_border);
                 btnMyTags.setBackgroundResource(R.drawable.button_orange_border);
                 btnTagsModern.setBackgroundResource(R.drawable.button_orange_border);
@@ -390,12 +530,32 @@ public class GetByTagFragment extends Fragment implements View.OnClickListener {
                 btnAllTags.setTextColor(Color.WHITE);
                 btnInTagsAll.setTextColor(Color.WHITE);
                 btnInTagsAll.setBackgroundColor(Color.parseColor("#eacb61"));
+
                 btnTagSteamBath.setTextColor(Color.parseColor("#eacb61"));
                 btnTagsShow.setTextColor(Color.parseColor("#eacb61"));
                 btnTagsModern.setTextColor(Color.parseColor("#eacb61"));
                 btnTagsClassic.setTextColor(Color.parseColor("#eacb61"));
                 btnTagsSmoke.setTextColor(Color.parseColor("#eacb61"));
                 btnMyTags.setTextColor(Color.parseColor("#eacb61"));
+
+                btnAirways.setTextColor(Color.parseColor("#eacb61"));
+                btnPurification.setTextColor(Color.parseColor("#eacb61"));
+                btnImmuneSystem.setTextColor(Color.parseColor("#eacb61"));
+                btnSeasonal.setTextColor(Color.parseColor("#eacb61"));
+                btnRelax.setTextColor(Color.parseColor("#eacb61"));
+                btnBalancing.setTextColor(Color.parseColor("#eacb61"));
+                btnActivating.setTextColor(Color.parseColor("#eacb61"));
+                btnMediation.setTextColor(Color.parseColor("#eacb61"));
+                btnEntertainment.setTextColor(Color.parseColor("#eacb61"));
+                btnAirways.setBackgroundResource(R.drawable.button_orange_border);
+                btnPurification.setBackgroundResource(R.drawable.button_orange_border);
+                btnImmuneSystem.setBackgroundResource(R.drawable.button_orange_border);
+                btnSeasonal.setBackgroundResource(R.drawable.button_orange_border);
+                btnRelax.setBackgroundResource(R.drawable.button_orange_border);
+                btnBalancing.setBackgroundResource(R.drawable.button_orange_border);
+                btnActivating.setBackgroundResource(R.drawable.button_orange_border);
+                btnMediation.setBackgroundResource(R.drawable.button_orange_border);
+                btnEntertainment.setBackgroundResource(R.drawable.button_orange_border);
 
                 btnMyTags.setBackgroundResource(R.drawable.button_orange_border);
 
@@ -413,6 +573,25 @@ public class GetByTagFragment extends Fragment implements View.OnClickListener {
 
                 btnMyTags.setBackgroundColor(Color.parseColor("#eacb61"));
                 btnMyTags.setTextColor(Color.WHITE);
+
+                btnAirways.setTextColor(Color.parseColor("#eacb61"));
+                btnPurification.setTextColor(Color.parseColor("#eacb61"));
+                btnImmuneSystem.setTextColor(Color.parseColor("#eacb61"));
+                btnSeasonal.setTextColor(Color.parseColor("#eacb61"));
+                btnRelax.setTextColor(Color.parseColor("#eacb61"));
+                btnBalancing.setTextColor(Color.parseColor("#eacb61"));
+                btnActivating.setTextColor(Color.parseColor("#eacb61"));
+                btnMediation.setTextColor(Color.parseColor("#eacb61"));
+                btnEntertainment.setTextColor(Color.parseColor("#eacb61"));
+                btnAirways.setBackgroundResource(R.drawable.button_orange_border);
+                btnPurification.setBackgroundResource(R.drawable.button_orange_border);
+                btnImmuneSystem.setBackgroundResource(R.drawable.button_orange_border);
+                btnSeasonal.setBackgroundResource(R.drawable.button_orange_border);
+                btnRelax.setBackgroundResource(R.drawable.button_orange_border);
+                btnBalancing.setBackgroundResource(R.drawable.button_orange_border);
+                btnActivating.setBackgroundResource(R.drawable.button_orange_border);
+                btnMediation.setBackgroundResource(R.drawable.button_orange_border);
+                btnEntertainment.setBackgroundResource(R.drawable.button_orange_border);
 
                 btnAllTags.setTextColor(Color.parseColor("#eacb61"));
                 btnInTagsAll.setTextColor(Color.parseColor("#eacb61"));
@@ -432,6 +611,424 @@ public class GetByTagFragment extends Fragment implements View.OnClickListener {
                 getDataFromAPI(strTags);
                 pDialog.show();
 
+                break;
+            case R.id.btn_airways:
+                strTags = "Airways";
+
+                btnAirways.setBackgroundColor(Color.parseColor("#eacb61"));
+                btnAirways.setTextColor(Color.WHITE);
+
+                btnTagsSmoke.setBackgroundResource(R.drawable.button_orange_border);
+                btnTagsSmoke.setTextColor(Color.parseColor("#eacb61"));
+
+                btnAllTags.setTextColor(Color.parseColor("#eacb61"));
+                btnInTagsAll.setTextColor(Color.parseColor("#eacb61"));
+                btnMyTags.setTextColor(Color.parseColor("#eacb61"));
+                btnAllTags.setBackgroundResource(R.drawable.button_orange_border);
+                btnInTagsAll.setBackgroundResource(R.drawable.button_orange_border);
+                btnMyTags.setBackgroundResource(R.drawable.button_orange_border);
+
+                btnTagsShow.setTextColor(Color.parseColor("#eacb61"));
+                btnTagsModern.setTextColor(Color.parseColor("#eacb61"));
+                btnTagsClassic.setTextColor(Color.parseColor("#eacb61"));
+                btnTagSteamBath.setTextColor(Color.parseColor("#eacb61"));
+
+                btnTagsModern.setBackgroundResource(R.drawable.button_orange_border);
+                btnTagsClassic.setBackgroundResource(R.drawable.button_orange_border);
+                btnTagsShow.setBackgroundResource(R.drawable.button_orange_border);
+                btnTagSteamBath.setBackgroundResource(R.drawable.button_orange_border);
+
+
+                btnPurification.setTextColor(Color.parseColor("#eacb61"));
+                btnImmuneSystem.setTextColor(Color.parseColor("#eacb61"));
+                btnSeasonal.setTextColor(Color.parseColor("#eacb61"));
+                btnRelax.setTextColor(Color.parseColor("#eacb61"));
+                btnBalancing.setTextColor(Color.parseColor("#eacb61"));
+                btnActivating.setTextColor(Color.parseColor("#eacb61"));
+                btnMediation.setTextColor(Color.parseColor("#eacb61"));
+                btnEntertainment.setTextColor(Color.parseColor("#eacb61"));
+                btnPurification.setBackgroundResource(R.drawable.button_orange_border);
+                btnImmuneSystem.setBackgroundResource(R.drawable.button_orange_border);
+                btnSeasonal.setBackgroundResource(R.drawable.button_orange_border);
+                btnRelax.setBackgroundResource(R.drawable.button_orange_border);
+                btnBalancing.setBackgroundResource(R.drawable.button_orange_border);
+                btnActivating.setBackgroundResource(R.drawable.button_orange_border);
+                btnMediation.setBackgroundResource(R.drawable.button_orange_border);
+                btnEntertainment.setBackgroundResource(R.drawable.button_orange_border);
+
+                pDialog.show();
+                getDataFromAPI(strTags);
+
+                break;
+            case R.id.btn_purification:
+                strTags = "Purification";
+
+                btnPurification.setBackgroundColor(Color.parseColor("#eacb61"));
+                btnPurification.setTextColor(Color.WHITE);
+                btnTagsSmoke.setBackgroundResource(R.drawable.button_orange_border);
+                btnTagsSmoke.setTextColor(Color.parseColor("#eacb61"));
+
+                btnAllTags.setTextColor(Color.parseColor("#eacb61"));
+                btnInTagsAll.setTextColor(Color.parseColor("#eacb61"));
+                btnMyTags.setTextColor(Color.parseColor("#eacb61"));
+                btnAllTags.setBackgroundResource(R.drawable.button_orange_border);
+                btnInTagsAll.setBackgroundResource(R.drawable.button_orange_border);
+                btnMyTags.setBackgroundResource(R.drawable.button_orange_border);
+
+                btnTagsShow.setTextColor(Color.parseColor("#eacb61"));
+                btnTagsModern.setTextColor(Color.parseColor("#eacb61"));
+                btnTagsClassic.setTextColor(Color.parseColor("#eacb61"));
+                btnTagSteamBath.setTextColor(Color.parseColor("#eacb61"));
+
+                btnTagsModern.setBackgroundResource(R.drawable.button_orange_border);
+                btnTagsClassic.setBackgroundResource(R.drawable.button_orange_border);
+                btnTagsShow.setBackgroundResource(R.drawable.button_orange_border);
+                btnTagSteamBath.setBackgroundResource(R.drawable.button_orange_border);
+
+                btnAirways.setTextColor(Color.parseColor("#eacb61"));
+                btnImmuneSystem.setTextColor(Color.parseColor("#eacb61"));
+                btnSeasonal.setTextColor(Color.parseColor("#eacb61"));
+                btnRelax.setTextColor(Color.parseColor("#eacb61"));
+                btnBalancing.setTextColor(Color.parseColor("#eacb61"));
+                btnActivating.setTextColor(Color.parseColor("#eacb61"));
+                btnMediation.setTextColor(Color.parseColor("#eacb61"));
+                btnEntertainment.setTextColor(Color.parseColor("#eacb61"));
+                btnAirways.setBackgroundResource(R.drawable.button_orange_border);
+                btnImmuneSystem.setBackgroundResource(R.drawable.button_orange_border);
+                btnSeasonal.setBackgroundResource(R.drawable.button_orange_border);
+                btnRelax.setBackgroundResource(R.drawable.button_orange_border);
+                btnBalancing.setBackgroundResource(R.drawable.button_orange_border);
+                btnActivating.setBackgroundResource(R.drawable.button_orange_border);
+                btnMediation.setBackgroundResource(R.drawable.button_orange_border);
+                btnEntertainment.setBackgroundResource(R.drawable.button_orange_border);
+
+                pDialog.show();
+                getDataFromAPI(strTags);
+                break;
+            case R.id.btn_immune_system:
+                strTags = "ImmuneSystem";
+
+                btnImmuneSystem.setBackgroundColor(Color.parseColor("#eacb61"));
+                btnImmuneSystem.setTextColor(Color.WHITE);
+                btnTagsSmoke.setBackgroundResource(R.drawable.button_orange_border);
+                btnTagsSmoke.setTextColor(Color.parseColor("#eacb61"));
+
+                btnAllTags.setTextColor(Color.parseColor("#eacb61"));
+                btnInTagsAll.setTextColor(Color.parseColor("#eacb61"));
+                btnMyTags.setTextColor(Color.parseColor("#eacb61"));
+                btnAllTags.setBackgroundResource(R.drawable.button_orange_border);
+                btnInTagsAll.setBackgroundResource(R.drawable.button_orange_border);
+                btnMyTags.setBackgroundResource(R.drawable.button_orange_border);
+
+                btnTagsShow.setTextColor(Color.parseColor("#eacb61"));
+                btnTagsModern.setTextColor(Color.parseColor("#eacb61"));
+                btnTagsClassic.setTextColor(Color.parseColor("#eacb61"));
+                btnTagSteamBath.setTextColor(Color.parseColor("#eacb61"));
+
+                btnTagsModern.setBackgroundResource(R.drawable.button_orange_border);
+                btnTagsClassic.setBackgroundResource(R.drawable.button_orange_border);
+                btnTagsShow.setBackgroundResource(R.drawable.button_orange_border);
+                btnTagSteamBath.setBackgroundResource(R.drawable.button_orange_border);
+
+                btnAirways.setTextColor(Color.parseColor("#eacb61"));
+                btnPurification.setTextColor(Color.parseColor("#eacb61"));
+                btnSeasonal.setTextColor(Color.parseColor("#eacb61"));
+                btnRelax.setTextColor(Color.parseColor("#eacb61"));
+                btnBalancing.setTextColor(Color.parseColor("#eacb61"));
+                btnActivating.setTextColor(Color.parseColor("#eacb61"));
+                btnMediation.setTextColor(Color.parseColor("#eacb61"));
+                btnEntertainment.setTextColor(Color.parseColor("#eacb61"));
+                btnAirways.setBackgroundResource(R.drawable.button_orange_border);
+                btnPurification.setBackgroundResource(R.drawable.button_orange_border);
+                btnSeasonal.setBackgroundResource(R.drawable.button_orange_border);
+                btnRelax.setBackgroundResource(R.drawable.button_orange_border);
+                btnBalancing.setBackgroundResource(R.drawable.button_orange_border);
+                btnActivating.setBackgroundResource(R.drawable.button_orange_border);
+                btnMediation.setBackgroundResource(R.drawable.button_orange_border);
+                btnEntertainment.setBackgroundResource(R.drawable.button_orange_border);
+
+                pDialog.show();
+                getDataFromAPI(strTags);
+                break;
+            case R.id.btn_seasonal:
+                strTags = "Seasonal";
+
+                btnSeasonal.setBackgroundColor(Color.parseColor("#eacb61"));
+                btnSeasonal.setTextColor(Color.WHITE);
+
+                btnTagsSmoke.setBackgroundResource(R.drawable.button_orange_border);
+                btnTagsSmoke.setTextColor(Color.parseColor("#eacb61"));
+
+                btnTagsShow.setTextColor(Color.parseColor("#eacb61"));
+                btnTagsModern.setTextColor(Color.parseColor("#eacb61"));
+                btnTagsClassic.setTextColor(Color.parseColor("#eacb61"));
+                btnTagSteamBath.setTextColor(Color.parseColor("#eacb61"));
+
+                btnAllTags.setTextColor(Color.parseColor("#eacb61"));
+                btnInTagsAll.setTextColor(Color.parseColor("#eacb61"));
+                btnMyTags.setTextColor(Color.parseColor("#eacb61"));
+                btnAllTags.setBackgroundResource(R.drawable.button_orange_border);
+                btnInTagsAll.setBackgroundResource(R.drawable.button_orange_border);
+                btnMyTags.setBackgroundResource(R.drawable.button_orange_border);
+
+                btnTagsModern.setBackgroundResource(R.drawable.button_orange_border);
+                btnTagsClassic.setBackgroundResource(R.drawable.button_orange_border);
+                btnTagsShow.setBackgroundResource(R.drawable.button_orange_border);
+                btnTagSteamBath.setBackgroundResource(R.drawable.button_orange_border);
+
+                btnAirways.setTextColor(Color.parseColor("#eacb61"));
+                btnPurification.setTextColor(Color.parseColor("#eacb61"));
+                btnImmuneSystem.setTextColor(Color.parseColor("#eacb61"));
+                btnRelax.setTextColor(Color.parseColor("#eacb61"));
+                btnBalancing.setTextColor(Color.parseColor("#eacb61"));
+                btnActivating.setTextColor(Color.parseColor("#eacb61"));
+                btnMediation.setTextColor(Color.parseColor("#eacb61"));
+                btnEntertainment.setTextColor(Color.parseColor("#eacb61"));
+                btnAirways.setBackgroundResource(R.drawable.button_orange_border);
+                btnPurification.setBackgroundResource(R.drawable.button_orange_border);
+                btnImmuneSystem.setBackgroundResource(R.drawable.button_orange_border);
+                btnRelax.setBackgroundResource(R.drawable.button_orange_border);
+                btnBalancing.setBackgroundResource(R.drawable.button_orange_border);
+                btnActivating.setBackgroundResource(R.drawable.button_orange_border);
+                btnMediation.setBackgroundResource(R.drawable.button_orange_border);
+                btnEntertainment.setBackgroundResource(R.drawable.button_orange_border);
+
+                pDialog.show();
+                getDataFromAPI(strTags);
+                break;
+            case R.id.btn_relax:
+                strTags = "Relax";
+
+                btnRelax.setBackgroundColor(Color.parseColor("#eacb61"));
+                btnRelax.setTextColor(Color.WHITE);
+
+                btnAllTags.setTextColor(Color.parseColor("#eacb61"));
+                btnInTagsAll.setTextColor(Color.parseColor("#eacb61"));
+                btnMyTags.setTextColor(Color.parseColor("#eacb61"));
+                btnAllTags.setBackgroundResource(R.drawable.button_orange_border);
+                btnInTagsAll.setBackgroundResource(R.drawable.button_orange_border);
+                btnMyTags.setBackgroundResource(R.drawable.button_orange_border);
+
+                btnTagsSmoke.setBackgroundResource(R.drawable.button_orange_border);
+                btnTagsSmoke.setTextColor(Color.parseColor("#eacb61"));
+
+                btnTagsShow.setTextColor(Color.parseColor("#eacb61"));
+                btnTagsModern.setTextColor(Color.parseColor("#eacb61"));
+                btnTagsClassic.setTextColor(Color.parseColor("#eacb61"));
+                btnTagSteamBath.setTextColor(Color.parseColor("#eacb61"));
+
+                btnTagsModern.setBackgroundResource(R.drawable.button_orange_border);
+                btnTagsClassic.setBackgroundResource(R.drawable.button_orange_border);
+                btnTagsShow.setBackgroundResource(R.drawable.button_orange_border);
+                btnTagSteamBath.setBackgroundResource(R.drawable.button_orange_border);
+
+                btnAirways.setTextColor(Color.parseColor("#eacb61"));
+                btnPurification.setTextColor(Color.parseColor("#eacb61"));
+                btnImmuneSystem.setTextColor(Color.parseColor("#eacb61"));
+                btnSeasonal.setTextColor(Color.parseColor("#eacb61"));
+                btnBalancing.setTextColor(Color.parseColor("#eacb61"));
+                btnActivating.setTextColor(Color.parseColor("#eacb61"));
+                btnMediation.setTextColor(Color.parseColor("#eacb61"));
+                btnEntertainment.setTextColor(Color.parseColor("#eacb61"));
+                btnAirways.setBackgroundResource(R.drawable.button_orange_border);
+                btnPurification.setBackgroundResource(R.drawable.button_orange_border);
+                btnImmuneSystem.setBackgroundResource(R.drawable.button_orange_border);
+                btnSeasonal.setBackgroundResource(R.drawable.button_orange_border);
+                btnBalancing.setBackgroundResource(R.drawable.button_orange_border);
+                btnActivating.setBackgroundResource(R.drawable.button_orange_border);
+                btnMediation.setBackgroundResource(R.drawable.button_orange_border);
+                btnEntertainment.setBackgroundResource(R.drawable.button_orange_border);
+
+                pDialog.show();
+                getDataFromAPI(strTags);
+                break;
+            case R.id.btn_balancing:
+                strTags = "Balancing";
+
+                btnBalancing.setBackgroundColor(Color.parseColor("#eacb61"));
+                btnBalancing.setTextColor(Color.WHITE);
+
+                btnTagsSmoke.setBackgroundResource(R.drawable.button_orange_border);
+                btnTagsSmoke.setTextColor(Color.parseColor("#eacb61"));
+
+                btnTagsShow.setTextColor(Color.parseColor("#eacb61"));
+                btnTagsModern.setTextColor(Color.parseColor("#eacb61"));
+                btnTagsClassic.setTextColor(Color.parseColor("#eacb61"));
+                btnTagSteamBath.setTextColor(Color.parseColor("#eacb61"));
+
+                btnAllTags.setTextColor(Color.parseColor("#eacb61"));
+                btnInTagsAll.setTextColor(Color.parseColor("#eacb61"));
+                btnMyTags.setTextColor(Color.parseColor("#eacb61"));
+                btnAllTags.setBackgroundResource(R.drawable.button_orange_border);
+                btnInTagsAll.setBackgroundResource(R.drawable.button_orange_border);
+                btnMyTags.setBackgroundResource(R.drawable.button_orange_border);
+
+                btnTagsModern.setBackgroundResource(R.drawable.button_orange_border);
+                btnTagsClassic.setBackgroundResource(R.drawable.button_orange_border);
+                btnTagsShow.setBackgroundResource(R.drawable.button_orange_border);
+                btnTagSteamBath.setBackgroundResource(R.drawable.button_orange_border);
+
+
+                btnAirways.setTextColor(Color.parseColor("#eacb61"));
+                btnPurification.setTextColor(Color.parseColor("#eacb61"));
+                btnImmuneSystem.setTextColor(Color.parseColor("#eacb61"));
+                btnSeasonal.setTextColor(Color.parseColor("#eacb61"));
+                btnRelax.setTextColor(Color.parseColor("#eacb61"));
+                btnActivating.setTextColor(Color.parseColor("#eacb61"));
+                btnMediation.setTextColor(Color.parseColor("#eacb61"));
+                btnEntertainment.setTextColor(Color.parseColor("#eacb61"));
+                btnAirways.setBackgroundResource(R.drawable.button_orange_border);
+                btnPurification.setBackgroundResource(R.drawable.button_orange_border);
+                btnImmuneSystem.setBackgroundResource(R.drawable.button_orange_border);
+                btnSeasonal.setBackgroundResource(R.drawable.button_orange_border);
+                btnRelax.setBackgroundResource(R.drawable.button_orange_border);
+                btnActivating.setBackgroundResource(R.drawable.button_orange_border);
+                btnMediation.setBackgroundResource(R.drawable.button_orange_border);
+                btnEntertainment.setBackgroundResource(R.drawable.button_orange_border);
+
+                pDialog.show();
+                getDataFromAPI(strTags);
+                break;
+            case R.id.btn_activating:
+                strTags = "Activating";
+
+                btnActivating.setBackgroundColor(Color.parseColor("#eacb61"));
+                btnActivating.setTextColor(Color.WHITE);
+
+                btnTagsSmoke.setBackgroundResource(R.drawable.button_orange_border);
+                btnTagsSmoke.setTextColor(Color.parseColor("#eacb61"));
+
+                btnAllTags.setTextColor(Color.parseColor("#eacb61"));
+                btnInTagsAll.setTextColor(Color.parseColor("#eacb61"));
+                btnMyTags.setTextColor(Color.parseColor("#eacb61"));
+                btnAllTags.setBackgroundResource(R.drawable.button_orange_border);
+                btnInTagsAll.setBackgroundResource(R.drawable.button_orange_border);
+                btnMyTags.setBackgroundResource(R.drawable.button_orange_border);
+
+                btnTagsShow.setTextColor(Color.parseColor("#eacb61"));
+                btnTagsModern.setTextColor(Color.parseColor("#eacb61"));
+                btnTagsClassic.setTextColor(Color.parseColor("#eacb61"));
+                btnTagSteamBath.setTextColor(Color.parseColor("#eacb61"));
+
+                btnTagsModern.setBackgroundResource(R.drawable.button_orange_border);
+                btnTagsClassic.setBackgroundResource(R.drawable.button_orange_border);
+                btnTagsShow.setBackgroundResource(R.drawable.button_orange_border);
+                btnTagSteamBath.setBackgroundResource(R.drawable.button_orange_border);
+
+
+                btnAirways.setTextColor(Color.parseColor("#eacb61"));
+                btnPurification.setTextColor(Color.parseColor("#eacb61"));
+                btnImmuneSystem.setTextColor(Color.parseColor("#eacb61"));
+                btnSeasonal.setTextColor(Color.parseColor("#eacb61"));
+                btnRelax.setTextColor(Color.parseColor("#eacb61"));
+                btnBalancing.setTextColor(Color.parseColor("#eacb61"));
+                btnMediation.setTextColor(Color.parseColor("#eacb61"));
+                btnEntertainment.setTextColor(Color.parseColor("#eacb61"));
+                btnAirways.setBackgroundResource(R.drawable.button_orange_border);
+                btnPurification.setBackgroundResource(R.drawable.button_orange_border);
+                btnImmuneSystem.setBackgroundResource(R.drawable.button_orange_border);
+                btnSeasonal.setBackgroundResource(R.drawable.button_orange_border);
+                btnRelax.setBackgroundResource(R.drawable.button_orange_border);
+                btnBalancing.setBackgroundResource(R.drawable.button_orange_border);
+                btnMediation.setBackgroundResource(R.drawable.button_orange_border);
+                btnEntertainment.setBackgroundResource(R.drawable.button_orange_border);
+
+                pDialog.show();
+                getDataFromAPI(strTags);
+                break;
+            case R.id.btn_mediation:
+                strTags = "Mediation";
+
+                btnMediation.setBackgroundColor(Color.parseColor("#eacb61"));
+                btnMediation.setTextColor(Color.WHITE);
+
+                btnTagsSmoke.setBackgroundResource(R.drawable.button_orange_border);
+                btnTagsSmoke.setTextColor(Color.parseColor("#eacb61"));
+
+                btnAllTags.setTextColor(Color.parseColor("#eacb61"));
+                btnInTagsAll.setTextColor(Color.parseColor("#eacb61"));
+                btnMyTags.setTextColor(Color.parseColor("#eacb61"));
+                btnAllTags.setBackgroundResource(R.drawable.button_orange_border);
+                btnInTagsAll.setBackgroundResource(R.drawable.button_orange_border);
+                btnMyTags.setBackgroundResource(R.drawable.button_orange_border);
+
+                btnTagsShow.setTextColor(Color.parseColor("#eacb61"));
+                btnTagsModern.setTextColor(Color.parseColor("#eacb61"));
+                btnTagsClassic.setTextColor(Color.parseColor("#eacb61"));
+                btnTagSteamBath.setTextColor(Color.parseColor("#eacb61"));
+
+                btnTagsModern.setBackgroundResource(R.drawable.button_orange_border);
+                btnTagsClassic.setBackgroundResource(R.drawable.button_orange_border);
+                btnTagsShow.setBackgroundResource(R.drawable.button_orange_border);
+                btnTagSteamBath.setBackgroundResource(R.drawable.button_orange_border);
+
+
+                btnAirways.setTextColor(Color.parseColor("#eacb61"));
+                btnPurification.setTextColor(Color.parseColor("#eacb61"));
+                btnImmuneSystem.setTextColor(Color.parseColor("#eacb61"));
+                btnSeasonal.setTextColor(Color.parseColor("#eacb61"));
+                btnRelax.setTextColor(Color.parseColor("#eacb61"));
+                btnBalancing.setTextColor(Color.parseColor("#eacb61"));
+                btnActivating.setTextColor(Color.parseColor("#eacb61"));
+                btnEntertainment.setTextColor(Color.parseColor("#eacb61"));
+                btnAirways.setBackgroundResource(R.drawable.button_orange_border);
+                btnPurification.setBackgroundResource(R.drawable.button_orange_border);
+                btnImmuneSystem.setBackgroundResource(R.drawable.button_orange_border);
+                btnSeasonal.setBackgroundResource(R.drawable.button_orange_border);
+                btnRelax.setBackgroundResource(R.drawable.button_orange_border);
+                btnBalancing.setBackgroundResource(R.drawable.button_orange_border);
+                btnActivating.setBackgroundResource(R.drawable.button_orange_border);
+                btnEntertainment.setBackgroundResource(R.drawable.button_orange_border);
+
+                pDialog.show();
+                getDataFromAPI(strTags);
+                break;
+            case R.id.btn_entertainment:
+                strTags = "Entertainment";
+
+                btnEntertainment.setBackgroundColor(Color.parseColor("#eacb61"));
+                btnEntertainment.setTextColor(Color.WHITE);
+
+                btnTagsSmoke.setBackgroundResource(R.drawable.button_orange_border);
+                btnTagsSmoke.setTextColor(Color.parseColor("#eacb61"));
+
+                btnAllTags.setTextColor(Color.parseColor("#eacb61"));
+                btnInTagsAll.setTextColor(Color.parseColor("#eacb61"));
+                btnMyTags.setTextColor(Color.parseColor("#eacb61"));
+                btnAllTags.setBackgroundResource(R.drawable.button_orange_border);
+                btnInTagsAll.setBackgroundResource(R.drawable.button_orange_border);
+                btnMyTags.setBackgroundResource(R.drawable.button_orange_border);
+
+                btnTagsShow.setTextColor(Color.parseColor("#eacb61"));
+                btnTagsModern.setTextColor(Color.parseColor("#eacb61"));
+                btnTagsClassic.setTextColor(Color.parseColor("#eacb61"));
+                btnTagSteamBath.setTextColor(Color.parseColor("#eacb61"));
+
+                btnTagsModern.setBackgroundResource(R.drawable.button_orange_border);
+                btnTagsClassic.setBackgroundResource(R.drawable.button_orange_border);
+                btnTagsShow.setBackgroundResource(R.drawable.button_orange_border);
+                btnTagSteamBath.setBackgroundResource(R.drawable.button_orange_border);
+
+
+                btnAirways.setTextColor(Color.parseColor("#eacb61"));
+                btnPurification.setTextColor(Color.parseColor("#eacb61"));
+                btnImmuneSystem.setTextColor(Color.parseColor("#eacb61"));
+                btnSeasonal.setTextColor(Color.parseColor("#eacb61"));
+                btnRelax.setTextColor(Color.parseColor("#eacb61"));
+                btnBalancing.setTextColor(Color.parseColor("#eacb61"));
+                btnActivating.setTextColor(Color.parseColor("#eacb61"));
+                btnMediation.setTextColor(Color.parseColor("#eacb61"));
+                btnAirways.setBackgroundResource(R.drawable.button_orange_border);
+                btnPurification.setBackgroundResource(R.drawable.button_orange_border);
+                btnImmuneSystem.setBackgroundResource(R.drawable.button_orange_border);
+                btnSeasonal.setBackgroundResource(R.drawable.button_orange_border);
+                btnRelax.setBackgroundResource(R.drawable.button_orange_border);
+                btnBalancing.setBackgroundResource(R.drawable.button_orange_border);
+                btnActivating.setBackgroundResource(R.drawable.button_orange_border);
+                btnMediation.setBackgroundResource(R.drawable.button_orange_border);
+
+                pDialog.show();
+                getDataFromAPI(strTags);
                 break;
         }
         Log.d("zma tag click", strTags);
