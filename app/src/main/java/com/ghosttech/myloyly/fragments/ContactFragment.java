@@ -1,14 +1,18 @@
 package com.ghosttech.myloyly.fragments;
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.ghosttech.myloyly.R;
+import com.thefinestartist.finestwebview.FinestWebView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -28,6 +32,7 @@ public class ContactFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    TextView tvEmail, tvFacebook, tvSkype, tvInstagram, tvPhoneNumber;
     private OnFragmentInteractionListener mListener;
 
     public ContactFragment() {
@@ -65,7 +70,57 @@ public class ContactFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_contact, container, false);
+        View view = inflater.inflate(R.layout.fragment_contact, container, false);
+        tvEmail = (TextView)view.findViewById(R.id.tv_email);
+        tvFacebook = (TextView)view.findViewById(R.id.tv_facebook_id);
+        tvPhoneNumber = (TextView)view.findViewById(R.id.tv_phone_number);
+        tvSkype = (TextView)view.findViewById(R.id.tv_skype_id);
+        tvInstagram = (TextView)view.findViewById(R.id.tv_instagram);
+
+        tvEmail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.setType("message/rfc822");
+                intent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[] {"info@aromen.com"});
+                Intent mailer = Intent.createChooser(intent, null);
+                startActivity(mailer);
+            }
+        });
+
+        tvFacebook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new FinestWebView.Builder(getActivity()).load("www.facebook.com/lolymasters");
+            }
+        });
+        tvSkype.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent sky = new Intent("android.intent.action.VIEW");
+                sky.setData(Uri.parse("skype:" + "mvanhoorelbeke"));
+                startActivity(sky);
+            }
+        });
+         tvInstagram.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View view) {
+                 Uri uri = Uri.parse("http://instagram.com/_u/xxx");
+                 Intent likeIng = new Intent(Intent.ACTION_VIEW, uri);
+
+                 likeIng.setPackage("com.instagram.android");
+
+                 try {
+                     startActivity(likeIng);
+                 } catch (ActivityNotFoundException e) {
+                     startActivity(new Intent(Intent.ACTION_VIEW,
+                             Uri.parse("http://instagram.com/xxx")));
+                 }
+             }
+         });
+
+        return view;
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event

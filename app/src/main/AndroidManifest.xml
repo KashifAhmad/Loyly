@@ -32,6 +32,11 @@
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="ee1f08b5743d3ee09e64490e912213800a73c20d" />
+        <activity
+            android:name="com.thefinestartist.finestwebview.FinestWebViewActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="sensor"
+            android:theme="@style/FinestWebViewTheme.Light" />
     </application>
 
 </manifest>

@@ -105,8 +105,13 @@ public class EssesntialOilFragment extends Fragment {
         searchBar.setVisibility(View.GONE);
         if (!MainFragment.SEARCH) {
             searchBar.setVisibility(View.GONE);
+
         } else {
             searchBar.setVisibility(View.VISIBLE);
+            ViewGroup.MarginLayoutParams marginLayoutParams =
+                    (ViewGroup.MarginLayoutParams) mRecyclerView.getLayoutParams();
+            marginLayoutParams.setMargins(0,200,0,0);
+            mRecyclerView.setLayoutParams(marginLayoutParams);
 
         }
         searchBar.setHint("Search here");

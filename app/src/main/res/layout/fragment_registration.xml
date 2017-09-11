@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:id="@+id/sv_main"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
-    android:background="#1E824C"
     >
 
     <LinearLayout
@@ -14,362 +14,130 @@
 
         android:padding="5dp">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="10dp">
-
-            <ImageView
-                android:id="@+id/imageView10"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="30dp"
-                android:src="@drawable/user_icon" />
-
-            <com.wrapp.floatlabelededittext.FloatLabeledEditText
-                android:id="@+id/view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="10dp">
-
                 <EditText
                     android:id="@+id/et_name"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
                     android:hint="First Name"
-                    android:backgroundTint="#fff"
+                    android:paddingLeft="10dp"
+                    android:background="@drawable/button_orange_border"
                     android:singleLine="true"
                     android:inputType="none"
                     android:maxLength="20"
-                    android:textColorHint="#fff"
-                    android:textColor="#fff" />
-
-            </com.wrapp.floatlabelededittext.FloatLabeledEditText>
-
-
-        </LinearLayout>
-
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="10dp">
-
-            <ImageView
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="30dp"
-                android:src="@drawable/user_icon" />
-
-            <com.wrapp.floatlabelededittext.FloatLabeledEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="10dp">
+                     />
 
                 <EditText
                     android:id="@+id/et_last_name"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
                     android:hint="Last Name"
-                    android:backgroundTint="#fff"
                     android:singleLine="true"
+                    android:layout_marginTop="20dp"
                     android:inputType="none"
+                    android:paddingLeft="10dp"
+                    android:background="@drawable/button_orange_border"
                     android:maxLength="20"
-                    android:textColorHint="#fff"
-                    android:textColor="#fff" />
-
-            </com.wrapp.floatlabelededittext.FloatLabeledEditText>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="10dp">
-
-            <ImageView
-                android:id="@+id/imageView100"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="30dp"
-                android:src="@drawable/mail_icon" />
-
-            <com.wrapp.floatlabelededittext.FloatLabeledEditText
-                android:id="@+id/view9"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="10dp">
-
+                     />
                 <EditText
                     android:id="@+id/et_email"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
                     android:hint="Email"
-                    android:backgroundTint="#fff"
+                    android:paddingLeft="10dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/button_orange_border"
                     android:inputType="textEmailAddress"
-                    android:textColorHint="#fff"
-                    android:textColor="#fff"/>
-            </com.wrapp.floatlabelededittext.FloatLabeledEditText>
-        </LinearLayout>
+                    />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="10dp">
-
-            <ImageView
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="30dp"
-                android:src="@drawable/phone_number_icon" />
-
-            <com.wrapp.floatlabelededittext.FloatLabeledEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="10dp">
 
                 <EditText
                     android:id="@+id/et_phone_number"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
                     android:hint="Phone Number"
-                    android:backgroundTint="#fff"
-                    android:inputType="phone"
+                    android:layout_marginTop="20dp"
+                    android:paddingLeft="10dp"
+                    android:background="@drawable/button_orange_border"                    android:inputType="phone"
                     android:maxLength="15"
-                    android:textColorHint="#fff"
-                    android:textColor="#fff"/>
-            </com.wrapp.floatlabelededittext.FloatLabeledEditText>
-        </LinearLayout>
+                  />
 
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="10dp">
-
-            <ImageView
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="30dp"
-                android:src="@drawable/well_ness" />
-
-            <com.wrapp.floatlabelededittext.FloatLabeledEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="10dp">
 
                 <EditText
                     android:id="@+id/et_wellness"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
                     android:hint="Wellness"
-                    android:backgroundTint="#fff"
                     android:singleLine="true"
                     android:inputType="none"
                     android:maxLength="20"
-                    android:textColorHint="#fff"
-                    android:textColor="#fff" />
+                    android:layout_marginTop="20dp"
+                    android:paddingLeft="10dp"
+                    android:background="@drawable/button_orange_border"    />
 
-            </com.wrapp.floatlabelededittext.FloatLabeledEditText>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="10dp">
-
-            <ImageView
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="30dp"
-                android:src="@drawable/flag_country_icon" />
-
-            <com.wrapp.floatlabelededittext.FloatLabeledEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="10dp">
 
                 <EditText
                     android:id="@+id/et_country"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
                     android:hint="Country"
-                    android:backgroundTint="#fff"
                     android:singleLine="true"
                     android:inputType="none"
                     android:maxLength="20"
-                    android:textColorHint="#fff"
-                    android:textColor="#fff" />
-
-            </com.wrapp.floatlabelededittext.FloatLabeledEditText>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="10dp">
-
-            <ImageView
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="30dp"
-                android:src="@drawable/city_icon" />
-
-            <com.wrapp.floatlabelededittext.FloatLabeledEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="10dp">
+                    android:layout_marginTop="20dp"
+                    android:paddingLeft="10dp"
+                    android:background="@drawable/button_orange_border"   />
 
                 <EditText
                     android:id="@+id/et_city"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
                     android:hint="City"
-                    android:backgroundTint="#fff"
                     android:singleLine="true"
                     android:inputType="none"
                     android:maxLength="20"
-                    android:textColorHint="#fff"
-                    android:textColor="#fff" />
-
-            </com.wrapp.floatlabelededittext.FloatLabeledEditText>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="10dp">
-
-            <ImageView
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="30dp"
-                android:src="@drawable/address_icon" />
-
-            <com.wrapp.floatlabelededittext.FloatLabeledEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="10dp">
+                    android:layout_marginTop="20dp"
+                    android:paddingLeft="10dp"
+                    android:background="@drawable/button_orange_border"   />
 
                 <EditText
                     android:id="@+id/et_address"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
                     android:hint="Address"
-                    android:backgroundTint="#fff"
                     android:singleLine="true"
                     android:inputType="none"
                     android:maxLength="20"
-                    android:textColorHint="#fff"
-                    android:textColor="#fff" />
-
-            </com.wrapp.floatlabelededittext.FloatLabeledEditText>
-        </LinearLayout>
+                    android:layout_marginTop="20dp"
+                    android:paddingLeft="10dp"
+                    android:background="@drawable/button_orange_border"   />
 
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="10dp">
-
-            <ImageView
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="30dp"
-                android:src="@drawable/postal_code_icon" />
-
-            <com.wrapp.floatlabelededittext.FloatLabeledEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="10dp">
 
                 <EditText
                     android:id="@+id/et_postal_code"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
                     android:hint="Postal Code"
-                    android:backgroundTint="#fff"
                     android:singleLine="true"
                     android:inputType="text"
                     android:maxLength="20"
-                    android:textColorHint="#fff"
-                    android:textColor="#fff" />
-
-            </com.wrapp.floatlabelededittext.FloatLabeledEditText>
-        </LinearLayout>
+                    android:layout_marginTop="20dp"
+                    android:paddingLeft="10dp"
+                    android:background="@drawable/button_orange_border"    />
 
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="10dp">
-
-            <ImageView
-                android:id="@+id/imageView8"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="30dp"
-                android:src="@drawable/password_icon" />
-
-
-            <com.wrapp.floatlabelededittext.FloatLabeledEditText
-                android:id="@+id/view8"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="10dp">
 
                 <EditText
                     android:id="@+id/et_password"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
                     android:hint="Password"
                     android:inputType="textPassword"
                     android:maxLength="13"
-                    android:backgroundTint="#fff"
-                    android:textColorHint="#fff"
-                    android:textColor="#fff" />
-            </com.wrapp.floatlabelededittext.FloatLabeledEditText>
-        </LinearLayout>
+                    android:layout_marginTop="20dp"
+                    android:paddingLeft="10dp"
+                    android:background="@drawable/button_orange_border"   />
+
 
         <Button
             android:id="@+id/btn_submit"

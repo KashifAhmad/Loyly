@@ -94,6 +94,7 @@
             android:layout_height="30dp"
             android:src="@drawable/mail_contact_icon"/>
         <TextView
+            android:id="@+id/tv_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"
@@ -119,6 +120,7 @@
             android:layout_height="30dp"
             android:src="@drawable/call_icon_contact"/>
         <TextView
+            android:id="@+id/tv_phone_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"
@@ -158,6 +160,7 @@
             android:layout_height="30dp"
             android:src="@drawable/facebook_icon"/>
         <TextView
+            android:id="@+id/tv_facebook_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"
@@ -183,6 +186,7 @@
             android:layout_height="30dp"
             android:src="@drawable/skype_icon"/>
         <TextView
+            android:id="@+id/tv_skype_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"
@@ -208,6 +212,7 @@
             android:layout_height="30dp"
             android:src="@drawable/instagram_icon"/>
         <TextView
+            android:id="@+id/tv_instagram"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"

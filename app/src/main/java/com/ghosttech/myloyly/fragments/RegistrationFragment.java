@@ -6,10 +6,13 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -98,7 +101,16 @@ public class RegistrationFragment extends Fragment {
         etAddress = (EditText) view.findViewById(R.id.et_address);
         etPostalCode = (EditText) view.findViewById(R.id.et_postal_code);
         etPhoneNumber = (EditText) view.findViewById(R.id.et_phone_number);
-
+        ScrollView scrollView = (ScrollView)view.findViewById(R.id.sv_main);
+        scrollView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                InputMethodManager imm = (InputMethodManager) getActivity()
+                        .getSystemService(getActivity().INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                return false;
+            }
+        });
 
         pDialog = new SweetAlertDialog(getActivity(), SweetAlertDialog.PROGRESS_TYPE);
         pDialog.getProgressHelper().setBarColor(Color.parseColor("#179e99"));

@@ -111,7 +111,6 @@ public class LoginFragment extends Fragment {
         pDialog.getProgressHelper().setBarColor(Color.parseColor("#179e99"));
         pDialog.setTitleText("Getting Login");
         pDialog.setCancelable(false);
-
         SpannableString contentRegister = new SpannableString("New user? Register Here");
         contentRegister.setSpan(new UnderlineSpan(), 0, contentRegister.length(), 0);
         tvSkip.setText(contentRegister);
