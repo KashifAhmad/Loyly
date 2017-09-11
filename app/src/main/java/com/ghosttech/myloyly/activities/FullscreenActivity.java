@@ -48,7 +48,7 @@ public class FullscreenActivity extends AppCompatActivity {
             getFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
 
         } else {
-            fragment = new LanguageFragment();
+            fragment = new MainFragment();
             getFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
 
         }

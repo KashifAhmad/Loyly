@@ -23,7 +23,7 @@
                     android:layout_height="200dp"
                     android:adjustViewBounds="true"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/alpepine" />
+                     />
 
                 <TextView
                     android:id="@+id/tv_level"

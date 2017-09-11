@@ -204,7 +204,7 @@ public class EssesntialOilFragment extends Fragment {
                 final ArrayList<EssentialOilHelper> filteredList = new ArrayList<>();
                 if (editable.length() > 0) {
                     for (EssentialOilHelper essentialOilHelper : essentialItemHelperList) {
-                        if (essentialOilHelper.getStrTitle().toLowerCase().substring(0, 2).toString().contains(editable.toString().toLowerCase())) {
+                        if (essentialOilHelper.getStrTitle().toLowerCase().toString().startsWith(editable.toString().toLowerCase())) {
                             filteredList.add(essentialOilHelper);
                         }
                     }

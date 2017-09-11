@@ -1,15 +1,19 @@
 package com.ghosttech.myloyly.fragments;
 
+import android.Manifest;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.v4.app.ActivityCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ghosttech.myloyly.R;
 import com.thefinestartist.finestwebview.FinestWebView;
@@ -91,33 +95,51 @@ public class ContactFragment extends Fragment {
         tvFacebook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new FinestWebView.Builder(getActivity()).load("www.facebook.com/lolymasters");
+                new FinestWebView.Builder(getActivity()).show("https://web.facebook.com/loylymasters?_rdc=1&_rdr");
             }
         });
         tvSkype.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent sky = new Intent("android.intent.action.VIEW");
-                sky.setData(Uri.parse("skype:" + "mvanhoorelbeke"));
-                startActivity(sky);
+                try {
+                    Intent skypeVideo = new Intent("android.intent.action.VIEW");
+                    skypeVideo.setData(Uri.parse("skype:" + "<mvanhoorelbeke>" + "?call&video=true"));
+                    startActivity(skypeVideo);
+                }catch (ActivityNotFoundException e){
+                    Toast.makeText(getActivity(), "Please install skype app", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
          tvInstagram.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View view) {
-                 Uri uri = Uri.parse("http://instagram.com/_u/xxx");
-                 Intent likeIng = new Intent(Intent.ACTION_VIEW, uri);
-
-                 likeIng.setPackage("com.instagram.android");
-
                  try {
-                     startActivity(likeIng);
-                 } catch (ActivityNotFoundException e) {
-                     startActivity(new Intent(Intent.ACTION_VIEW,
-                             Uri.parse("http://instagram.com/xxx")));
+                     final Intent intent = new Intent(Intent.ACTION_VIEW);
+                     intent.setData(Uri.parse("http://instagram.com/_u/" + "loylymasters"));
+                     intent.setPackage("com.instagram.android");
+                     startActivity(intent);
+                 }catch (ActivityNotFoundException e){
+                     Toast.makeText(getActivity(), "Please install instagram app", Toast.LENGTH_SHORT).show();
                  }
+
+
              }
          });
+        tvPhoneNumber.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent callIntent = new Intent(Intent.ACTION_CALL);
+                callIntent.setData(Uri.parse("tel:" + "+32471676573"));
+                callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.CALL_PHONE)
+                        != PackageManager.PERMISSION_GRANTED) {
+                    // TODO: Consider calling
+                    return;
+                }
+                startActivity(callIntent);
+            }
+        });
 
         return view;
 

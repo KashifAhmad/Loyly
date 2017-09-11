@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
@@ -60,6 +61,7 @@ public class EducationFragment extends Fragment {
     String strTags = null;
     SweetAlertDialog pDialog;
     RequestQueue mRequestQueue;
+    TextView tvEmptyList;
     private OnFragmentInteractionListener mListener;
 
     public EducationFragment() {
@@ -102,6 +104,8 @@ public class EducationFragment extends Fragment {
         myRecyclerView = (RecyclerView) view.findViewById(R.id.rv_by_tags);
         layoutManager = new LinearLayoutManager(getActivity());
         myRecyclerView.setLayoutManager(layoutManager);
+        tvEmptyList = (TextView) view.findViewById(R.id.tv_empty_list);
+        tvEmptyList.setVisibility(View.GONE);
         pDialog = new SweetAlertDialog(getActivity(), SweetAlertDialog.PROGRESS_TYPE);
         pDialog.getProgressHelper().setBarColor(Color.parseColor("#179e99"));
         pDialog.setTitleText("Wait a while");
@@ -148,24 +152,25 @@ public class EducationFragment extends Fragment {
                         educationHelpers.add(jsonHelper);
                     }
                     addByTagAdapter.notifyDataSetChanged();
-//                    if (jsonArray.length() == 0) {
-//                        tvEmptyList.setVisibility(View.VISIBLE);
-//                        tvEmptyList.setText("No data found");
-//                    }
+                    if (jsonArray.length() == 0) {
+                        pDialog.dismiss();
+                        tvEmptyList.setVisibility(View.VISIBLE);
+                        tvEmptyList.setText("No data found");
+                    }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
-//                    tvEmptyList.setVisibility(View.VISIBLE);
-//                    tvEmptyList.setText(String.valueOf(e));
-                    Toast.makeText(getActivity(), String.valueOf(e), Toast.LENGTH_SHORT).show();
+                    pDialog.dismiss();
+                    tvEmptyList.setVisibility(View.VISIBLE);
+                    tvEmptyList.setText(String.valueOf(e));
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-//                tvEmptyList.setVisibility(View.VISIBLE);
-//                tvEmptyList.setText(String.valueOf(error));
-                Toast.makeText(getActivity(), String.valueOf(error), Toast.LENGTH_SHORT).show();
+                pDialog.dismiss();
+                tvEmptyList.setVisibility(View.VISIBLE);
+                tvEmptyList.setText(String.valueOf("Oops, you don't have internet access"));
 
             }
         });

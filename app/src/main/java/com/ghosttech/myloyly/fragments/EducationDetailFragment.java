@@ -4,13 +4,16 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ghosttech.myloyly.R;
+import com.ghosttech.myloyly.utilities.CheckNetwork;
 import com.squareup.picasso.Picasso;
 
 /**
@@ -80,9 +83,15 @@ public class EducationDetailFragment extends Fragment {
         tvSteps = (TextView) view.findViewById(R.id.tv_edu_steps);
         ivEducationImage = (ImageView) view.findViewById(R.id.iv_detail_edu_title_image);
 
-
-        Picasso.with(getActivity()).load("http://swatshawls.com/loyly/assets/uploads/" +
-                getArguments().getString("picture")).into(ivEducationImage);
+        if (CheckNetwork.isInternetAvailable(getActivity())) {
+            Picasso.with(getActivity()).load("http://swatshawls.com/loyly/assets/uploads/" +
+                    getArguments().getString("picture")).into(ivEducationImage);
+        }else {
+            Toast.makeText(getActivity(), "Oops, you don't have internet access", Toast.LENGTH_SHORT).show();
+            TextView textView = new TextView(getActivity());
+            textView.setText("Oops, you don't have internet access");
+            textView.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.CENTER_VERTICAL);
+        }
         tvfLanguage.setText(String.valueOf(getArguments().getString("f_lang")));
         tvSteps.setText(String.valueOf(getArguments().getString("steps")));
         tvDescription.setText(String.valueOf(getArguments().getString("description")));

@@ -24,6 +24,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.ghosttech.myloyly.R;
+import com.ghosttech.myloyly.utilities.CheckNetwork;
 import com.ghosttech.myloyly.utilities.GetByTagAdapter;
 import com.ghosttech.myloyly.utilities.Configuration;
 import com.ghosttech.myloyly.utilities.GetByTagHelper;
@@ -170,12 +171,19 @@ public class GetByTagFragment extends Fragment implements View.OnClickListener {
         btnInTagsAll.setOnClickListener(this);
         btnAllTags.setOnClickListener(this);
         btnMyTags.setOnClickListener(this);
+
         dataFlag = true;
 
         if (dataFlag) {
             pDialog.show();
             url = "http://swatshawls.com/loyly/Apis/getdata/";
-            getDataFromAPI(strTags);
+            if (CheckNetwork.isInternetAvailable(getActivity())) {
+                getDataFromAPI(strTags);
+            }else {
+                pDialog.dismiss();
+                tvEmptyList.setVisibility(View.VISIBLE);
+                tvEmptyList.setText("Oops, you don't have internet access");
+            }
             addByTagAdapter = new GetByTagAdapter(getActivity(), byTagHelpers);
             myRecyclerView.setAdapter(addByTagAdapter);
             btnAllTags.setBackgroundColor(Color.parseColor("#eacb61"));
@@ -240,8 +248,8 @@ public class GetByTagFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onErrorResponse(VolleyError error) {
                 tvEmptyList.setVisibility(View.VISIBLE);
-                tvEmptyList.setText(String.valueOf(error));
-                Toast.makeText(getActivity(), String.valueOf(error), Toast.LENGTH_SHORT).show();
+                tvEmptyList.setText(String.valueOf("Oops, you don't have internet access"));
+                pDialog.dismiss();
 
             }
         });
@@ -570,7 +578,7 @@ public class GetByTagFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.btn_my_tags:
                 strTags = "my";
-
+                Log.d("zma button",strTags);
                 btnMyTags.setBackgroundColor(Color.parseColor("#eacb61"));
                 btnMyTags.setTextColor(Color.WHITE);
 
