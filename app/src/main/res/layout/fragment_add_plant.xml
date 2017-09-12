@@ -261,52 +261,6 @@
             </FrameLayout>
         </LinearLayout>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginTop="10dp"
-            android:background="#a3b73a"
-            android:gravity="center_vertical"
-            android:padding="5dp"
-            android:text="Instruction"
-            android:textColor="#fff"
-            android:textSize="20dp"
-            android:textStyle="bold" />
-
-        <LinearLayout
-            android:id="@+id/ll_add_instructions"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:orientation="vertical">
-
-            <FrameLayout
-                android:id="@+id/fl_add_instruction"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <EditText
-                    android:id="@+id/et_instruction_1"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="@drawable/edit_text_bg"
-                    android:hint="add instruction 1"
-                    android:maxLines="1"
-                    android:paddingLeft="12dp" />
-
-                <ImageView
-                    android:id="@+id/btn_add_instructions"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:layout_marginRight="5dp"
-                    android:layout_marginTop="7dp"
-                    android:clickable="true"
-                    android:src="@drawable/plus_icon"
-                    android:visibility="invisible" />
-            </FrameLayout>
-        </LinearLayout>
 
         <TextView
 

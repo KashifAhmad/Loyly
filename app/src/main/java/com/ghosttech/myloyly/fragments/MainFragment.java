@@ -2,6 +2,7 @@ package com.ghosttech.myloyly.fragments;
 
 import android.app.Fragment;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -38,6 +39,11 @@ public class MainFragment extends Fragment {
     public static boolean SEARCH = false;
     private OnFragmentInteractionListener mListener;
 
+    ImageView ivLogout;
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
+
+
     public MainFragment() {
         // Required empty public constructor
     }
@@ -73,13 +79,25 @@ public class MainFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_select_option, container, false);
+        View view = inflater.inflate(R.layout.fragment_main, container, false);
+        sharedPreferences = getActivity().getSharedPreferences("com.loyly", 0);
+        editor = sharedPreferences.edit();
         lLAufguss = (LinearLayout) view.findViewById(R.id.ll_aufguss);
         lLCharts = (LinearLayout) view.findViewById(R.id.ll_charts);
         lLContacts = (LinearLayout) view.findViewById(R.id.ll_contacts);
         lLEssentialOil = (LinearLayout) view.findViewById(R.id.ll_essential_oils);
         lLSearch = (LinearLayout) view.findViewById(R.id.ll_search);
         lLEducation = (LinearLayout) view.findViewById(R.id.ll_education);
+        ivLogout = (ImageView) view.findViewById(R.id.iv_logout_icon);
+        ivLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                editor.clear().commit();
+                Fragment fragment = new LoginFragment();
+                getFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
+
+            }
+        });
         customActionBar();
         onButtonClicked();
         return view;
@@ -89,9 +107,9 @@ public class MainFragment extends Fragment {
         lLEssentialOil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(),MainActivity.class);
-                intent.putExtra("frag_id","oils");
-                intent.putExtra("search","No");
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+                intent.putExtra("frag_id", "oils");
+                intent.putExtra("search", "No");
                 SEARCH = false;
                 startActivity(intent);
             }
@@ -99,8 +117,8 @@ public class MainFragment extends Fragment {
         lLCharts.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(),MainActivity.class);
-                intent.putExtra("frag_id","charts");
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+                intent.putExtra("frag_id", "charts");
                 startActivity(intent);
             }
         });
@@ -108,29 +126,29 @@ public class MainFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 fragment = new GetByTagFragment();
-                getFragmentManager().beginTransaction().replace(R.id.fragment_container,fragment).addToBackStack("tags").commit();
+                getFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).addToBackStack("tags").commit();
             }
         });
         lLEducation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 fragment = new EducationFragment();
-                getFragmentManager().beginTransaction().replace(R.id.fragment_container,fragment).addToBackStack("tags").commit();
+                getFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).addToBackStack("tags").commit();
             }
         });
         lLContacts.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 fragment = new ContactFragment();
-                getFragmentManager().beginTransaction().replace(R.id.fragment_container,fragment).addToBackStack("tags").commit();
+                getFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).addToBackStack("tags").commit();
             }
         });
         lLSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(),MainActivity.class);
-                intent.putExtra("frag_id","search");
-                intent.putExtra("search","Yes");
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+                intent.putExtra("frag_id", "search");
+                intent.putExtra("search", "Yes");
                 SEARCH = true;
                 startActivity(intent);
             }
@@ -165,6 +183,7 @@ public class MainFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
     public void customActionBar() {
         android.support.v7.app.ActionBar mActionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
         mActionBar.setDisplayShowHomeEnabled(false);

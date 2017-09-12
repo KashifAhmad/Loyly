@@ -102,7 +102,7 @@ public class LoginFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_login, container, false);
-        sharedPreferences = getActivity().getSharedPreferences("com.loyly", 0);
+            sharedPreferences = getActivity().getSharedPreferences("com.loyly", 0);
         editor = sharedPreferences.edit();
         tvSkip = (TextView) view.findViewById(R.id.tvSkip);
         tvForgotPassword = (TextView) view.findViewById(R.id.tv_forget_password);

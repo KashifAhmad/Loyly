@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -80,10 +81,12 @@ public class AddPlantFragment extends Fragment implements View.OnClickListener {
     ImageView ivAddEditText;
     long totalSize = 0;
     EditText editText;
-    String strTakeDataFromWidgets;
+    String strUserID;
     LinearLayout.LayoutParams p;
     View view;
     File sourceFile;
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
     EditText etPlantName, etTime, etInstruction1, etStep1, etStep2,
             etIngredient1;
 
@@ -140,6 +143,8 @@ public class AddPlantFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_add_plant, container, false);
+        sharedPreferences = getActivity().getSharedPreferences("com.loyly", 0);
+        strUserID = sharedPreferences.getString("user_id","");
         mRequestQueue = Volley.newRequestQueue(getActivity());
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,
@@ -151,8 +156,7 @@ public class AddPlantFragment extends Fragment implements View.OnClickListener {
         etPlantName = (EditText) view.findViewById(R.id.et_plant_name);
         etIngredient1 = (EditText) view.findViewById(R.id.et_add_ing_1);
         ingredientList.add(etIngredient1);
-        instructionList.add(etInstruction1);
-        etInstruction1 = (EditText) view.findViewById(R.id.et_instruction_1);
+
         etStep1 = (EditText) view.findViewById(R.id.et_step_1);
         etTime = (EditText) view.findViewById(R.id.et_time);
         btnAddImage = (Button) view.findViewById(R.id.btn_add_image);
@@ -175,16 +179,16 @@ public class AddPlantFragment extends Fragment implements View.OnClickListener {
 
         ivImageView = (ImageView) view.findViewById(R.id.iv_image_view);
         btnAddIngredients = (ImageView) view.findViewById(R.id.btn_add_ingredient);
-        btnAddInstructions = (ImageView) view.findViewById(R.id.btn_add_instructions);
+
         btnAddSteps = (ImageView) view.findViewById(R.id.btn_add_steps);
         ingredientImageViewList.add(btnAddIngredients);
         instructionImageViewList.add(btnAddInstructions);
         stepsImageViewList.add(btnAddSteps);
         llAddIngredients = (LinearLayout) view.findViewById(R.id.ll_add_ingredients);
-        llAddInstruction = (LinearLayout) view.findViewById(R.id.ll_add_instructions);
+
         llAddSteps = (LinearLayout) view.findViewById(R.id.ll_add_steps);
         flAddIngredient = (FrameLayout) view.findViewById(R.id.fl_add_ingredient);
-        flAddInstructions = (FrameLayout) view.findViewById(R.id.fl_add_instruction);
+
         flAddSteps = (FrameLayout) view.findViewById(R.id.fl_add_steps);
 
         btnTagsClassic.setOnClickListener(this);
@@ -195,7 +199,6 @@ public class AddPlantFragment extends Fragment implements View.OnClickListener {
         btnSendData.setOnClickListener(this);
         btnAddImage.setOnClickListener(this);
         btnAddIngredients.setOnClickListener(this);
-        btnAddInstructions.setOnClickListener(this);
         btnAddSteps.setOnClickListener(this);
 
         btnActivating.setOnClickListener(this);
@@ -224,26 +227,6 @@ public class AddPlantFragment extends Fragment implements View.OnClickListener {
                     btnAddIngredients.setVisibility(View.INVISIBLE);
                 } else {
                     btnAddIngredients.setVisibility(View.VISIBLE);
-                }
-            }
-        });
-        etInstruction1.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                if (editable.length() < 1) {
-                    btnAddInstructions.setVisibility(View.INVISIBLE);
-                } else {
-                    btnAddInstructions.setVisibility(View.VISIBLE);
                 }
             }
         });
@@ -278,12 +261,13 @@ public class AddPlantFragment extends Fragment implements View.OnClickListener {
         for (EditText etIngred : ingredientList) {
             strIngredients += etIngred.getText().toString() + ",";
         }
-        for (EditText etInstruc : instructionList) {
-            strInstruction += etInstruc.getText().toString() + ",";
+        for (EditText etSteps : stepsList){
+            strSteps = etSteps.getText().toString() + ",";
         }
+
         strIngredients = strIngredients.substring(0, strIngredients.length() - 1);
         strTime = etTime.getText().toString();
-        strSteps = etStep1.getText().toString() + "," + etStep2.getText().toString();
+
         if (strPlantName.equals("") || strTags.equals("") ||
                 strIngredients.equals("") || strSteps.equals("")) {
             new SweetAlertDialog(getActivity(), SweetAlertDialog.WARNING_TYPE)
@@ -354,6 +338,7 @@ public class AddPlantFragment extends Fragment implements View.OnClickListener {
                 entity.addPart("time", new StringBody(strTime));
                 entity.addPart("ingredients", new StringBody(strIngredients));
                 entity.addPart("steps", new StringBody(strSteps));
+                entity.addPart("userid", new StringBody(strUserID));
                 totalSize = entity.getContentLength();
                 httppost.setEntity(entity);
                 // Making server call
@@ -942,10 +927,6 @@ public class AddPlantFragment extends Fragment implements View.OnClickListener {
                 btnAddIngredients.setVisibility(View.INVISIBLE);
                 addEditTextForIngredient();
                 break;
-            case R.id.btn_add_instructions:
-                btnAddInstructions.setVisibility(View.INVISIBLE);
-                addEditTextForInstructions();
-                break;
             case R.id.btn_add_steps:
                 btnAddSteps.setVisibility(View.INVISIBLE);
                 addEditTextForSteps();
@@ -1102,68 +1083,6 @@ public class AddPlantFragment extends Fragment implements View.OnClickListener {
 
     }
 
-    private void addEditTextForInstructions() {
-        instructionImageViewList.get(instructionImageViewList.size() - 1).setVisibility(View.INVISIBLE);
-        final FrameLayout frameLayout = new FrameLayout(getActivity());
-        frameLayout.setLayoutParams(flAddInstructions.getLayoutParams());
-        frameLayout.setTag(instructionList.size());
-        editText = new EditText(getActivity());
-        editText.setLayoutParams(etInstruction1.getLayoutParams());
-        editText.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.edit_text_bg));
-        editText.setHint("add Instruction");
-        editText.setPadding(etInstruction1.getPaddingLeft(), 0, 0, 0);
-        frameLayout.addView(editText);
-        final ImageView imageView = new ImageView(getActivity());
-        imageView.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.cross_icon));
-        imageView.setLayoutParams(btnAddInstructions.getLayoutParams());
-        frameLayout.addView(imageView);
-        imageView.setTag(0);
-        imageView.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.cross_icon));
-        instructionImageViewList.add(imageView);
-
-        editText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                if (editable.length() < 1) {
-                    imageView.setVisibility(View.VISIBLE);
-                    imageView.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.cross_icon));
-                    imageView.setTag(0);
-                } else {
-                    imageView.setVisibility(View.VISIBLE);
-                    imageView.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.plus_icon));
-                    imageView.setTag(1);
-                }
-
-            }
-        });
-        imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if ((int) (imageView.getTag()) == 1) {
-                    addEditTextForInstructions();
-                } else {
-                    llAddInstruction.removeView(frameLayout);
-                    instructionList.remove((int) (frameLayout.getTag()));
-                    instructionImageViewList.remove((int) (frameLayout.getTag()));
-                    instructionImageViewList.get(instructionImageViewList.size() - 1).setVisibility(View.VISIBLE);
-
-                }
-            }
-        });
-        llAddInstruction.addView(frameLayout);
-        instructionList.add(editText);
-
-    }
 
     private void addEditTextForSteps() {
         stepsImageViewList.get(stepsImageViewList.size() - 1).setVisibility(View.INVISIBLE);
