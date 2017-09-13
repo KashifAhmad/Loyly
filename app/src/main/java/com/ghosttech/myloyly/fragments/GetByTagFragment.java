@@ -203,14 +203,12 @@ public class GetByTagFragment extends Fragment implements View.OnClickListener {
             url = "http://swatshawls.com/loyly/Apis/getdata/";
             dataFlag = false;
         } else if (myDataFlag) {
-            url = "http://swatshawls.com/loyly/Apis/getdata/" + strUserID;
-            Log.d("zma my url", url);
+            url = "http://swatshawls.com/loyly/Apis/getdata/" +strUserID;
             myDataFlag = false;
 
         } else {
             url = Configuration.GET_BY_TAGS_URL + strTags;
         }
-        Log.d("zma url -response", url);
         final String finalUrl = url;
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, new Response.Listener<JSONObject>() {
             @Override
