@@ -5,196 +5,202 @@
     tools:context="com.ghosttech.myloyly.fragments.GetByTagFragment">
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="10dp"
-        android:background="#fff"
-        android:padding="5dp">
-
-        <Button
-            android:id="@+id/btn_all_tags"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/button_orange_border"
-            android:text="All"
-            android:textColor="#eacb61" />
-
-        <Button
-            android:id="@+id/btn_my_tags"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/button_orange_border"
-            android:text="My"
-            android:textColor="#eacb61" />
-    </LinearLayout>
-
-    <HorizontalScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="50dp"
-            android:layout_marginTop="60dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
             android:background="#fff"
             android:padding="5dp">
 
             <Button
-                android:id="@+id/btn_in_tags_all"
+                android:id="@+id/btn_all_tags"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@drawable/button_orange_border"
                 android:text="All"
-                android:textColor="#eacb61"
-                android:textSize="8sp" />
+                android:textColor="#eacb61" />
 
             <Button
-                android:id="@+id/btn_activating"
+                android:id="@+id/btn_my_tags"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@drawable/button_orange_border"
-                android:text="Activating"
-                android:textColor="#eacb61"
-                android:textSize="8sp" />
-
-            <Button
-                android:id="@+id/btn_airways"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/button_orange_border"
-                android:text="Airways"
-                android:textColor="#eacb61"
-                android:textSize="8sp" />
-
-            <Button
-                android:id="@+id/btn_balancing"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/button_orange_border"
-                android:text="Balancing"
-                android:textColor="#eacb61"
-                android:textSize="8sp" />
-
-            <Button
-                android:id="@+id/btn_tags_classic"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/button_orange_border"
-                android:text="Classic"
-                android:textColor="#eacb61"
-                android:textSize="8sp" />
-
-            <Button
-                android:id="@+id/btn_entertainment"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/button_orange_border"
-                android:text="Entertainment"
-                android:textColor="#eacb61"
-                android:textSize="8sp" />
-
-            <Button
-                android:id="@+id/btn_immune_system"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/button_orange_border"
-                android:text="ImmuneSystem"
-                android:textColor="#eacb61"
-                android:textSize="8sp" />
-
-            <Button
-                android:id="@+id/btn_mediation"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/button_orange_border"
-                android:text="Mediation"
-                android:textColor="#eacb61"
-                android:textSize="8sp" />
-
-            <Button
-                android:id="@+id/btn_tags_modern"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/button_orange_border"
-                android:text="Modern"
-                android:textColor="#eacb61"
-                android:textSize="8sp" />
-
-            <Button
-                android:id="@+id/btn_purification"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/button_orange_border"
-                android:text="Purification"
-                android:textColor="#eacb61"
-                android:textSize="8sp" />
-
-            <Button
-                android:id="@+id/btn_relax"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/button_orange_border"
-                android:text="Relax"
-                android:textColor="#eacb61"
-                android:textSize="8sp" />
-
-            <Button
-                android:id="@+id/btn_seasonal"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/button_orange_border"
-                android:text="Seasonal"
-                android:textColor="#eacb61"
-                android:textSize="8sp" />
-
-            <Button
-                android:id="@+id/btn_tags_show"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/button_orange_border"
-                android:text="Show"
-                android:textColor="#eacb61"
-                android:textSize="8sp" />
-
-            <Button
-                android:id="@+id/btn_tags_smoke"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/button_orange_border"
-                android:text="Smoke"
-                android:textColor="#eacb61"
-                android:textSize="8sp" />
-
-            <Button
-                android:id="@+id/btn_tags_steambath"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/button_orange_border"
-                android:text="Steambath"
-                android:textColor="#eacb61"
-                android:textSize="8sp" />
-
-
+                android:text="My"
+                android:textColor="#eacb61" />
         </LinearLayout>
-    </HorizontalScrollView>
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="#fff"
+                android:orientation="horizontal"
+                android:padding="5dp">
+
+                <Button
+                    android:id="@+id/btn_in_tags_all"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_orange_border"
+                    android:text="All"
+                    android:textColor="#eacb61"
+                    android:textSize="8sp" />
+
+                <Button
+                    android:id="@+id/btn_activating"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_orange_border"
+                    android:text="Activating"
+                    android:textColor="#eacb61"
+                    android:textSize="8sp" />
+
+                <Button
+                    android:id="@+id/btn_airways"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_orange_border"
+                    android:text="Airways"
+                    android:textColor="#eacb61"
+                    android:textSize="8sp" />
+
+                <Button
+                    android:id="@+id/btn_balancing"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_orange_border"
+                    android:text="Balancing"
+                    android:textColor="#eacb61"
+                    android:textSize="8sp" />
+
+                <Button
+                    android:id="@+id/btn_tags_classic"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_orange_border"
+                    android:text="Classic"
+                    android:textColor="#eacb61"
+                    android:textSize="8sp" />
+
+                <Button
+                    android:id="@+id/btn_entertainment"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_orange_border"
+                    android:text="Entertainment"
+                    android:textColor="#eacb61"
+                    android:textSize="8sp" />
+
+                <Button
+                    android:id="@+id/btn_immune_system"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_orange_border"
+                    android:text="ImmuneSystem"
+                    android:textColor="#eacb61"
+                    android:textSize="8sp" />
+
+                <Button
+                    android:id="@+id/btn_mediation"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_orange_border"
+                    android:text="Mediation"
+                    android:textColor="#eacb61"
+                    android:textSize="8sp" />
+
+                <Button
+                    android:id="@+id/btn_tags_modern"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_orange_border"
+                    android:text="Modern"
+                    android:textColor="#eacb61"
+                    android:textSize="8sp" />
+
+                <Button
+                    android:id="@+id/btn_purification"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_orange_border"
+                    android:text="Purification"
+                    android:textColor="#eacb61"
+                    android:textSize="8sp" />
+
+                <Button
+                    android:id="@+id/btn_relax"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_orange_border"
+                    android:text="Relax"
+                    android:textColor="#eacb61"
+                    android:textSize="8sp" />
+
+                <Button
+                    android:id="@+id/btn_seasonal"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_orange_border"
+                    android:text="Seasonal"
+                    android:textColor="#eacb61"
+                    android:textSize="8sp" />
+
+                <Button
+                    android:id="@+id/btn_tags_show"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_orange_border"
+                    android:text="Show"
+                    android:textColor="#eacb61"
+                    android:textSize="8sp" />
+
+                <Button
+                    android:id="@+id/btn_tags_smoke"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_orange_border"
+                    android:text="Smoke"
+                    android:textColor="#eacb61"
+                    android:textSize="8sp" />
+
+                <Button
+                    android:id="@+id/btn_tags_steambath"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_orange_border"
+                    android:text="Steambath"
+                    android:textColor="#eacb61"
+                    android:textSize="8sp" />
+
+
+            </LinearLayout>
+        </HorizontalScrollView>
+    </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_by_tags"
