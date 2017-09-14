@@ -87,7 +87,7 @@ public class AddPlantFragment extends Fragment implements View.OnClickListener {
     File sourceFile;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
-    EditText etPlantName, etTime, etInstruction1, etStep1, etStep2,
+    EditText etPlantName, etTime, etStep1,
             etIngredient1;
 
     Button btnTagsClassic, btnTagsModern, btnTagSteamBath, btnTagsSmoke, btnTagsShow, btnAddImage,
@@ -96,16 +96,17 @@ public class AddPlantFragment extends Fragment implements View.OnClickListener {
     ImageView btnAddIngredients, btnAddInstructions, btnAddSteps;
     ImageView ivImageView;
     RequestQueue mRequestQueue;
-    String strPlantName, strTime, strTags, strInstruction, strIngredients, strSteps, strPicture;
+    String strPlantName, strTime, strTags, strIngredients, strSteps, strPicture;
     SweetAlertDialog pDialog;
-    FrameLayout flAddIngredient, flAddInstructions, flAddSteps;
-    LinearLayout llAddIngredients, llAddInstruction, llAddSteps;
+    FrameLayout flAddIngredient, flAddSteps;
+    LinearLayout llAddIngredients, llAddSteps;
     ArrayList<EditText> ingredientList = new ArrayList();
     ArrayList<EditText> instructionList = new ArrayList<>();
     ArrayList<EditText> stepsList = new ArrayList<>();
     ArrayList<ImageView> ingredientImageViewList = new ArrayList();
     ArrayList<ImageView> instructionImageViewList = new ArrayList<>();
     ArrayList<ImageView> stepsImageViewList = new ArrayList<>();
+    int iFileSize;
 
     public AddPlantFragment() {
         // Required empty public constructor
@@ -144,7 +145,7 @@ public class AddPlantFragment extends Fragment implements View.OnClickListener {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_add_plant, container, false);
         sharedPreferences = getActivity().getSharedPreferences("com.loyly", 0);
-        strUserID = sharedPreferences.getString("user_id","");
+        strUserID = sharedPreferences.getString("user_id", "");
         mRequestQueue = Volley.newRequestQueue(getActivity());
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,
@@ -158,6 +159,7 @@ public class AddPlantFragment extends Fragment implements View.OnClickListener {
         ingredientList.add(etIngredient1);
 
         etStep1 = (EditText) view.findViewById(R.id.et_step_1);
+        stepsList.add(etStep1);
         etTime = (EditText) view.findViewById(R.id.et_time);
         btnAddImage = (Button) view.findViewById(R.id.btn_add_image);
         btnSendData = (Button) view.findViewById(R.id.btn_send_data);
@@ -257,23 +259,28 @@ public class AddPlantFragment extends Fragment implements View.OnClickListener {
     public void takeDataFromFields() {
         strPlantName = etPlantName.getText().toString();
         strIngredients = "";
-        strInstruction = "";
+        strSteps = "";
         for (EditText etIngred : ingredientList) {
             strIngredients += etIngred.getText().toString() + ",";
         }
-        for (EditText etSteps : stepsList){
+        for (EditText etSteps : stepsList) {
             strSteps = etSteps.getText().toString() + ",";
         }
 
         strIngredients = strIngredients.substring(0, strIngredients.length() - 1);
+        strSteps = strSteps.substring(0, strSteps.length() - 1);
         strTime = etTime.getText().toString();
 
         if (strPlantName.equals("") || strTags.equals("") ||
                 strIngredients.equals("") || strSteps.equals("")) {
-            new SweetAlertDialog(getActivity(), SweetAlertDialog.WARNING_TYPE)
+            new SweetAlertDialog(getActivity(), SweetAlertDialog.ERROR_TYPE)
                     .setTitleText("Some fields are empty")
                     .show();
 
+        } else if (sourceFile == null) {
+            new SweetAlertDialog(getActivity(), SweetAlertDialog.ERROR_TYPE)
+                    .setTitleText("Please add image")
+                    .show();
         } else {
             new UploadFileToServer().execute();
             pDialog.show();
@@ -974,6 +981,7 @@ public class AddPlantFragment extends Fragment implements View.OnClickListener {
             }
             ivImageView.setImageBitmap(thumbnail);
         }
+        iFileSize = Integer.parseInt(String.valueOf(sourceFile.length() / 1024));
     }
 
     /**

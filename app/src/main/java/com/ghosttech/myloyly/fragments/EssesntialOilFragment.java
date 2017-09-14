@@ -103,9 +103,7 @@ public class EssesntialOilFragment extends Fragment {
         //inputStream = getActivity().getResources().openRawResource(R.raw.oils_sheet);
         searchBar = (MaterialSearchBar) view.findViewById(R.id.searchBar);
         searchBar.setVisibility(View.GONE);
-        if (!MainFragment.SEARCH) {
-            searchBar.setVisibility(View.GONE);
-        } else {
+        if (MainFragment.SEARCH) {
             searchBar.setVisibility(View.VISIBLE);
             ViewGroup.MarginLayoutParams marginLayoutParams =
                     (ViewGroup.MarginLayoutParams) mRecyclerView.getLayoutParams();
