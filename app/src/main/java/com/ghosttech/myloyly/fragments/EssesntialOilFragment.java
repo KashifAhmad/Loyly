@@ -15,7 +15,9 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,11 +41,14 @@ public class EssesntialOilFragment extends Fragment {
 
 
     private RecyclerView mRecyclerView;
+    ListView lvAlphabitics;
     EssentialOilAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private MaterialSearchBar searchBar;
-    String[] myDataset;
-    String strTitleCol, strBotanicalCol;
+    String strAlphabit;
+
+
+    View view;
     ArrayList<EssentialOilHelper> essentialItemHelperList = new ArrayList<EssentialOilHelper>();
     InputStream inputStream;
     String[] ids;
@@ -84,8 +89,98 @@ public class EssesntialOilFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_essesntial_oil, container, false);
+        view = inflater.inflate(R.layout.fragment_essesntial_oil, container, false);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.rv);
+        lvAlphabitics = (ListView) view.findViewById(R.id.rv_alphabatic);
+        lvAlphabitics.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                switch (i){
+                    case 0:
+                        strAlphabit = "A";
+                        break;
+                    case 1:
+                        strAlphabit = "B";
+                        break;
+                    case 2:
+                        strAlphabit = "C";
+                        break;
+                    case 3:
+                        strAlphabit = "D";
+                        break;
+                    case 4:
+                        strAlphabit = "E";
+                        break;
+                    case 5:
+                        strAlphabit = "F";
+                        break;
+                    case 6:
+                        strAlphabit = "G";
+                        break;
+                    case 7:
+                        strAlphabit = "H";
+                        break;
+                    case 8:
+                        strAlphabit = "I";
+                        break;
+                    case 9:
+                        strAlphabit = "J";
+                        break;
+                    case 10:
+                        strAlphabit = "K";
+                        break;
+                    case 11:
+                        strAlphabit = "L";
+                        break;
+                    case 12:
+                        strAlphabit = "M";
+                        break;
+                    case 13:
+                        strAlphabit = "N";
+                        break;
+                    case 14:
+                        strAlphabit = "O";
+                        break;
+                    case 15:
+                        strAlphabit = "P";
+                        break;
+                    case 16:
+                        strAlphabit = "Q";
+                        break;
+                    case 17:
+                        strAlphabit = "R";
+                        break;
+                    case 18:
+                        strAlphabit = "S";
+                        break;
+                    case 19:
+                        strAlphabit = "T";
+                        break;
+                    case 20:
+                        strAlphabit = "U";
+                        break;
+                    case 21:
+                        strAlphabit = "V";
+                        break;
+                    case 22:
+                        strAlphabit = "W";
+                        break;
+                    case 23:
+                        strAlphabit = "X";
+                        break;
+                    case 24:
+                        strAlphabit = "Y";
+                        break;
+                    case 25:
+                        strAlphabit = "Z";
+                        break;
+
+                }
+                Toast.makeText(getActivity(), strAlphabit, Toast.LENGTH_SHORT).show();
+                searchAlphabaticOrder(strAlphabit);
+            }
+        });
+
         mRecyclerView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -107,7 +202,7 @@ public class EssesntialOilFragment extends Fragment {
             searchBar.setVisibility(View.VISIBLE);
             ViewGroup.MarginLayoutParams marginLayoutParams =
                     (ViewGroup.MarginLayoutParams) mRecyclerView.getLayoutParams();
-            marginLayoutParams.setMargins(0,200,0,0);
+            marginLayoutParams.setMargins(0, 200, 0, 0);
             mRecyclerView.setLayoutParams(marginLayoutParams);
 
         }
@@ -124,6 +219,7 @@ public class EssesntialOilFragment extends Fragment {
         return view;
 
     }
+
 
     private void initializeData() {
         AssetManager assetManager = getActivity().getAssets();
@@ -202,6 +298,38 @@ public class EssesntialOilFragment extends Fragment {
                 if (editable.length() > 0) {
                     for (EssentialOilHelper essentialOilHelper : essentialItemHelperList) {
                         if (essentialOilHelper.getStrTitle().toLowerCase().toString().startsWith(editable.toString().toLowerCase())) {
+                            filteredList.add(essentialOilHelper);
+                        }
+                    }
+                    mAdapter = new EssentialOilAdapter(getActivity(), filteredList);
+                    mRecyclerView.setAdapter(mAdapter);
+                } else {
+                    mAdapter = new EssentialOilAdapter(getActivity(), essentialItemHelperList);
+                    mRecyclerView.setAdapter(mAdapter);
+                }
+
+
+            }
+        });
+    }
+    public void searchAlphabaticOrder(final String alphabit) {
+
+        searchBar.addTextChangeListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence query, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                Log.d("zma changed list", getClass().getSimpleName() + " text changed " + searchBar.getText());
+                final ArrayList<EssentialOilHelper> filteredList = new ArrayList<>();
+                if (editable.length() > 0) {
+                    for (EssentialOilHelper essentialOilHelper : essentialItemHelperList) {
+                        if (essentialOilHelper.getStrTitle().toLowerCase().toString().startsWith(alphabit.toString().toLowerCase())) {
                             filteredList.add(essentialOilHelper);
                         }
                     }
