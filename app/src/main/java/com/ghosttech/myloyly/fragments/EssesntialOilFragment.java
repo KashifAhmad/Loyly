@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -122,6 +123,10 @@ public class EssesntialOilFragment extends Fragment {
                         break;
                     case 8:
                         strAlphabit = "I";
+                        Toast.makeText(getActivity(), "No Item Found", Toast.LENGTH_SHORT).show();
+                        TextView textView = new TextView(getActivity());
+                        textView.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.CENTER_VERTICAL);
+                        textView.setText("No Item Found");
                         break;
                     case 9:
                         strAlphabit = "J";
@@ -146,6 +151,7 @@ public class EssesntialOilFragment extends Fragment {
                         break;
                     case 16:
                         strAlphabit = "Q";
+                        Toast.makeText(getActivity(), "No Item Found", Toast.LENGTH_SHORT).show();
                         break;
                     case 17:
                         strAlphabit = "R";
@@ -158,6 +164,7 @@ public class EssesntialOilFragment extends Fragment {
                         break;
                     case 20:
                         strAlphabit = "U";
+                        Toast.makeText(getActivity(), "No Item Found", Toast.LENGTH_SHORT).show();
                         break;
                     case 21:
                         strAlphabit = "V";
@@ -167,17 +174,43 @@ public class EssesntialOilFragment extends Fragment {
                         break;
                     case 23:
                         strAlphabit = "X";
+                        Toast.makeText(getActivity(), "No Item Found", Toast.LENGTH_SHORT).show();
                         break;
                     case 24:
                         strAlphabit = "Y";
                         break;
                     case 25:
                         strAlphabit = "Z";
+                        Toast.makeText(getActivity(), "No Item Found", Toast.LENGTH_SHORT).show();
                         break;
 
                 }
-                Toast.makeText(getActivity(), strAlphabit, Toast.LENGTH_SHORT).show();
                 searchAlphabaticOrder(strAlphabit);
+
+
+
+
+                final ArrayList<EssentialOilHelper> alphabaticList = new ArrayList<>();
+                if (strAlphabit.length() > 0) {
+                    for (EssentialOilHelper essentialOilHelper : essentialItemHelperList) {
+                        if (essentialOilHelper.getStrTitle().toLowerCase().toString().startsWith(strAlphabit.toLowerCase().toString())) {
+                            alphabaticList.add(essentialOilHelper);
+                            Log.d("zma list alpha", String.valueOf(alphabaticList.size()));
+                            int size = alphabaticList.size();
+                            Log.d("zma list aa", String.valueOf(size));
+                             if (size == 0){
+                                    Toast.makeText(getActivity(), "No Item Found", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }
+                    mAdapter = new EssentialOilAdapter(getActivity(), alphabaticList);
+                    mRecyclerView.setAdapter(mAdapter);
+                } else {
+                    mAdapter = new EssentialOilAdapter(getActivity(), essentialItemHelperList);
+                    mRecyclerView.setAdapter(mAdapter);
+                }
+
+
             }
         });
 
@@ -313,6 +346,7 @@ public class EssesntialOilFragment extends Fragment {
         });
     }
     public void searchAlphabaticOrder(final String alphabit) {
+        Log.d("zma alphabit", alphabit);
 
         searchBar.addTextChangeListener(new TextWatcher() {
             @Override
@@ -326,14 +360,14 @@ public class EssesntialOilFragment extends Fragment {
             @Override
             public void afterTextChanged(Editable editable) {
                 Log.d("zma changed list", getClass().getSimpleName() + " text changed " + searchBar.getText());
-                final ArrayList<EssentialOilHelper> filteredList = new ArrayList<>();
+                final ArrayList<EssentialOilHelper> alphabaticList = new ArrayList<>();
                 if (editable.length() > 0) {
                     for (EssentialOilHelper essentialOilHelper : essentialItemHelperList) {
-                        if (essentialOilHelper.getStrTitle().toLowerCase().toString().startsWith(alphabit.toString().toLowerCase())) {
-                            filteredList.add(essentialOilHelper);
+                        if (essentialOilHelper.getStrTitle().toLowerCase().toString().startsWith(alphabit)) {
+                            alphabaticList.add(essentialOilHelper);
                         }
                     }
-                    mAdapter = new EssentialOilAdapter(getActivity(), filteredList);
+                    mAdapter = new EssentialOilAdapter(getActivity(), alphabaticList);
                     mRecyclerView.setAdapter(mAdapter);
                 } else {
                     mAdapter = new EssentialOilAdapter(getActivity(), essentialItemHelperList);
