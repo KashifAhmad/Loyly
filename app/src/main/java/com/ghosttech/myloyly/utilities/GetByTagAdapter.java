@@ -88,7 +88,6 @@ public class GetByTagAdapter extends RecyclerView.Adapter<GetByTagAdapter.ViewHo
             }
         });
 
-
     }
 
     @Override

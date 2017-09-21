@@ -29,15 +29,7 @@
             android:textSize="30dp"
             android:layout_weight="1" />
     </LinearLayout>
-    <com.mancj.materialsearchbar.MaterialSearchBar
-        app:mt_hint="Search..."
-        app:mt_maxSuggestionsCount="10"
-        android:layout_marginTop="70dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/searchBar"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

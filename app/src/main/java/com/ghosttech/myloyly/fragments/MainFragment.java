@@ -87,6 +87,7 @@ public class MainFragment extends Fragment {
         lLContacts = (LinearLayout) view.findViewById(R.id.ll_contacts);
         lLEssentialOil = (LinearLayout) view.findViewById(R.id.ll_essential_oils);
         lLSearch = (LinearLayout) view.findViewById(R.id.ll_search);
+        lLSearch.setEnabled(false);
         lLEducation = (LinearLayout) view.findViewById(R.id.ll_education);
         ivLogout = (ImageView) view.findViewById(R.id.iv_logout_icon);
         ivLogout.setOnClickListener(new View.OnClickListener() {

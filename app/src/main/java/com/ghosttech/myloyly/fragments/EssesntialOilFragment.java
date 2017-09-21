@@ -185,7 +185,6 @@ public class EssesntialOilFragment extends Fragment {
                         break;
 
                 }
-                searchAlphabaticOrder(strAlphabit);
 
 
 
@@ -229,25 +228,25 @@ public class EssesntialOilFragment extends Fragment {
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
         //inputStream = getActivity().getResources().openRawResource(R.raw.oils_sheet);
-        searchBar = (MaterialSearchBar) view.findViewById(R.id.searchBar);
-        searchBar.setVisibility(View.GONE);
-        if (MainFragment.SEARCH) {
-            searchBar.setVisibility(View.VISIBLE);
-            ViewGroup.MarginLayoutParams marginLayoutParams =
-                    (ViewGroup.MarginLayoutParams) mRecyclerView.getLayoutParams();
-            marginLayoutParams.setMargins(0, 200, 0, 0);
-            mRecyclerView.setLayoutParams(marginLayoutParams);
 
-        }
-        searchBar.setHint("Search here");
-        searchBar.setSpeechMode(false);
+
+//        if (MainFragment.SEARCH) {
+//            searchBar.setVisibility(View.VISIBLE);
+//            ViewGroup.MarginLayoutParams marginLayoutParams =
+//                    (ViewGroup.MarginLayoutParams) mRecyclerView.getLayoutParams();
+//            marginLayoutParams.setMargins(0, 200, 0, 0);
+//            mRecyclerView.setLayoutParams(marginLayoutParams);
+//
+//        }
+//        searchBar.setHint("Search here");
+//        searchBar.setSpeechMode(false);
         mRecyclerView.setHasFixedSize(true);
         // specify an adapter (see also next example)
         mAdapter = new EssentialOilAdapter(getActivity(), essentialItemHelperList);
         mRecyclerView.setAdapter(mAdapter);
         customActionBar();
         initializeData();
-        searchEducationList();
+        //searchEducationList();
 
         return view;
 
@@ -309,75 +308,42 @@ public class EssesntialOilFragment extends Fragment {
             e.printStackTrace();
         }
         mAdapter.notifyDataSetChanged();
-        searchEducationList();
+        //searchEducationList();
     }
 
 
-    public void searchEducationList() {
-
-        searchBar.addTextChangeListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence query, int i, int i1, int i2) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                Log.d("zma changed list", getClass().getSimpleName() + " text changed " + searchBar.getText());
-                final ArrayList<EssentialOilHelper> filteredList = new ArrayList<>();
-                if (editable.length() > 0) {
-                    for (EssentialOilHelper essentialOilHelper : essentialItemHelperList) {
-                        if (essentialOilHelper.getStrTitle().toLowerCase().toString().startsWith(editable.toString().toLowerCase())) {
-                            filteredList.add(essentialOilHelper);
-                        }
-                    }
-                    mAdapter = new EssentialOilAdapter(getActivity(), filteredList);
-                    mRecyclerView.setAdapter(mAdapter);
-                } else {
-                    mAdapter = new EssentialOilAdapter(getActivity(), essentialItemHelperList);
-                    mRecyclerView.setAdapter(mAdapter);
-                }
-
-
-            }
-        });
-    }
-    public void searchAlphabaticOrder(final String alphabit) {
-        Log.d("zma alphabit", alphabit);
-
-        searchBar.addTextChangeListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence query, int i, int i1, int i2) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                Log.d("zma changed list", getClass().getSimpleName() + " text changed " + searchBar.getText());
-                final ArrayList<EssentialOilHelper> alphabaticList = new ArrayList<>();
-                if (editable.length() > 0) {
-                    for (EssentialOilHelper essentialOilHelper : essentialItemHelperList) {
-                        if (essentialOilHelper.getStrTitle().toLowerCase().toString().startsWith(alphabit)) {
-                            alphabaticList.add(essentialOilHelper);
-                        }
-                    }
-                    mAdapter = new EssentialOilAdapter(getActivity(), alphabaticList);
-                    mRecyclerView.setAdapter(mAdapter);
-                } else {
-                    mAdapter = new EssentialOilAdapter(getActivity(), essentialItemHelperList);
-                    mRecyclerView.setAdapter(mAdapter);
-                }
-
-
-            }
-        });
-    }
+//    public void searchEducationList() {
+//
+//        searchBar.addTextChangeListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence query, int i, int i1, int i2) {
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable editable) {
+//                Log.d("zma changed list", getClass().getSimpleName() + " text changed " + searchBar.getText());
+//                final ArrayList<EssentialOilHelper> filteredList = new ArrayList<>();
+//                if (editable.length() > 0) {
+//                    for (EssentialOilHelper essentialOilHelper : essentialItemHelperList) {
+//                        if (essentialOilHelper.getStrTitle().toLowerCase().toString().startsWith(editable.toString().toLowerCase())) {
+//                            filteredList.add(essentialOilHelper);
+//                        }
+//                    }
+//                    mAdapter = new EssentialOilAdapter(getActivity(), filteredList);
+//                    mRecyclerView.setAdapter(mAdapter);
+//                } else {
+//                    mAdapter = new EssentialOilAdapter(getActivity(), essentialItemHelperList);
+//                    mRecyclerView.setAdapter(mAdapter);
+//                }
+//
+//
+//            }
+//        });
+//    }
 
     public void customActionBar() {
         android.support.v7.app.ActionBar mActionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
