@@ -61,7 +61,7 @@
             android:textStyle="bold"
             android:layout_marginLeft="20dp"
             android:layout_gravity="center_horizontal"
-            android:text="Aroman BVBA \npittermstraat 20\n8760 Meulebeke\nBelgium\nVAT BE0632475632"/>
+            android:text="AROMEN BVBA \nPittemstraat 20\n8760 Meulebeke"/>
     </LinearLayout>
     <View
         android:layout_width="match_parent"
@@ -101,7 +101,7 @@
             android:gravity="center_vertical"
             android:layout_marginLeft="20dp"
             android:layout_gravity="center_vertical"
-           android:text="info@aromen.com"/>
+           android:text="info@aromen.be"/>
     </LinearLayout>
     <View
         android:layout_width="match_parent"

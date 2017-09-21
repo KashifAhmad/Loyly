@@ -264,7 +264,7 @@ public class AddPlantFragment extends Fragment implements View.OnClickListener {
             strIngredients += etIngred.getText().toString() + ",";
         }
         for (EditText etSteps : stepsList) {
-            strSteps = etSteps.getText().toString() + ",";
+            strSteps += etSteps.getText().toString() + ",";
         }
 
         strIngredients = strIngredients.substring(0, strIngredients.length() - 1);
