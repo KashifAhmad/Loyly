@@ -114,7 +114,7 @@ public class RegistrationFragment extends Fragment {
 
         pDialog = new SweetAlertDialog(getActivity(), SweetAlertDialog.PROGRESS_TYPE);
         pDialog.getProgressHelper().setBarColor(Color.parseColor("#179e99"));
-        pDialog.setTitleText("Getting Login");
+        pDialog.setTitleText("Registering...");
         pDialog.setCancelable(false);
         etPassword = (EditText) view.findViewById(R.id.et_password);
         btnSubmit = (Button) view.findViewById(R.id.btn_submit);

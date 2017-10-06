@@ -50,7 +50,7 @@ public class EssesntialOilFragment extends Fragment {
 
 
     View view;
-    ArrayList<EssentialOilHelper> essentialItemHelperList = new ArrayList<EssentialOilHelper>();
+    ArrayList<EssentialOilHelper> essentialItemHelperList = new ArrayList<>();
     InputStream inputStream;
     String[] ids;
     int ivImagesArray[] = {R.drawable.alpepine, R.drawable.balsamfir, R.drawable.basil, R.drawable.bee_balm, R.drawable.benzoin,
@@ -92,7 +92,48 @@ public class EssesntialOilFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_essesntial_oil, container, false);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.rv);
+        searchBar = (MaterialSearchBar) view.findViewById(R.id.msb_essential_oil);
         lvAlphabitics = (ListView) view.findViewById(R.id.rv_alphabatic);
+
+        mRecyclerView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                InputMethodManager imm = (InputMethodManager) getActivity()
+                        .getSystemService(getActivity().INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                return false;
+            }
+        });
+        mLayoutManager = new LinearLayoutManager(getActivity());
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        Bundle args = new Bundle();
+        // use this setting to improve performance if you know that changes
+        // in content do not change the layout size of the RecyclerView
+        //inputStream = getActivity().getResources().openRawResource(R.raw.oils_sheet);
+
+
+//        if (MainFragment.SEARCH) {
+//            searchBar.setVisibility(View.VISIBLE);
+//            ViewGroup.MarginLayoutParams marginLayoutParams =
+//                    (ViewGroup.MarginLayoutParams) mRecyclerView.getLayoutParams();
+//            marginLayoutParams.setMargins(0, 200, 0, 0);
+//            mRecyclerView.setLayoutParams(marginLayoutParams);
+//
+//        }
+//        searchBar.setHint("Search here");
+//        searchBar.setSpeechMode(false);
+        mRecyclerView.setHasFixedSize(true);
+        // specify an adapter (see also next example)
+        mAdapter = new EssentialOilAdapter(getActivity(), essentialItemHelperList);
+        mRecyclerView.setAdapter(mAdapter);
+        customActionBar();
+        initializeData();
+        searchEducationList();
+        alphabeticSearch();
+        return view;
+
+    }
+    public void alphabeticSearch(){
         lvAlphabitics.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -185,24 +226,16 @@ public class EssesntialOilFragment extends Fragment {
                         break;
 
                 }
-
-
-
-
-                final ArrayList<EssentialOilHelper> alphabaticList = new ArrayList<>();
+                final ArrayList<EssentialOilHelper> alphabeticList = new ArrayList<>();
                 if (strAlphabit.length() > 0) {
                     for (EssentialOilHelper essentialOilHelper : essentialItemHelperList) {
                         if (essentialOilHelper.getStrTitle().toLowerCase().toString().startsWith(strAlphabit.toLowerCase().toString())) {
-                            alphabaticList.add(essentialOilHelper);
-                            Log.d("zma list alpha", String.valueOf(alphabaticList.size()));
-                            int size = alphabaticList.size();
-                            Log.d("zma list aa", String.valueOf(size));
-                             if (size == 0){
-                                    Toast.makeText(getActivity(), "No Item Found", Toast.LENGTH_SHORT).show();
-                            }
+                            alphabeticList.add(essentialOilHelper);
+                            String id = String.valueOf(essentialOilHelper.getIntImageID());
+                            Log.d("zma image id", id);
                         }
                     }
-                    mAdapter = new EssentialOilAdapter(getActivity(), alphabaticList);
+                    mAdapter = new EssentialOilAdapter(getActivity(), alphabeticList);
                     mRecyclerView.setAdapter(mAdapter);
                 } else {
                     mAdapter = new EssentialOilAdapter(getActivity(), essentialItemHelperList);
@@ -212,43 +245,6 @@ public class EssesntialOilFragment extends Fragment {
 
             }
         });
-
-        mRecyclerView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                InputMethodManager imm = (InputMethodManager) getActivity()
-                        .getSystemService(getActivity().INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-                return false;
-            }
-        });
-        mLayoutManager = new LinearLayoutManager(getActivity());
-        mRecyclerView.setLayoutManager(mLayoutManager);
-        Bundle args = new Bundle();
-        // use this setting to improve performance if you know that changes
-        // in content do not change the layout size of the RecyclerView
-        //inputStream = getActivity().getResources().openRawResource(R.raw.oils_sheet);
-
-
-//        if (MainFragment.SEARCH) {
-//            searchBar.setVisibility(View.VISIBLE);
-//            ViewGroup.MarginLayoutParams marginLayoutParams =
-//                    (ViewGroup.MarginLayoutParams) mRecyclerView.getLayoutParams();
-//            marginLayoutParams.setMargins(0, 200, 0, 0);
-//            mRecyclerView.setLayoutParams(marginLayoutParams);
-//
-//        }
-//        searchBar.setHint("Search here");
-//        searchBar.setSpeechMode(false);
-        mRecyclerView.setHasFixedSize(true);
-        // specify an adapter (see also next example)
-        mAdapter = new EssentialOilAdapter(getActivity(), essentialItemHelperList);
-        mRecyclerView.setAdapter(mAdapter);
-        customActionBar();
-        initializeData();
-        //searchEducationList();
-
-        return view;
 
     }
 
@@ -308,42 +304,43 @@ public class EssesntialOilFragment extends Fragment {
             e.printStackTrace();
         }
         mAdapter.notifyDataSetChanged();
-        //searchEducationList();
+        searchEducationList();
     }
 
 
-//    public void searchEducationList() {
-//
-//        searchBar.addTextChangeListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence query, int i, int i1, int i2) {
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable editable) {
-//                Log.d("zma changed list", getClass().getSimpleName() + " text changed " + searchBar.getText());
-//                final ArrayList<EssentialOilHelper> filteredList = new ArrayList<>();
-//                if (editable.length() > 0) {
-//                    for (EssentialOilHelper essentialOilHelper : essentialItemHelperList) {
-//                        if (essentialOilHelper.getStrTitle().toLowerCase().toString().startsWith(editable.toString().toLowerCase())) {
-//                            filteredList.add(essentialOilHelper);
-//                        }
-//                    }
-//                    mAdapter = new EssentialOilAdapter(getActivity(), filteredList);
-//                    mRecyclerView.setAdapter(mAdapter);
-//                } else {
-//                    mAdapter = new EssentialOilAdapter(getActivity(), essentialItemHelperList);
-//                    mRecyclerView.setAdapter(mAdapter);
-//                }
-//
-//
-//            }
-//        });
-//    }
+    public void searchEducationList() {
+
+        searchBar.addTextChangeListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence query, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                Log.d("zma changed list", getClass().getSimpleName() + " text changed " + searchBar.getText());
+                final ArrayList<EssentialOilHelper> filteredList = new ArrayList<>();
+                if (editable.length() > 0) {
+                    for (EssentialOilHelper essentialOilHelper : essentialItemHelperList) {
+                        if (essentialOilHelper.getStrTitle().toLowerCase().toString().
+                                startsWith(editable.toString().toLowerCase())) {
+                            filteredList.add(essentialOilHelper);
+                        }
+                    }
+                    mAdapter = new EssentialOilAdapter(getActivity(), filteredList);
+                    mRecyclerView.setAdapter(mAdapter);
+                } else {
+                    mAdapter = new EssentialOilAdapter(getActivity(), essentialItemHelperList);
+                    mRecyclerView.setAdapter(mAdapter);
+                }
+
+
+            }
+        });
+    }
 
     public void customActionBar() {
         android.support.v7.app.ActionBar mActionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();

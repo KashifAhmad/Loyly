@@ -1,11 +1,11 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/relative_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp"
     android:background="@drawable/main_app_bg"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="10dp"
     tools:context="com.ghosttech.myloyly.fragments.EssesntialOilFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -13,39 +13,49 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-    <ImageView
-        android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:duplicateParentState="true"
-        android:src="@drawable/main_logo"
-        android:id="@+id/imageView2"
-        android:layout_weight=".3" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_weight=".3"
+            android:duplicateParentState="true"
+            android:src="@drawable/main_logo" />
+
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="Essential\nOils"
-            android:textStyle="bold"
             android:textColor="#1E824C"
             android:textSize="30dp"
-            android:layout_weight="1" />
+            android:textStyle="bold" />
     </LinearLayout>
+    <com.mancj.materialsearchbar.MaterialSearchBar
+        android:id="@+id/msb_essential_oil"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"></com.mancj.materialsearchbar.MaterialSearchBar>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-    <android.support.v7.widget.RecyclerView
-        android:layout_marginTop="90dp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/rv"
-        android:layout_weight="1" />
-        <ListView
-            android:id="@+id/rv_alphabatic"
-            android:layout_marginTop="90dp"
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:entries="@array/alphabtics_array"
-            android:layout_weight="5" />
+            android:layout_marginTop="90dp"
+            android:layout_weight="1" />
+
+        <ListView
+            android:id="@+id/rv_alphabatic"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="90dp"
+            android:layout_weight="5"
+            android:entries="@array/alphabtics_array" />
     </LinearLayout>
 </RelativeLayout>

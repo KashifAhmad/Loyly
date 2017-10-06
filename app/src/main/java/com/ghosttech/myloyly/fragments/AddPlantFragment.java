@@ -1021,7 +1021,6 @@ public class AddPlantFragment extends Fragment implements View.OnClickListener {
         cursor.moveToFirst();
         int columnIndex = cursor.getColumnIndex(projection[0]);
         String filePath = cursor.getString(columnIndex);
-
         ivImageView.setImageBitmap(BitmapFactory.decodeFile(filePath));
         return cursor.getString(column_index);
 
