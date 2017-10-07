@@ -231,8 +231,8 @@ public class EssesntialOilFragment extends Fragment {
                     for (EssentialOilHelper essentialOilHelper : essentialItemHelperList) {
                         if (essentialOilHelper.getStrTitle().toLowerCase().toString().startsWith(strAlphabit.toLowerCase().toString())) {
                             alphabeticList.add(essentialOilHelper);
-                            String id = String.valueOf(essentialOilHelper.getIntImageID());
-                            Log.d("zma image id", id);
+                         //   String id = String.valueOf(essentialOilHelper.getIntImageID());
+                           // Log.d("zma image id", id);
                         }
                     }
                     mAdapter = new EssentialOilAdapter(getActivity(), alphabeticList);

@@ -8,7 +8,7 @@ import android.os.Parcelable;
  */
 
 public class EssentialOilHelper implements Parcelable {
-    int[] intImageID;
+    int intImageID;
     String strTitle, strDescription, strLanguages, strBotanicalName,
             strPlantFamily, strOrigin, strPartOfPlant, strNote, strStrength,
             strFragrance, strEffect, strHarmones, strContraindications, strExtraction,
@@ -22,7 +22,7 @@ public class EssentialOilHelper implements Parcelable {
     protected EssentialOilHelper(Parcel in) {
         strTitle = in.readString();
         strDescription = in.readString();
-        intImageID = in.createIntArray();
+        intImageID = in.readInt();
         strBotanicalName = in.readString();
         strContraindications = in.readString();
         strEffect = in.readString();
@@ -55,11 +55,11 @@ public class EssentialOilHelper implements Parcelable {
     };
 
 
-    public void setIntImageID(int[] intImageID) {
+    public void setIntImageID(int intImageID) {
         this.intImageID = intImageID;
     }
 
-    public int[] getIntImageID() {
+    public int getIntImageID() {
         return intImageID;
     }
 
@@ -231,7 +231,7 @@ public class EssentialOilHelper implements Parcelable {
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(strTitle);
         parcel.writeString(strDescription);
-        parcel.writeIntArray(intImageID);
+        parcel.writeInt(intImageID);
         parcel.writeString(strBotanicalName);
         parcel.writeString(strContraindications);
         parcel.writeString(strEffect);

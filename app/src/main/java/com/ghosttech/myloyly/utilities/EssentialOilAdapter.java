@@ -72,7 +72,7 @@ public class EssentialOilAdapter extends RecyclerView.Adapter<EssentialOilAdapte
         final EssentialOilHelper oilHelper = essentialItemHelpers.get(position);
         holder.tvOilTitle.setText(oilHelper.getStrTitle());
         holder.tvBotanicalName.setText(oilHelper.getStrBotanicalName());
-        holder.personPhoto.setImageResource(oilHelper.intImageID[position]);
+        holder.personPhoto.setImageResource(oilHelper.intImageID);
         holder.cvOilItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -82,7 +82,7 @@ public class EssentialOilAdapter extends RecyclerView.Adapter<EssentialOilAdapte
                         .replace(R.id.fragment_container_main, fragment).addToBackStack("tag").commit();
                 args.putInt("row_id",position);
                 args.putString("oil_title",oilHelper.getStrTitle());
-                args.putInt("image_id",oilHelper.intImageID[position]);
+                args.putInt("image_id",oilHelper.intImageID);
                 args.putParcelable("EssentialOilObject",oilHelper);
                 fragment.setArguments(args);
 
