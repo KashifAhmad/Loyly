@@ -1,7 +1,9 @@
 package com.ghosttech.myloyly.utilities;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
@@ -12,9 +14,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ghosttech.myloyly.R;
 import com.ghosttech.myloyly.fragments.GetByTagDetailFragment;
+import com.ghosttech.myloyly.fragments.GetByTagFragment;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -78,6 +82,10 @@ public class GetByTagAdapter extends RecyclerView.Adapter<GetByTagAdapter.ViewHo
         args.putString("ingredients",myHelper.getStrIngredients());
         args.putString("image",String.valueOf(myHelper.getByTagImageID));
         args.putString("title",myHelper.getStrGetByTagTitle());
+        args.putInt("id", myHelper.getItemID());
+        args.putString("steps", myHelper.getStrSteps());
+        args.putString("time", myHelper.getStrGetByTagTime());
+        args.putString("image", url);
         holder.cvTagItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -88,6 +96,28 @@ public class GetByTagAdapter extends RecyclerView.Adapter<GetByTagAdapter.ViewHo
             }
         });
 
+
+
+    }
+    private void showOptionDialog() {
+        AlertDialog.Builder pictureDialog = new AlertDialog.Builder(context);
+        pictureDialog.setTitle("Take Image from");
+        String[] pictureDialogItems = {
+                "Edit", "Delete"
+        };
+        pictureDialog.setItems(pictureDialogItems,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which) {
+                            case 0:
+                                break;
+                            case 1:
+                                break;
+                        }
+                    }
+                });
+        pictureDialog.show();
     }
 
     @Override

@@ -10,5 +10,6 @@ public class Configuration {
     public static boolean FLAG_SIGN_UP = false;
     public static boolean FLAG_SIGN_IN = false;
     public static String GET_BY_TAGS_URL = "http://swatshawls.com/loyly/Apis/getbytag/";
+    public static String DELETE_API = "http://swatshawls.com/loyly/Apis/deletedata";
 
 }

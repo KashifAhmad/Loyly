@@ -1,5 +1,7 @@
 package com.ghosttech.myloyly.fragments;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.Uri;
@@ -10,6 +12,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -60,7 +64,7 @@ public class GetByTagFragment extends Fragment implements View.OnClickListener {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    String strTags = null;
+    public static String strTags = "all";
     SweetAlertDialog pDialog;
     private OnFragmentInteractionListener mListener;
     boolean dataFlag = false;
@@ -226,7 +230,9 @@ public class GetByTagFragment extends Fragment implements View.OnClickListener {
                         jsonHelper.setStrGetByTagTAG(tempObject.getString("tags"));
                         jsonHelper.setGetByTagImageID(tempObject.getString("pic_renamed"));
                         jsonHelper.setStrIngredients(tempObject.getString("ingredient"));
-                        jsonHelper.setStrInstructions(tempObject.getString("steps"));
+                        jsonHelper.setStrInstructions(tempObject.getString("instructions"));
+                        jsonHelper.setStrSteps(tempObject.getString("steps"));
+                        jsonHelper.setItemID(tempObject.getInt("id"));
                         byTagHelpers.add(jsonHelper);
                     }
                     addByTagAdapter.notifyDataSetChanged();
