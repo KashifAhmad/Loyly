@@ -133,11 +133,12 @@ public class EssesntialOilFragment extends Fragment {
         return view;
 
     }
-    public void alphabeticSearch(){
+
+    public void alphabeticSearch() {
         lvAlphabitics.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                switch (i){
+                switch (i) {
                     case 0:
                         strAlphabit = "A";
                         break;
@@ -166,7 +167,7 @@ public class EssesntialOilFragment extends Fragment {
                         strAlphabit = "I";
                         Toast.makeText(getActivity(), "No Item Found", Toast.LENGTH_SHORT).show();
                         TextView textView = new TextView(getActivity());
-                        textView.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.CENTER_VERTICAL);
+                        textView.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL);
                         textView.setText("No Item Found");
                         break;
                     case 9:
@@ -231,8 +232,8 @@ public class EssesntialOilFragment extends Fragment {
                     for (EssentialOilHelper essentialOilHelper : essentialItemHelperList) {
                         if (essentialOilHelper.getStrTitle().toLowerCase().toString().startsWith(strAlphabit.toLowerCase().toString())) {
                             alphabeticList.add(essentialOilHelper);
-                         //   String id = String.valueOf(essentialOilHelper.getIntImageID());
-                           // Log.d("zma image id", id);
+                            //   String id = String.valueOf(essentialOilHelper.getIntImageID());
+                            // Log.d("zma image id", id);
                         }
                     }
                     mAdapter = new EssentialOilAdapter(getActivity(), alphabeticList);
@@ -293,7 +294,7 @@ public class EssesntialOilFragment extends Fragment {
                 helper.setStrDidYouKnow(String.valueOf(cellDidYouKnow.getContents()));
                 helper.setStrContraindications(String.valueOf(cellContraindications.getContents()));
 
-                helper.setIntImageID(ivImagesArray);
+                helper.setIntImageID(ivImagesArray[i]);
                 essentialItemHelperList.add(helper);
             }
 
